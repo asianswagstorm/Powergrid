@@ -12,9 +12,16 @@ using std::cout;
 
 int main()
 {
-	vector<int> areas = {0,2,3,5 };
+	vector<int> areas = {0,2,3,5 }; //To test areas in use, enter the areas here
 	Area::setGameAreas(areas);
+	//Testing if areas are adjacent
 	
+	if (Area::areAdjacent(areas) == false) {
+		std::cout << "Error, areas are not adjacent!" << std::endl;
+		system("pause");
+		return 0;
+	}
+
 	//create map
 	Map test = Map();
 	
@@ -26,7 +33,7 @@ int main()
 	test.DijkstraComputePaths(0, *Map::map, min_distance, previous);
 
 	std::cout << "Distance from 0 to 41: " << min_distance[41] << std::endl;
-	std::list<vertex_t> path = test.DijkstraGetShortestPathTo(41, previous);
+	std::list<vertex_t> path = test.DijkstraGetShortestPathTo(41, previous); //list that will contain the paths taken
 	std::cout << "Path : ";
 	std::copy(path.begin(), path.end(), std::ostream_iterator<vertex_t>(std::cout, " "));
 	std::cout << std::endl;
