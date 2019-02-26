@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "Area.h"
+#include "IOFile.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -16,82 +17,41 @@
 using std::get;
 
 typedef std::vector<std::vector<neighbor> > adjacency_list_t;
+
 const weight_t max_weight = std::numeric_limits<double>::infinity();
 
-
-//City index, cityName, Area ; Indices are found in "PowerGridUsMap_nums.jpg"
-tuple<int, string, int> * Map::index_cityName_area = new tuple<int, string, int>[42];
+tuple<int, string, int> * Map::index_cityName_area = new tuple<int, string, int>[Map::getMapSize()];
 
 //Connected graph of map
-adjacency_list_t * Map::map = new adjacency_list_t(42);
+adjacency_list_t * Map::map = new adjacency_list_t(Map::getMapSize());
 
 //Initialize values of the Map
 Map::Map()
 {
-	addIndexNameArea(0, "Seattle", 0);
-	addIndexNameArea(1, "Portland", 0);
-	addIndexNameArea(2, "Boise", 0);
-	addIndexNameArea(3, "Billings", 0);
-	addIndexNameArea(4, "Cheyenne", 0);
-	addIndexNameArea(5, "Denver", 0);
-	addIndexNameArea(6, "Omaha", 0);
-	addIndexNameArea(7, "San Francisco", 1);
-	addIndexNameArea(8, "Salt Lake City", 1);
-	addIndexNameArea(9, "Las Vegas", 1);
-	addIndexNameArea(10, "Los Angeles", 1);
-	addIndexNameArea(11, "San Diego", 1);
-	addIndexNameArea(12, "Phoenix", 1);
-	addIndexNameArea(13, "Santa Fe", 1);
-	addIndexNameArea(14, "Kansas City", 2);
-	addIndexNameArea(15, "Oklahoma City", 2);
-	addIndexNameArea(16, "Dallas", 2);
-	addIndexNameArea(17, "Houston", 2);
-	addIndexNameArea(18, "Memphis", 2);
-	addIndexNameArea(19, "New Orleans", 2);
-	addIndexNameArea(20, "Birmingham", 2);
-	addIndexNameArea(21, "Fargo", 3);
-	addIndexNameArea(22, "Duluth", 3);
-	addIndexNameArea(23, "Minneapolis", 3);
-	addIndexNameArea(24, "Chicago", 3);
-	addIndexNameArea(25, "St. Louis", 3);
-	addIndexNameArea(26, "Cincinnati", 3);
-	addIndexNameArea(27, "Knoxville", 3);
-	addIndexNameArea(28, "Detroit", 4);
-	addIndexNameArea(29, "Buffalo", 4);
-	addIndexNameArea(30, "Pittsburgh", 4);
-	addIndexNameArea(31, "Boston", 4);
-	addIndexNameArea(32, "New York", 4);
-	addIndexNameArea(33, "Philadelphia", 4);
-	addIndexNameArea(34, "Washington D.C.", 4);
-	addIndexNameArea(35, "Norfolk", 5);
-	addIndexNameArea(36, "Raleigh", 5);
-	addIndexNameArea(37, "Atlanta", 5);
-	addIndexNameArea(38, "Savannah", 5);
-	addIndexNameArea(39, "Jacksonville", 5);
-	addIndexNameArea(40, "Tampa", 5);
-	addIndexNameArea(41, "Miami", 5);
-
+	//Read map 
+	IOFile::readMapInput();
+	
 	addEdge(0, 1, 3);
 	addEdge(0, 2, 12);
 	addEdge(0, 3, 9);
 	addEdge(1, 2, 13);
-	addEdge(1, 7, 24);
-	addEdge(2, 7, 23);
-	addEdge(2, 8, 8);
+	addEdge(1, 7, 24); //to test single map area comment this out 
+	addEdge(2, 7, 23); //to test single map area comment this out 
+	addEdge(2, 8, 8); //to test single map area comment this out 
 	addEdge(2, 4, 24);
 	addEdge(2, 3, 12);
 	addEdge(3, 4, 9);
-	addEdge(3, 21, 17);
-	addEdge(3, 23, 18);
+	addEdge(3, 21, 17); //to test single map area comment this out 
+	addEdge(3, 23, 18); //to test single map area comment this out 
 	addEdge(4, 5, 0);
 	addEdge(4, 6, 14);
-	addEdge(4, 23, 18);
-	addEdge(6, 23, 8);
-	addEdge(6, 14, 5);
-	addEdge(6, 24, 13);
+	addEdge(4, 23, 18); 
 	addEdge(5, 8, 21);
 	addEdge(5, 14, 16);
 	addEdge(5, 13, 13);
+	addEdge(6, 23, 8);
+	addEdge(6, 14, 5);
+	addEdge(6, 24, 13);
 	addEdge(7, 8, 27);
 	addEdge(7, 9, 14);
 	addEdge(7, 10, 9);
@@ -158,11 +118,15 @@ Map::Map()
 	addEdge(38, 39, 0);
 	addEdge(39, 40, 4);
 	addEdge(40, 41, 4);
+	
 }
 
 Map::~Map()
 {
 
+}
+int Map::getMapSize() {
+	return mapSize;
 }
 
 string Map::getCityName(int index) {
