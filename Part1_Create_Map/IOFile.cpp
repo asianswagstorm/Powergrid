@@ -37,7 +37,7 @@ void IOFile::saveMap() {
 	
 	for (unsigned int i = 0; i < Map::getMapSize(); i++) {
 		if(Map::getCityName(i) != "")
-		 output << i << " , " << Map::getCityName(i) << " , " << Map::getAreaColor(i) << endl;
+		 output << i << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << endl;
 		else 
 		 output << endl;
 	}
@@ -54,7 +54,7 @@ void IOFile::readMapInput() {
 	std::vector <std::string> initial_file_cityName;
 	std::vector <int> initial_file_area;
 
-	int index; int area;  std::string cityName, index1, line,area1;
+	int index, area;  std::string cityName, index1, line,area1;
 	
 	while (getline(mapInputs, line)) {
 		std::stringstream ss(line);
@@ -73,4 +73,32 @@ void IOFile::readMapInput() {
 		Map::addIndexNameArea(initial_file_index[i], initial_file_cityName[i], initial_file_area[i]);
 	}
 	mapInputs.close();
+}
+
+void IOFile::addEdges() {
+	ifstream edgeInputs;
+	edgeInputs.open("edge_Inputs.txt");
+	int index1, index2; double weight; std::string line, index1_s, index2_s, weight_s;
+	std::vector <int> edge_index1;
+	std::vector <int> edge_index2;
+	std::vector <double> edge_weight;
+
+	while (getline(edgeInputs, line)) {
+		std::stringstream ss(line);
+		
+		getline(ss, index1_s, ',');
+		index1 = stoi(index1_s); //Convert string to int
+		getline(ss, index2_s, ',');
+		index2 = stoi(index2_s); //Convert string to int
+		getline(ss, weight_s, ',');
+		weight = stod(weight_s); //Convert string to double
+
+		edge_index1.push_back(index1);
+		edge_index2.push_back(index2);
+		edge_weight.push_back(weight);
+	}
+	for (unsigned int i = 0; i < edge_index1.size(); i++) {
+		Map::addEdge(edge_index1[i], edge_index2[i], edge_weight[i]);
+	}
+	edgeInputs.close();
 }

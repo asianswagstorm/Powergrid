@@ -45,6 +45,7 @@ public:
 	static string getAreaColor(int index);
 	static int getMapSize();
 	static void addIndexNameArea(int index, string name, int area);
+	static void addEdge(int index1, int index2, double weight);
 	/*
 		Map-graph methods
 	*/
@@ -53,10 +54,7 @@ public:
 	void DijkstraComputePaths(vertex_t source,const adjacency_list_t &adjacency_list,std::vector<weight_t> &min_distance,std::vector<vertex_t> &previous);
 
 private:
-	
 	const static int mapSize = 42;
-	void addEdge(int index1, int index2, double weight);
-
 };
 
 
