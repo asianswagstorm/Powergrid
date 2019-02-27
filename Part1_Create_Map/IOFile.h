@@ -1,5 +1,5 @@
 #pragma once
-
+#include <sstream>
 class IOFile
 {
 public:

@@ -15,6 +15,7 @@ using std::ifstream;
 using std::istream;
 using std::string;
 using std::stoi;
+using std::stringstream;
 
 
 //empty constructor
@@ -53,10 +54,17 @@ void IOFile::readMapInput() {
 	std::vector <std::string> initial_file_cityName;
 	std::vector <int> initial_file_area;
 
-	int index;int area;  std::string cityName;
+	int index; int area;  std::string cityName, index1, line,area1;
 	
-	while (!mapInputs.eof()) {
-		mapInputs >> index >> cityName >> area;
+	while (getline(mapInputs, line)) {
+		std::stringstream ss(line);
+		//mapInputs >> index >> cityName >> area;
+		getline(ss, index1, ',');
+		index = stoi(index1);
+		getline(ss, cityName, ',');
+		getline(ss, area1, ',');
+		area = stoi(area1);
+
 		initial_file_index.push_back(index);
 		initial_file_cityName.push_back(cityName);
 		initial_file_area.push_back(area);

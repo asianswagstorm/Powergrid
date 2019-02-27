@@ -1,42 +1,42 @@
-0 , Seattle , Purple
-1 , Portland , Purple
-2 , Boise , Purple
-3 , Billings , Purple
-4 , Cheyenne , Purple
-5 , Denver , Purple
-6 , Omaha , Purple
-7 , San_Francisco , Blue
-8 , Salt_Lake_City , Blue
-9 , Las_Vegas , Blue
-10 , Los_Angeles , Blue
-11 , San_Diego , Blue
-12 , Phoenix , Blue
-13 , Santa_Fe , Blue
-14 , Kansas_City , Red
-15 , Oklahoma_City , Red
-16 , Dallas , Red
-17 , Houston , Red
-18 , Memphis , Red
-19 , New_Orleans , Red
-20 , Birmingham , Red
-21 , Fargo , Yellow
-22 , Duluth , Yellow
-23 , Minneapolis , Yellow
-24 , Chicago , Yellow
-25 , St_Louis , Yellow
-26 , Cincinnati , Yellow
-27 , Knoxville , Yellow
-28 , Detroit , Brown
-29 , Buffalo , Brown
-30 , Pittsburgh , Brown
-31 , Boston , Brown
-32 , New_York , Brown
-33 , Philadelphia , Brown
-34 , Washington_DC , Brown
-35 , Norfolk , Green
-36 , Raleigh , Green
-37 , Atlanta , Green
-38 , Savannah , Green
-39 , Jacksonville , Green
-40 , Tampa , Green
-41 , Miami , Green
+0 ,  "Seattle" , Purple
+1 ,  "Portland" , Purple
+2 ,  "Boise" , Purple
+3 ,  "Billings" , Purple
+4 ,  "Cheyenne" , Purple
+5 ,  "Denver" , Purple
+6 ,  "Omaha" , Purple
+7 ,  "San Francisco" , Blue
+8 ,  "Salt Lake City" , Blue
+9 ,  "Las Vegas" , Blue
+10 ,  "Los Angeles" , Blue
+11 ,  "San Diego" , Blue
+12 ,  "Phoenix" , Blue
+13 ,  "Santa Fe" , Blue
+14 ,  "Kansas City" , Red
+15 ,  "Oklahoma City" , Red
+16 ,  "Dallas" , Red
+17 ,  "Houston" , Red
+18 ,  "Memphis" , Red
+19 ,  "New Orleans" , Red
+20 ,  "Birmingham" , Red
+21 ,  "Fargo" , Yellow
+22 ,  "Duluth" , Yellow
+23 ,  "Minneapolis" , Yellow
+24 ,  "Chicago" , Yellow
+25 ,  "St. Louis" , Yellow
+26 ,  "Cincinnati" , Yellow
+27 ,  "Knoxville" , Yellow
+28 ,  "Detroit" , Brown
+29 ,  "Buffalo" , Brown
+30 ,  "Pittsburgh" , Brown
+31 ,  "Boston" , Brown
+32 ,  "New York" , Brown
+33 ,  "Philadelphia" , Brown
+34 ,  "Washington D.C" , Brown
+35 ,  "Norfolk" , Green
+36 ,  "Raleigh" , Green
+37 ,  "Atlanta" , Green
+38 ,  "Savannah" , Green
+39 ,  "Jacksonville" , Green
+40 ,  "Tampa" , Green
+41 ,  "Miami" , Green
