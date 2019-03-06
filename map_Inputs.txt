@@ -1,0 +1,42 @@
+0, "Seattle", 0
+1, "Portland", 0
+2, "Boise", 0
+3, "Billings", 0
+4, "Cheyenne", 0
+5, "Denver", 0
+6, "Omaha", 0
+7, "San Francisco", 1
+8, "Salt Lake City", 1
+9, "Las Vegas", 1
+10, "Los Angeles", 1
+11, "San Diego", 1
+12, "Phoenix", 1
+13, "Santa Fe", 1
+14, "Kansas City", 2
+15, "Oklahoma City", 2
+16, "Dallas", 2
+17, "Houston", 2
+18, "Memphis", 2
+19, "New Orleans", 2
+20, "Birmingham", 2
+21, "Fargo", 3
+22, "Duluth", 3
+23, "Minneapolis", 3
+24, "Chicago", 3
+25, "St. Louis", 3
+26, "Cincinnati", 3
+27, "Knoxville", 3
+28, "Detroit", 4
+29, "Buffalo", 4
+30, "Pittsburgh", 4
+31, "Boston", 4
+32, "New York", 4
+33, "Philadelphia", 4
+34, "Washington D.C", 4
+35, "Norfolk", 5
+36, "Raleigh", 5
+37, "Atlanta", 5
+38, "Savannah", 5
+39, "Jacksonville", 5
+40, "Tampa", 5
+41, "Miami", 5
