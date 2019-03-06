@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/jiaweixia/Desktop/Part5/PowerPlant.h
+iostream
+-
+vector
+-
+
+/Users/jiaweixia/Desktop/Part5/SummaryCard.h
+iostream
+-
+
+/Users/jiaweixia/Desktop/Part5/main.cpp
+iostream
+-
+vector
+-
+PowerPlant.h
+/Users/jiaweixia/Desktop/Part5/PowerPlant.h
+cstdlib
+-
+algorithm
+-
+ctime
+-
+SummaryCard.h
+/Users/jiaweixia/Desktop/Part5/SummaryCard.h
+

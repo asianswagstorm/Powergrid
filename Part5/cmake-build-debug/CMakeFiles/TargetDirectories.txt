@@ -1,0 +1,3 @@
+/Users/jiaweixia/Desktop/Part5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/jiaweixia/Desktop/Part5/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/jiaweixia/Desktop/Part5/cmake-build-debug/CMakeFiles/Part5.dir
