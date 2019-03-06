@@ -54,7 +54,7 @@ public:
 	void DijkstraComputePaths(vertex_t source,const adjacency_list_t &adjacency_list,std::vector<weight_t> &min_distance,std::vector<vertex_t> &previous);
 
 private:
-	const static int mapSize = 42;
+	const static int mapSize = 42; //to test change to 7 else 42
 };
 
 

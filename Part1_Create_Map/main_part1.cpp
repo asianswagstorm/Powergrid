@@ -12,7 +12,7 @@ using std::cout;
 
 int main()
 {
-	vector<int> areas = {0,2,3,5}; //To test areas in use, enter the areas here //0,2,3,5
+	vector<int> areas = {0,2,3,5}; //To test areas in use, enter the areas here //0,2,3,5 , test 1 area 0,0,0
 	//Testing if areas are adjacent
 	
 	if (Area::areAdjacent(areas) == false) {
