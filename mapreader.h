@@ -13,10 +13,6 @@ using namespace std;
 
 class mapreader {
 
-public:
-	int Index;
-	string CityName;
-	string Area;
 
 
 public:
@@ -65,6 +61,12 @@ public:
 			cout <<("Not a valid map") << endl;
 		}
 	}
+
+private:
+	int Index;
+	string CityName;
+	string Area;
+
 
 };
 
