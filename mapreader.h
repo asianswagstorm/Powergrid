@@ -27,7 +27,7 @@ public:
 	}
 
 	void readMap(){
-		ifstream mapfile ("mapfile.txt");
+		ifstream mapfile ("map.txt");
 		int index;
 		string cityName;
 		string area;
@@ -44,6 +44,7 @@ public:
 
 			while (getline(mapfile, line) && (line != "") && !line.empty()) {
 				lineCounter++;
+				cout << line << endl;
 				std::stringstream lineHolder(line);
 
 				getline(lineHolder, indexHolder, ',');
