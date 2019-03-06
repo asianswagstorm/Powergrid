@@ -26,12 +26,12 @@ int main()
 
 	//create map
 	Map test = Map();
-	
 	//Save map to map.txt
 	IOFile::saveMap();
+	std::cout << "Map Created " << std::endl;
 	int start_node;
 	int end_node;
-
+	std::cout << "Test if map is connected graph " << std::endl;
 	std::cout << "Enter the starting node index: " << std::endl;
 	std::cin >> start_node;
 	std::cout << "Enter the ending node index: " << std::endl;

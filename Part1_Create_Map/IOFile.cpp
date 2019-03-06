@@ -56,7 +56,7 @@ void IOFile::readMapInput() {
 
 	int index, area;  std::string cityName, index1, line,area1;
 	
-	while (getline(mapInputs, line)) {
+	while (getline(mapInputs, line) && line != "" && !line.empty()) {
 		std::stringstream ss(line);
 		//mapInputs >> index >> cityName >> area;
 		getline(ss, index1, ',');
@@ -83,7 +83,7 @@ void IOFile::addEdges() {
 	std::vector <int> edge_index2;
 	std::vector <double> edge_weight;
 
-	while (getline(edgeInputs, line)) {
+	while (getline(edgeInputs, line) && line != "" && !line.empty()) {
 		std::stringstream ss(line);
 		
 		getline(ss, index1_s, ',');
