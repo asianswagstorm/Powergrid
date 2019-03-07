@@ -18,65 +18,40 @@ using namespace std;
 
 mapreader::mapreader() {
 
-	}
+}
 mapreader::~mapreader() {
+}
+
+
+void mapreader::readMap() {
+	ifstream mapfile("map.txt");
+	int index;
+	string cityName;
+	string area;
+	string line;
+	int lineCounter = 0;
+	string indexHolder;
+
+	if (!mapfile) {
+		cout << ("Error: text file not found") << endl;
+		system("pause");
+		exit(EXIT_FAILURE);
 	}
+	if (mapfile >> index  >> cityName  >> area) {
+		cout << ("Valid map") << endl;
+		while (getline(mapfile, line) && (line != "") && !line.empty()) {
+			lineCounter++;
+			cout << line << endl;
+			std::stringstream lineHolder(line);
 
-	int Index;
-	string CityName;
-	string Area;
-	int mapreader::setIndex(int index) {
-		Index = index;
-	}
-	string mapreader::setCityName(string cityName) {
-		CityName = cityName;
-	}
-	string mapreader::setArea(string area) {
-		Area = area;
-	}
+			getline(lineHolder, indexHolder, ',');
+			index = stoi(indexHolder);
+			getline(lineHolder, cityName, ',');
+			getline(lineHolder, area, ',');
 
-	void mapreader::readMap() {
-		ifstream mapfile("map.txt");
-		int index;
-		string cityName;
-		string area;
-		string line;
-		int lineCounter = 0;
-		string indexHolder;
-
-		if (!mapfile) {
-			cout << ("Error: text file not found") << endl;
-			system("pause");
-			exit(EXIT_FAILURE);
-		}
-		if (mapfile >> index >> ',' >> cityName >> ',' >> area) {
-
-			while (getline(mapfile, line) && (line != "") && !line.empty()) {
-				lineCounter++;
-				cout << line << endl;
-				std::stringstream lineHolder(line);
-
-				getline(lineHolder, indexHolder, ',');
-				index = stoi(indexHolder);
-				getline(lineHolder, cityName, ',');
-				getline(lineHolder, area, ',');
-
-				index.setIndex(index);
-				cityName.setCityName(cityName);
-				area.setArea(area);
-
-			}
-		}
-		else {
-			cout << ("Not a valid map") << endl;
 		}
 	}
-
-
-
-
-
-
-
-
-
+	else {
+		cout << ("Not a valid map") << endl;
+	}
+}
