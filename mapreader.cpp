@@ -62,6 +62,9 @@ void mapreader::readMap() {
 			getline(lineHolder, cityName, ',');
 			getline(lineHolder, area, ',');
 
+			setIndex(index);
+			setCityName(cityName);
+			setArea(area);
 		}
 	}
 	else {
