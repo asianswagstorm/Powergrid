@@ -17,11 +17,24 @@
 using namespace std;
 
 mapreader::mapreader() {
-
+	this->index = 0;
+	this->cityName = "";
+	this->area = "";
 }
 mapreader::~mapreader() {
 }
 
+void mapreader::setIndex(int index) {
+	this->index = index;
+}
+
+void mapreader::setCityName(string cityName) {
+	this->cityName = cityName;
+}
+
+void mapreader::setArea(string area) {
+	this->area = area;
+}
 
 void mapreader::readMap() {
 	ifstream mapfile("map.txt");
