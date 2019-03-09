@@ -78,13 +78,13 @@ int main() {
 			//You must deliver a driver that creates player and
 			//successfully show the player’s possession and cities it controlled.
 	
-			Player player1 = Player("Fred", "Purple");
+			Player* player1 = new Player("Fred", "Purple");
 			//ex: add all resources 
 			//player1.addCoal(2);
 			//player1.addOil(3);
 			//player1.addGarbage(4);
 			//player1.addUranium(2);
-			Player player2 = Player("Chuck", "Blue");
+			Player* player2 = new Player("Chuck", "Blue");
 			//player2.addCoal(1);
 			//player2.addOil(2);
 			//player2.addGarbage(5);
