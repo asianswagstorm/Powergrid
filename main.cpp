@@ -9,6 +9,7 @@
 #include "Area.h"
 #include "IOFile.h"
 #include "mapreader.h"
+#include "Player.h"
 
 #include <fstream>
 #include <istream>
@@ -71,6 +72,25 @@ int main() {
 			mapreader map;
 
 			map.readMap();
+		}
+
+		if (option == 4) {
+			//You must deliver a driver that creates player and
+			//successfully show the player’s possession and cities it controlled.
+	
+			Player player1 = Player("Fred", "Purple");
+			//ex: add all resources 
+			//player1.addCoal(2);
+			//player1.addOil(3);
+			//player1.addGarbage(4);
+			//player1.addUranium(2);
+			Player player2 = Player("Chuck", "Blue");
+			//player2.addCoal(1);
+			//player2.addOil(2);
+			//player2.addGarbage(5);
+			//player2.addUranium(3);
+			//method to show player's possessions via file. 
+			//IOFile::printPlayer(*player1, *player2);
 		}
 
 		if (option == 5) {
