@@ -7,29 +7,37 @@ public:
 	Player(string name, string area_color);
 	~Player();
 	
-	string getName();
+	string getName() const;
 	void setName(string name);
 
-	string getAreaColor();
+	string getAreaColor() const;
 	void setAreaColor(string area_color);
 
-	int getElectro();
+	int getElectro() const;
 	void setElectro(int electro);
+	void addElectro(int);
 
-	int getHouse();
+	int getHouse() const;
 	void setHouse(int house);
+	void addHouse(int);
 
-	int getCoal();
+	int getCoal() const;
 	void setCoal(int coal);
-	
-	int getOil();
+	void addCoal(int);
+
+	int getOil() const;
 	void setOil(int oil);
+	void addOil(int);
 
-	int getGarbage();
+	int getGarbage() const;
 	void setGarbage(int garbage);
+	void addGarbage(int);
 
-	int getUranium();
+	int getUranium() const;
 	void setUranium(int uranium);
+	void addUranium(int);
+
+	void printPlayerInfo();
 
 private:
 	string name;

@@ -1,5 +1,6 @@
 #include "IOFile.h"
 #include "Map.h"
+#include "Player.h"
 
 #include <iostream>
 #include <fstream>
@@ -17,7 +18,6 @@ using std::string;
 using std::stoi;
 using std::stringstream;
 
-
 //empty constructor
 IOFile::IOFile()
 {
@@ -33,16 +33,16 @@ void IOFile::saveMap() {
 	ofstream output;
 	// Create or open a file
 	output.open("map.txt");
-	cout << "Saving map..." << endl;
+	std::cout << "Saving map..." << std::endl;
 	
 	for (unsigned int i = 0; i < Map::getMapSize(); i++) {
 		if(Map::getCityName(i) != "")
-		 output << i << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << endl;
+		 output << i << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
 		else 
-		 output << endl;
+		 output << std::endl;
 	}
 
-	cout << "Map saved..." << endl;
+	std::cout << "Map saved..." << std::endl;
 	output.close();
 }
 
@@ -102,3 +102,35 @@ void IOFile::addEdges() {
 	}
 	edgeInputs.close();
 }
+
+void IOFile::printPlayer(Player &player1, Player &player2){
+	ofstream output;
+	// Create or open a file
+	output.open("player.txt");
+	output << "Player1:" << endl;
+	output << "Name=" << player1.getName() << endl;
+	output << "Electro=" << player1.getElectro() << endl;
+	output << "Houses=" << player1.getHouse() << endl;
+	output << "Area Color=" << player1.getAreaColor() << endl;
+	output << "Coal=" << player1.getCoal() << endl;
+	output << "Oil=" << player1.getOil() << endl;
+	output << "Garbage=" << player1.getGarbage() << endl;
+	output << "Uranium=" << player1.getUranium() << endl;
+	output <<  endl;
+	std::cout << "Player 1 saved" << std::endl;
+
+	output << "Player2" << endl;
+	output << "Name=" << player2.getName() << endl;
+	output << "Electro=" << player2.getElectro() << endl;
+	output << "Houses=" << player2.getHouse() << endl;
+	output << "Color=" << player2.getAreaColor() << endl;
+	output << "Coal=" << player2.getCoal() << endl;
+	output << "Oil=" << player2.getOil() << endl;
+	output << "Garbage=" << player2.getGarbage() << endl;
+	output << "Uranium=" << player2.getUranium() << endl;
+
+	std::cout << "Player 2 saved" << std::endl;
+
+	
+	output.close();
+	}

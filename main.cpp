@@ -21,7 +21,8 @@
 #include <list>
 
 using std::cout;
-using namespace ::std;
+using std::string;
+
 
 int main() {
 	int option;
@@ -47,7 +48,7 @@ int main() {
 			Map test = Map();
 			//Save map to map.txt
 			IOFile::saveMap();
-			std::cout << "Map Created " << std::endl;
+			std::cout << std::string("Map Created ") << std::endl;
 			int start_node;
 			int end_node;
 			std::cout << "Test if map is connected graph " << std::endl;
@@ -60,13 +61,13 @@ int main() {
 			std::vector<vertex_t> previous;
 			test.DijkstraComputePaths(start_node, *Map::map, min_distance, previous);
 
-			std::cout << "Distance from " << start_node << " to " << end_node << ": " << min_distance[end_node] << std::endl;
+			std::cout << std::string("Distance from ") << start_node << std::string(" to ") << end_node << std::string(": ") << min_distance[end_node] << std::endl;
 			std::list<vertex_t> path = test.DijkstraGetShortestPathTo(end_node, previous); //list that will contain the paths taken
-			std::cout << "Path : ";
+			std::cout << std::string("Path : ");
 			std::copy(path.begin(), path.end(), std::ostream_iterator<vertex_t>(std::cout, " "));
 			std::cout << std::endl;
 
-			std::cout << "Starting City: " + test.getCityName(start_node) + " Ending City: " + test.getCityName(end_node) << std::endl;
+			std::cout << std::string("Starting City: ") + test.getCityName(start_node) + std::string(" Ending City: ") + test.getCityName(end_node) << std::endl;
 		}
 		if (option == 2) {
 			mapreader map;
@@ -80,17 +81,24 @@ int main() {
 	
 			Player* player1 = new Player("Fred", "Purple");
 			//ex: add all resources 
-			//player1.addCoal(2);
-			//player1.addOil(3);
-			//player1.addGarbage(4);
-			//player1.addUranium(2);
+			player1->addCoal(2);
+			player1->addOil(3);
+			player1->addGarbage(4);
+			player1->addUranium(2);
+			player1->addHouse(1);
+			player1->printPlayerInfo();
 			Player* player2 = new Player("Chuck", "Blue");
-			//player2.addCoal(1);
-			//player2.addOil(2);
-			//player2.addGarbage(5);
-			//player2.addUranium(3);
+			player2->addCoal(1);
+			player2->addOil(2);
+			player2->addGarbage(5);
+			player2->addUranium(3);
+			player2->addHouse(2);
+			player2->printPlayerInfo();
 			//method to show player's possessions via file. 
-			//IOFile::printPlayer(*player1, *player2);
+			IOFile::printPlayer(*player1, *player2);
+			
+			
+
 		}
 
 		if (option == 5) {
@@ -105,16 +113,16 @@ int main() {
 			SummaryCard *sc5 = new SummaryCard();
 			SummaryCard *sc6 = new SummaryCard();
 
-			cout << endl;
-			cout << endl;
-			cout << endl;
-			cout << "==================================================" << endl;
-			cout << "==================================================" << endl;
-			cout << "==================================================" << endl;
-			cout << "===========displaying 6 summary cards=============" << endl;
-			cout << "==================================================" << endl;
-			cout << "==================================================" << endl;
-			cout << "==================================================" << endl;
+			std::cout << std::endl;
+			std::cout << std::endl;
+			std::cout << std::endl;
+			std::cout << std::string("==================================================") << std::endl;
+			std::cout << std::string("==================================================") << std::endl;
+			std::cout << std::string("==================================================") << std::endl;
+			std::cout << std::string("===========displaying 6 summary cards=============") << std::endl;
+			std::cout << std::string("==================================================") << std::endl;
+			std::cout << std::string("==================================================") << std::endl;
+			std::cout << std::string("==================================================") << std::endl;
 
 			sc1->SummaryCardInfo();
 			sc2->SummaryCardInfo();
