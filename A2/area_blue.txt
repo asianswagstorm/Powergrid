@@ -1,0 +1,7 @@
+7, "San Francisco", 1
+8, "Salt Lake City", 1
+9, "Las Vegas", 1
+10, "Los Angeles", 1
+11, "San Diego", 1
+12, "Phoenix", 1
+13, "Santa Fe", 1

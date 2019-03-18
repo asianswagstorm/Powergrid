@@ -1,0 +1,7 @@
+35, "Norfolk", 5
+36, "Raleigh", 5
+37, "Atlanta", 5
+38, "Savannah", 5
+39, "Jacksonville", 5
+40, "Tampa", 5
+41, "Miami", 5
