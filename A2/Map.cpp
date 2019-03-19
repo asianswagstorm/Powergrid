@@ -16,6 +16,20 @@
 
 using std::get;
 
+//Initialize values of the Map
+
+Map::Map(string areaColor)
+{  
+	//Create Map, read inputs from file to reduce code redundancy
+	IOFile::readMapInput(areaColor);
+	//IOFile::addEdges();
+}
+
+Map::~Map()
+{
+
+}
+
 typedef std::vector<std::vector<neighbor> > adjacency_list_t;
 
 const weight_t max_weight = std::numeric_limits<double>::infinity();
@@ -25,22 +39,14 @@ tuple<int, string, int> * Map::index_cityName_area = new tuple<int, string, int>
 //Connected graph of map
 adjacency_list_t * Map::map = new adjacency_list_t(Map::getMapSize());
 
-//Initialize values of the Map
-Map::Map()
-{
-	//Create Map, read inputs from file to reduce code redundancy
-	IOFile::readMapInput();
-	IOFile::addEdges();
-}
-
-Map::~Map()
-{
-
-}
 int Map::getMapSize() {
 	return mapSize;
 }
 
+int Map::getIndexNumber(int index) {
+	return get<0>(Map::index_cityName_area[index]);
+
+}
 string Map::getCityName(int index) {
 	return get<1>(Map::index_cityName_area[index]);
 }

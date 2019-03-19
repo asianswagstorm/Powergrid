@@ -31,7 +31,8 @@ typedef std::vector<std::vector<neighbor> > adjacency_list_t;
 class Map
 {
 public:
-	Map();
+
+	Map(string areaColor);
 	~Map();
 
 	//City index, cityName, Area ; Indices are found in "PowerGridUsMap_nums.jpg"
@@ -39,21 +40,21 @@ public:
 
 	//Connected graph of map
 	static adjacency_list_t * map;
-	
+
+	static int getIndexNumber(int index);
 	static string getCityName(int index);
 	static int getArea(int index);
 	static string getAreaColor(int index);
-	static int getMapSize();
 	static void addIndexNameArea(int index, string name, int area);
 	static void addEdge(int index1, int index2, double weight);
-	
+	static int getMapSize();
 		//Map-graph methods
 	std::list<vertex_t> DijkstraGetShortestPathTo(vertex_t vertex,const std::vector<vertex_t> &previous);
 
 	void DijkstraComputePaths(vertex_t source,const adjacency_list_t &adjacency_list,std::vector<weight_t> &min_distance,std::vector<vertex_t> &previous);
 
 private:
-	const static int mapSize = 42; //to test change to 7 else 42
+	static const int mapSize = 42;
 };
 
 

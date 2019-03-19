@@ -70,16 +70,20 @@ int PowerPlant::getHouse(){
 //Function that prints out the summary of each power plants
  void PowerPlant::printPowerPlantSummary(){
     cout << ""<< endl;
-	cout << "CardNumber: " << typeNum << endl;
-	if (type == "Hybrid") {
-	cout << "A Hybrid type means: either Coal or Oil or Both" << endl;
+	if (type == "Step 3") {
+		cout << "This is a Step 3 Card " << endl;
 	}
+	else {
+		cout << "CardNumber: " << typeNum << endl;
+		if (type == "Hybrid") {
+			cout << "A Hybrid type means: either Coal or Oil or Both" << endl;
+		}
 
-	cout << "This PowerPlant requires " << minPlantCost  << " "<< type <<" to power " << house << "Cities" << endl;
-	
+		cout << "This PowerPlant requires " << minPlantCost << " " << type << " to power " << house << "Cities" << endl;
+	}
 }
 
- static vector<PowerPlant*> ppv;
+ static vector<PowerPlant*> ppv; //Deck of powerplants
  static vector<PowerPlant*> powerplantCardsShowned;
  //static vector<PowerPlant*> powerplantCardsInGame;
 
@@ -191,10 +195,18 @@ int PowerPlant::getHouse(){
 	 //Step 3 card at the end
 	 ppv.push_back(&step3);
 
+	 
 	 /*
-	 for (int i = 0; i < ppv.size(); i++) {
-		 ppv[i]->printPowerPlantSummary();
-	 }*/
+	 The step 3 cards seperates the deck with the Bureaucracy cards.
+
+	 The Step 3 Card is placed a the bottom of the Draw Deck at the beginning of the game.
+	 Each turn, during Phase 5.Bureaucracy, the highest power plant is placed UNDER the Step 3 Card.
+	 When the Step 3 Card is drawn, there is a stack of power plants UNDER it -- those highest plants that have been removed during Bureaucracy.
+	 It is this stack of highest power plants that is then shuffled.
+	 */
+	 cout << "Here is the Step 3 Card" << endl;
+	 ppv[ppv.size()-1]->printPowerPlantSummary();
+	 
 
 	 cout << "==================================================" << endl;
 	 cout << "===========Deck shuffled================" << endl << endl;;
@@ -212,5 +224,6 @@ int PowerPlant::getHouse(){
 		 powerplantCardsShowned.push_back(ppv[i]);
 		 ppv.erase(ppv.begin() + i);
 	 }
+	 
 
  };
