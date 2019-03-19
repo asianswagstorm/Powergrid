@@ -12,6 +12,13 @@
 18, "Memphis",Red
 19, "New Orleans",Red
 20, "Birmingham",Red
+21, "Fargo",Yellow
+22, "Duluth",Yellow
+23, "Minneapolis",Yellow
+24, "Chicago",Yellow
+25, "St. Louis",Yellow
+26, "Cincinnati",Yellow
+27, "Knoxville",Yellow
 35, "Norfolk",Green
 36, "Raleigh",Green
 37, "Atlanta",Green

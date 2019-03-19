@@ -31,7 +31,7 @@ typedef std::vector<std::vector<neighbor> > adjacency_list_t;
 class Map
 {
 public:
-
+	Map();
 	Map(string areaColor);
 	~Map();
 
@@ -40,7 +40,7 @@ public:
 
 	//Connected graph of map
 	static adjacency_list_t * map;
-
+	static void testMap(Map test);
 	static int getIndexNumber(int index);
 	static string getCityName(int index);
 	static int getArea(int index);

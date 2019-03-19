@@ -62,7 +62,7 @@ bool Area::areAdjacent(vector<int> &colors) {
 	std::sort(colors.begin(), colors.end());
 	int size = colors.size(); //areas used
 
-	if (size < 2 || size > 5) { //Game rule: minimum area == 3 for 2 players Assignment Instruction 1 area per player
+	if (size < 2 || size > 6) { //Game rule: minimum area == 3 for 2 players Assignment Instruction 1 area per player
 		return false;
 	}
 
@@ -70,7 +70,7 @@ bool Area::areAdjacent(vector<int> &colors) {
 
 		int first = colors[0];
 		int second = colors[1];
-
+		
 		//impossible games: Areas not adjacent
 		if ((first == 0 && second == 4 )
 			|| (first == 0 && second == 5 )

@@ -18,32 +18,17 @@ using std::string;
 using std::stoi;
 using std::stringstream;
 
+int size;
+
 //empty constructor
 IOFile::IOFile()
 {
+	
 }
 
 //destructor
 IOFile::~IOFile()
 {
-}
-
-//saves map to map.txt
-void IOFile::saveMap() {
-	ofstream output;
-	// Create or open a file
-	output.open("map.txt");
-	std::cout << "Saving map..." << std::endl;
-	
-	for (unsigned int i = 0; i < Map::getMapSize(); i++) {
-		if(Map::getCityName(i) != "")
-		 output << i << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
-		else 
-		 output << std::endl;
-	}
-
-	std::cout << "Map saved..." << std::endl;
-	output.close();
 }
 
 /*//Saves player houses
@@ -64,11 +49,34 @@ void IOFile::saveMap() {
 
 */
 
-
 //need to filter based on active areas
-void IOFile::readMapInput() {
+void IOFile::readMapInput(string areaColor) {
 	ifstream mapInputs;
-	mapInputs.open("full_map_Inputs.txt"); 
+	
+
+	if (areaColor == "purple") {
+		mapInputs.open("area_purple.txt");
+	}
+
+	if (areaColor == "blue") {
+		mapInputs.open("area_blue.txt");
+	}
+
+	if (areaColor == "red") {
+		mapInputs.open("area_red.txt");
+	}
+
+	if (areaColor == "yellow") {
+		mapInputs.open("area_yellow.txt");
+	}
+
+	if (areaColor == "brown") {
+		mapInputs.open("area_brown.txt");
+	}
+
+	if (areaColor == "green") {
+		mapInputs.open("area_green.txt");
+	}
 
 	std::vector <int> initial_file_index;
 	std::vector <std::string> initial_file_cityName;
@@ -90,9 +98,12 @@ void IOFile::readMapInput() {
 		initial_file_area.push_back(area);
 	}
 	for (unsigned int i = 0; i < initial_file_index.size(); i++) {
+		
 		Map::addIndexNameArea(initial_file_index[i], initial_file_cityName[i], initial_file_area[i]);
 	}
+	
 	mapInputs.close();
+
 }
 
 //need to filter only the active edges
@@ -104,6 +115,7 @@ void IOFile::addEdges() {
 	std::vector <int> edge_index2;
 	std::vector <double> edge_weight;
 
+	//check if index1 and index 2 in game
 	while (getline(edgeInputs, line) && line != "" && !line.empty()) {
 		std::stringstream ss(line);
 		
@@ -115,16 +127,38 @@ void IOFile::addEdges() {
 		weight = stod(weight_s); //Convert string to double
 
 
-		/* filter index1 and index2
-		*/
+		// filter index1 and index2
+		//87 edges 
+		for (int i = 0; i < 87; i++) {
+			if (Map::getCityName(index1) != "" && Map::getCityName(index2) != "") {
+					edge_index1.push_back(index1);
+					edge_index2.push_back(index2);
+					edge_weight.push_back(weight);
+			
+			}
+		}
 
-
-		edge_index1.push_back(index1);
-		edge_index2.push_back(index2);
-		edge_weight.push_back(weight);
+		
 	}
 	for (unsigned int i = 0; i < edge_index1.size(); i++) {
 		Map::addEdge(edge_index1[i], edge_index2[i], edge_weight[i]);
 	}
 	edgeInputs.close();
+}
+
+//saves map to map.txt
+void IOFile::saveMap() {
+	ofstream output;
+	// Create or open a file
+	output.open("map.txt");
+	std::cout << "Saving map..." << std::endl;
+
+	for (int i = 0; i < Map::getMapSize(); i++) {
+		if (Map::getCityName(i) != "")
+			output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
+		
+	}
+	IOFile::addEdges();
+	std::cout << "Map saved..." << std::endl;
+	output.close();
 }

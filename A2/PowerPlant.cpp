@@ -79,7 +79,7 @@ int PowerPlant::getHouse(){
 			cout << "A Hybrid type means: either Coal or Oil or Both" << endl;
 		}
 
-		cout << "This PowerPlant requires " << minPlantCost << " " << type << " to power " << house << "Cities" << endl;
+		cout << "This PowerPlant requires " << minPlantCost << " " << type << " to power " << house << " Cities" << endl;
 	}
 }
 

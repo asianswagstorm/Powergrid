@@ -22,16 +22,10 @@
 
 int main() {
 
-
-	//1) Select a map (a map is separated into 6 areas, each with 7 cities) from a list of file(s) as stored in a directory.
-	//europe and us map pick which map. 
-
 	/*
 	map loader to load the selected and appropriate map file.
-	the deck of the summary cards,
 
-	LOAD
-	DONE? power plant cards,
+	load the map and get the areas to put in a proper area vector
 
 	the houses objects,
 	resources tokens,
@@ -48,7 +42,7 @@ int main() {
 	std::vector<Player*> player_vector;
 	std::vector<SummaryCard*> summary_card_vector;
 	vector<int> areas; //2-3 playes 3 areas , 4 players  4 areas, 5-6 players 5 areas  
-
+	Map theMap;
 	//NEW (new) OR LOAD GAME. 
 	std::cout << "Write \"new\" for a NEW GAME." << std::endl << std::endl; 
 	std::cout << "Press any key to LOAD a game." << std::endl; 
@@ -66,7 +60,7 @@ int main() {
 	}
 	else {
 		std::cout << "\nNew Game Starting..." << std::endl;
-
+		
 		do {
 			std::cout << "How many players would like to play the game? (2-6): " << std::endl;
 			cin >> numPlayers;
@@ -80,31 +74,35 @@ int main() {
 
 			while (isValidColorInput == false) { //Handling for a valid area color input
 				cin >> color;
-				if (color == "purple" || color == "blue" || color == "red" || color == "yellow" || color == "brown" || color == "brown")
+				if (color == "purple" || color == "blue" || color == "red" || color == "yellow" || color == "brown" || color == "green")
 				{
 					//if color not in 
 					if (areas.size() != 0) {
-						for (int j = 0; j < areas.size(); j++) {
+						for (unsigned int j = 0; j < areas.size(); j++) {
 							if (areas[j] == Area::getAreaNumber(color)) {
 								std::cout << "Area already chosen , Please pick another location:" << std::endl;
 							}
 							else {
+								Map theMap = Map(color);
 								isValidColorInput = true;
 								break;
 							}
 						}
 					}
 					else {
+						Map theMap = Map(color);
 						isValidColorInput = true;
 						break;
 					}
 
-
+					
 				}
 				else {
 					std::cout << "Invalid Color Input, Please try again:" << std::endl;
 				}
 			}
+
+			
 			//handle 1 area per player
 
 			areas.push_back(Area::getAreaNumber(color));
@@ -138,12 +136,10 @@ int main() {
 
 			Area::setGameAreas(areas);
 			//create map
-			Map theMap = Map();
+			
 			//Save map to map.txt
 			IOFile::saveMap(); //load map should read the edges too
-			
-
-
+			Map::testMap(theMap); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
 		}
 
 

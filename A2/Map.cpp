@@ -17,12 +17,15 @@
 using std::get;
 
 //Initialize values of the Map
+Map::Map() {
+
+}
 
 Map::Map(string areaColor)
 {  
 	//Create Map, read inputs from file to reduce code redundancy
 	IOFile::readMapInput(areaColor);
-	//IOFile::addEdges();
+	
 }
 
 Map::~Map()
@@ -144,4 +147,30 @@ std::list<vertex_t> Map::DijkstraGetShortestPathTo(
 }
 
 
+void Map::testMap(Map test){
+int start_node;
+int end_node;
+std::cout << "Test if map is connected graph " << std::endl;
+std::cout << "Enter the starting node index: " << std::endl;
+std::cin >> start_node;
+std::cout << "Enter the ending node index: " << std::endl;
+std::cin >> end_node;
 
+std::vector<weight_t> min_distance;
+std::vector<vertex_t> previous;
+test.DijkstraComputePaths(start_node, *Map::map, min_distance, previous);
+
+if (isinf(min_distance[end_node])) {
+	std::cout << std::string("ERROR ") << std::endl;
+	std::cout << std::string("Index not in path, or Index not located in correct area ") << std::endl;
+}
+else{
+std::cout << std::string("Distance from ") << start_node << std::string(" to ") << end_node << std::string(": ") << min_distance[end_node] << std::endl;
+std::list<vertex_t> path = test.DijkstraGetShortestPathTo(end_node, previous); //list that will contain the paths taken
+std::cout << std::string("Path : ");
+std::copy(path.begin(), path.end(), std::ostream_iterator<vertex_t>(std::cout, " "));
+std::cout << std::endl;
+
+std::cout << std::string("Starting City: ") + test.getCityName(start_node) + std::string(" Ending City: ") + test.getCityName(end_node) << std::endl;
+}
+}
