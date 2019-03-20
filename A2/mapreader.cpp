@@ -45,7 +45,6 @@ void mapreader::readMap(string mapFileName) {
 	string cityName;
 	string area;
 	string line;
-	int lineCounter = 0;
 	string indexHolder;
 
 	if (!mapfile) {
@@ -54,13 +53,12 @@ void mapreader::readMap(string mapFileName) {
 		exit(EXIT_FAILURE);
 	}
 		std::vector<std::string>  areas;
-		std::vector <int> * initial_file_index = new vector<int>();
-		std::vector <std::string> * initial_file_cityName = new vector<std::string>();
-		std::vector <int> * initial_file_area = new vector<int>();
+		std::vector <int> * initial_file_index = new std::vector<int>();
+		std::vector <std::string> * initial_file_cityName = new std::vector<std::string>();
+		std::vector <int> * initial_file_area = new std::vector<int>();
 
 		while (getline(mapfile, line) && (line != "") && !line.empty()) {
-			lineCounter++;
-			//cout << line << endl;
+			
 			std::stringstream ss(line);
 
 			getline(ss, indexHolder, ',');
@@ -105,81 +103,14 @@ void mapreader::readMap(string mapFileName) {
 			}
 
 			else cout << ("Map Area not recognized") << endl;
-			
-			cout << areas[i] << endl;
 		}
-
 
 	if (Area::areAdjacent(*initial_file_area) == true) {
 		cout << ("Valid map") << endl;
 		IOFile::addEdges(); // load the edges
+		Area::setGameAreas(*initial_file_area);
 	}
 	else {
 		cout << ("Not a valid map, areas are not adjacent") << endl;
 	}
 }
-
-/*
-void Board::loadMap(string areaText, string mapText) {
-
-	//
-	//Load map section
-	//
-	ifstream inputMap(mapText);
-
-	vector<vector<string> > * loadMap = new vector<vector<string> >(42);
-
-	string skip;
-
-	//Fills up loadMap vector from map.txt
-	while (!inputMap.eof()) {
-
-		inputMap >> skip;
-
-		//splits the string with the delimiter ','
-		vector<string> internal;
-		stringstream ss(skip); // Turn the string into a stream.
-		string tok;
-		//put string into vector
-		while (getline(ss, tok, ',')) {
-			internal.push_back(tok);
-		}
-
-		//get the index
-		int index = stoi(internal[0]);
-
-		//no player
-		if (internal.size() == 1) {
-
-		}
-		//1 player
-		else if (internal.size() == 2) {
-
-			(*loadMap)[index].push_back(internal[1]);
-		}
-		//2 player
-		else if (internal.size() == 3) {
-
-			(*loadMap)[index].push_back(internal[1]);
-			(*loadMap)[index].push_back(internal[2]);
-		}
-		//3 player
-		else if (internal.size() == 4) {
-
-			(*loadMap)[index].push_back(internal[1]);
-			(*loadMap)[index].push_back(internal[2]);
-			(*loadMap)[index].push_back(internal[3]);
-		}
-	}
-
-
-	//Loads the players into map
-	mapOfPlayersCity->loadPlayerHouses(*loadMap);
-
-	delete loadMap;
-	loadMap = NULL;
-
-	inputMap.close();
-}
-}
-*/

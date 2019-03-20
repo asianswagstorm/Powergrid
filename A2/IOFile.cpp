@@ -162,3 +162,109 @@ void IOFile::saveMap() {
 	std::cout << "Map saved..." << std::endl;
 	output.close();
 }
+
+void IOFile::savePlayer(vector<Player*> player_vector) {
+	ofstream output;
+	// Create or open a file
+
+	output.open("player.txt");
+
+	for (int i = 0; i < player_vector.size(); i++) {
+	output << "Player" << i+1 << ":" << endl;
+	output << "Name=" << player_vector[i]->getName() << endl;
+	output << "Electro=" << player_vector[i]->getElectro() << endl;
+	output << "Houses=" << player_vector[i]->getHouse() << endl;
+	output << "Area_Color=" << player_vector[i]->getAreaColor() << endl;
+	output << "Coal=" << player_vector[i]->getCoal() << endl;
+	output << "Oil=" << player_vector[i]->getOil() << endl;
+	output << "Garbage=" << player_vector[i]->getGarbage() << endl;
+	output << "Uranium=" << player_vector[i]->getUranium() << endl;
+	//house locations not at startup. 
+	//powerplants owned not at startup
+	output << endl;
+	std::cout << "Player "<< i+1 <<" saved" << std::endl;
+	
+	}
+	output.close();
+
+}
+
+void IOFile::loadPlayer(std::vector<Player *> player_vector) {
+	Player * playerObj;
+	std::string line, variable, name, color, variable_value,player;
+	int electro,house,coal,oil,garbage,uranium; //,playerNum
+	std::vector <int> * player_nums = new std::vector <int>();
+	
+	ifstream playerInput("player.txt");
+	if (playerInput.is_open())
+	{
+		while (getline(playerInput, line) )
+		{
+			std::stringstream ss(line);
+		
+
+			//if line contains :
+			/*
+			getline(ss, player, ':');
+			if (player.substr(0, 6) == "Player") {
+				playerNum = stoi(player.substr(6));
+				player_nums->push_back(playerNum);
+			}*/
+
+			//if line contains =
+			getline(ss, variable, '=');
+			getline(ss, variable_value, '=');
+
+			//cout << variable << ":" << variable_value << endl; // variables are empty 
+
+			if (variable == "Name") {
+				name = (variable_value);
+			}
+			else if (variable == "Electro") {
+				electro = stoi(variable_value);
+			}
+			else if (variable == "Houses") {
+				house = stoi(variable_value);
+			}
+
+			else if (variable == "Area Color") {
+				color = (variable_value);
+			}
+
+			else if (variable == "Coal") {
+				coal = stoi(variable_value);
+			}
+			else if (variable == "Oil") {
+				oil = stoi(variable_value);
+			}
+			else if (variable == "Garbage") {
+				garbage = stoi(variable_value);
+			}
+			else if (variable == "Uranium") {
+				uranium = stoi(variable_value);
+			}
+
+			if (line == "" && line.empty()) {
+				playerObj = new Player();
+				playerObj->setName(name);
+				playerObj->setElectro(electro);
+				playerObj->setHouse(house);
+				playerObj->setAreaColor(color);
+				playerObj->setCoal(coal);
+				playerObj->setOil(oil);
+				playerObj->setGarbage(garbage);
+				playerObj->setUranium(uranium);
+				player_vector.push_back(playerObj);
+			}
+		}
+			
+			playerInput.close();
+
+	}
+	else cout << "Unable to open file";
+
+	cout << endl<< "Player's Loaded." << endl << "Here are your current players : " << endl;
+	for (int i = 0; i < player_vector.size(); i++) {
+		player_vector[i]->printPlayerInfo();
+	}
+}

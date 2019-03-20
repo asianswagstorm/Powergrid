@@ -23,10 +23,6 @@
 int main() {
 
 	/*
-	map loader to load the selected and appropriate map file.
-
-	load the map and get the areas to put in a proper area vector
-
 	the houses objects,
 	resources tokens,
 	the money(elektro),
@@ -53,12 +49,16 @@ int main() {
 		mapreader map;
 		string mapFileName;
 		std::cout << "Enter map file name not including .txt" << std::endl;
-		cin >> mapFileName;
+		cin >> mapFileName; 
 		/*
-		Game loadGame ("player.txt", "area.txt", "map.txt", "powerplant.txt", "nbPlayerAndTurn.txt")
+		Game loadGame ("powerplant.txt", "numPlayersAndTurn.txt")
 		//turnorder which player goes first (player with less cities)
 		*/
 		map.readMap(mapFileName);
+	
+		IOFile::loadPlayer(player_vector); // save the loaded players into this vector.
+		
+	
 		system("pause");
 		return 0;
 	}
@@ -105,14 +105,13 @@ int main() {
 					std::cout << "Invalid Color Input, Please try again:" << std::endl;
 				}
 			}
-
 			
 			//handle 1 area per player
 
 			areas.push_back(Area::getAreaNumber(color));
 
 			//create player
-			Player* player = new Player(player_name, color);
+			Player* player = new Player(player_name, color); //need to save player into file to be loaded
 			std::cout << std::endl << "Player Created! Here are " << player_name << "'s current stats:" << std::endl;
 
 			player->printPlayerInfo();
@@ -139,14 +138,13 @@ int main() {
 			PowerPlant::pool(); // should show only 8, shuffled 
 
 			Area::setGameAreas(areas);
+			//save players 
+			IOFile::savePlayer(player_vector);
 			//create map
-			
 			//Save map to map.txt
 			IOFile::saveMap(); //load map should read the edges too
-			Map::testMap(theMap); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
+			//Map::testMap(theMap); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
 		}
-
-
 	}
 	system("pause");
 	return 0;

@@ -8,18 +8,30 @@
 using std::cout;
 using std::endl;
 
+Player::Player() {
+	this->name = "";
+	this->area_color = "";
+	this->electro = 0;
+	this->house = 0;
+
+	this->coal = 0;
+	this->oil = 0;
+	this->garbage = 0;
+	this->uranium = 0;
+}
+
 Player::Player(string name, string area_color) {
 	//Each player takes an overview card, the wooden houses of one color and 50 Elektro.
 	//overview card = summary??
 	this->name = name;
 	this->area_color = area_color;
-	electro = 50;
-	house = 1;
+	this->electro = 50;
+	this->house = 1;
 
-	coal=0;
-	oil=0;
-	garbage=0;
-	uranium=0;
+	this->coal=0;
+	this->oil=0;
+	this->garbage=0;
+	this->uranium=0;
 
 }
 Player::~Player() {

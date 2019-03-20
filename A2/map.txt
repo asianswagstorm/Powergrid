@@ -5,6 +5,13 @@
 4, "Cheyenne",Purple
 5, "Denver",Purple
 6, "Omaha",Purple
+7, "San Francisco",Blue
+8, "Salt Lake City",Blue
+9, "Las Vegas",Blue
+10, "Los Angeles",Blue
+11, "San Diego",Blue
+12, "Phoenix",Blue
+13, "Santa Fe",Blue
 14, "Kansas City",Red
 15, "Oklahoma City",Red
 16, "Dallas",Red
@@ -12,17 +19,3 @@
 18, "Memphis",Red
 19, "New Orleans",Red
 20, "Birmingham",Red
-21, "Fargo",Yellow
-22, "Duluth",Yellow
-23, "Minneapolis",Yellow
-24, "Chicago",Yellow
-25, "St. Louis",Yellow
-26, "Cincinnati",Yellow
-27, "Knoxville",Yellow
-35, "Norfolk",Green
-36, "Raleigh",Green
-37, "Atlanta",Green
-38, "Savannah",Green
-39, "Jacksonville",Green
-40, "Tampa",Green
-41, "Miami",Green

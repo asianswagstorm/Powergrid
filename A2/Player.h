@@ -8,6 +8,7 @@ using std::string;
 class Player
 {
 public:
+	Player();
 	Player(string name, string area_color);
 	//Player(string area_color, int electro, HouseManager *hm, vector<Powerplant> *pp, ResourceManager *rm);
 	~Player();
@@ -44,7 +45,7 @@ public:
 
 	void printPlayerInfo();
 
-	int getNumberHouses();
+	//int getNumberHouses();
 
 
 
