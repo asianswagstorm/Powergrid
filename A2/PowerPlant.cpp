@@ -75,11 +75,13 @@ int PowerPlant::getHouse(){
 	}
 	else {
 		cout << "CardNumber: " << typeNum << endl;
+		
+		cout << "This PowerPlant requires " << minPlantCost << " " << type << " to power " << house << " Cities" << endl;
+
 		if (type == "Hybrid") {
-			cout << "A Hybrid type means: either Coal or Oil or Both" << endl;
+			cout << endl<< "*A Hybrid type means: either Coal or Oil or Both" << endl;
 		}
 
-		cout << "This PowerPlant requires " << minPlantCost << " " << type << " to power " << house << " Cities" << endl;
 	}
 }
 

@@ -55,10 +55,18 @@ int main() {
 		//turnorder which player goes first (player with less cities)
 		*/
 		map.readMap(mapFileName);
-	
-		IOFile::loadPlayer(player_vector); // save the loaded players into this vector.
+		player_vector =  IOFile::loadPlayer();
+		numPlayers = player_vector.size();
+
+		for (int i = 0; i < numPlayers; i++) {
+			SummaryCard *sc = new SummaryCard();
+			std::cout << endl<<"===========Here is player"<<i+1<<"'s summary card=============" << std::endl << std::endl;
+			sc->SummaryCardInfo();
+		}
 		
+		PowerPlant::pool(); // should show only 8, shuffled // Also should keep track of discarded cards or cards already in game. 
 	
+
 		system("pause");
 		return 0;
 	}

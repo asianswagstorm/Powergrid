@@ -10,7 +10,7 @@ public:
 	//save map inputs to map.txt
 	static void saveMap();
 	static void savePlayer(vector<Player*> player_vector);
-	static void loadPlayer(std::vector<Player *> player_vector);
+	static std::vector<Player *> loadPlayer();
 	static void readMapInput(string areaColor);
 	static void addEdges();
 

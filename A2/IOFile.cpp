@@ -189,11 +189,12 @@ void IOFile::savePlayer(vector<Player*> player_vector) {
 
 }
 
-void IOFile::loadPlayer(std::vector<Player *> player_vector) {
+std::vector<Player *> IOFile::loadPlayer() {
 	Player * playerObj;
 	std::string line, variable, name, color, variable_value,player;
 	int electro,house,coal,oil,garbage,uranium; 
-	
+	std::vector<Player *> player_vector;
+
 	ifstream playerInput("player.txt");
 	if (playerInput.is_open())
 	{
@@ -248,11 +249,15 @@ void IOFile::loadPlayer(std::vector<Player *> player_vector) {
 			playerInput.close();
 
 	}
-	else std::cout << "Unable to open file" << std::endl;
+	else {std::cout << "Unable to open file" << std::endl; 
+	return {};
+	}
 
 	std::cout << std::endl<< "Player's Loaded." << std::endl << "Here are your current players : " << std::endl <<std::endl;
 	for (int i = 0; i < player_vector.size(); i++) {
 		std::cout << "Player " << i + 1 << ":" << std::endl;
 		player_vector[i]->printPlayerInfo();
 	}
+
+	return player_vector;
 }
