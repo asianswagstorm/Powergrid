@@ -22,6 +22,6 @@ Oil::Oil(int quantity)   {
 
 //Return type of resource
 string Oil::getType() const {
-    return type;
+    return resource_type;
 }
 

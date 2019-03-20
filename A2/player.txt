@@ -1,5 +1,5 @@
 Player1:
-Name=Alphalete
+Name=Paul
 Electro=50
 Houses=1
 Area Color=purple
@@ -9,10 +9,10 @@ Garbage=0
 Uranium=0
 
 Player2:
-Name=Gymshark
+Name=Henry
 Electro=50
 Houses=1
-Area Color=blue
+Area Color=red
 Coal=0
 Oil=0
 Garbage=0

@@ -12,7 +12,7 @@ public:
 
 private:
 
-    string type = "Oil";
+    const string resource_type = "Oil";
 };
 
 #endif //PART3_OIL_H

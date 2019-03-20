@@ -12,7 +12,7 @@ public:
 	
 private:
 
-    string type = "Uranium";
+    const string resource_type = "Uranium";
 
 };
 

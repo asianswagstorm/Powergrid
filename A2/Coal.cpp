@@ -21,6 +21,6 @@ Coal::Coal(int quantity) {
 
 //Accessor function returning the type of resource
 string Coal::getType() const {
-    return type;
+    return resource_type;
 }
 

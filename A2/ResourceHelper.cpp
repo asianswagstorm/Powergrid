@@ -40,7 +40,7 @@ void ResourceHelper::edit(string type, int quantity, int cost) {
 
 }
 
-void ResourceHelper::addResourceQuantity(string type, int quantity) {
+void ResourceHelper::setResource(string type, int quantity) {
 
 	if (type == "Coal")
 		coal->addQuantity(quantity);
@@ -99,7 +99,7 @@ int ResourceHelper::getResourceCost(string resource) {
 }
 
 //void removeOneUnit(string resource); //Removes one unit of any resource at any index
-void ResourceHelper::removeOneUnit(string resource) {
+void ResourceHelper::removeSingleResource(string resource) {
 
 	if (resource == "Coal") {
 		coal->removeQuantity(1);
@@ -137,8 +137,7 @@ void ResourceHelper::remove(string resource, int qty) {
 	}
 }
 
-//Need multiple ifs in order to catch an error
-void ResourceHelper::addOneUnit(string resource) {
+void ResourceHelper::addSingleResource(string resource) {
 
 	if (resource == "Coal") {
 		coal->addQuantity(1);

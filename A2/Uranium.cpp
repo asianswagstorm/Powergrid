@@ -21,6 +21,6 @@ Uranium::Uranium(int quantity) {
 
 //Return type of resource
 string Uranium::getType() const {
-    return type;
+    return resource_type;
 }
 

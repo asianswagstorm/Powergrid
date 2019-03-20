@@ -12,7 +12,7 @@ public:
     string getType() const;
 
 private:
-    string type = "Coal";
+    const string resource_type = "Coal";
 	
 };
 

@@ -22,7 +22,7 @@ Garbage::Garbage(int quantity) {
 
 //Returns type of resource
 string Garbage::getType() const {
-    return type;
+    return resource_type;
 }
 
 

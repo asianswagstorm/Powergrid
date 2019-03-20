@@ -73,8 +73,8 @@ void Player::addElectro(int electro)
 }
 
 
-void Player::addResources(string resource_type, int quantity)  { //Adds resource to player's possessions
-	resources->addResourceQuantity(resource_type, quantity);
+void Player::setResources(string resource_type, int quantity)  { //Adds resource to player's possessions
+	resources->setResource(resource_type, quantity);
 }
 
 int Player::getResourceQuantity(string resource_type)  {

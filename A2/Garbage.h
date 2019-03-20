@@ -14,7 +14,7 @@ public:
 	
 private:
 
-    string type = "Garbage";
+   const string resource_type = "Garbage";
 
 };
 

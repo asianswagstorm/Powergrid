@@ -5,8 +5,6 @@
 #include "Powerplant.h"
 #include "ResourceHelper.h"
 
-
-
 using std::string;
 class Player
 {
@@ -31,7 +29,7 @@ public:
 	void addHouse(int);
 	
 	//resources 
-	void addResources(string resource_type, int quantity); //Adds resource to player's possessions
+	void setResources(string resource_type, int quantity); //Adds resource to player's possessions
 	int getResourceQuantity(string resource_type) ;
 	int getResourceCost(string resource_type) ;
 	void printPlayerInfo();

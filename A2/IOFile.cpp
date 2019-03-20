@@ -238,10 +238,10 @@ std::vector<Player *> IOFile::loadPlayer() {
 				playerObj->setElectro(electro);
 				playerObj->setHouse(house);
 				playerObj->setAreaColor(color);
-				playerObj->addResources("Coal",coal);
-				playerObj->addResources("Oil", oil);
-				playerObj->addResources("Garbage", garbage);
-				playerObj->addResources("Uranium", uranium);
+				playerObj->setResources("Coal",coal);
+				playerObj->setResources("Oil", oil);
+				playerObj->setResources("Garbage", garbage);
+				playerObj->setResources("Uranium", uranium);
 				player_vector.push_back(playerObj);
 			}
 		}
