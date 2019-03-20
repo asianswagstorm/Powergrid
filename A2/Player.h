@@ -3,6 +3,9 @@
 #include <iostream>
 #include "Resource.h"
 #include "Powerplant.h"
+#include "ResourceHelper.h"
+
+
 
 using std::string;
 class Player
@@ -26,29 +29,15 @@ public:
 	int getHouse() const;
 	void setHouse(int house);
 	void addHouse(int);
-
-	int getCoal() const;
-	void setCoal(int coal);
-	void addCoal(int);
-
-	int getOil() const;
-	void setOil(int oil);
-	void addOil(int);
-
-	int getGarbage() const;
-	void setGarbage(int garbage);
-	void addGarbage(int);
-
-	int getUranium() const;
-	void setUranium(int uranium);
-	void addUranium(int);
-
+	
+	//resources 
+	void addResources(string resource_type, int quantity); //Adds resource to player's possessions
+	int getResourceQuantity(string resource_type) ;
+	int getResourceCost(string resource_type) ;
 	void printPlayerInfo();
 
+
 	//int getNumberHouses();
-
-
-
 
 private:
 	string name;
@@ -57,9 +46,6 @@ private:
 	int house;
 
 	//resources
-	int coal;
-	int oil;
-	int garbage;
-	int uranium;
+	ResourceHelper* resources;
 
 };

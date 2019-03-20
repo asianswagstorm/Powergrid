@@ -175,10 +175,10 @@ void IOFile::savePlayer(vector<Player*> player_vector) {
 	output << "Electro=" << player_vector[i]->getElectro() << endl;
 	output << "Houses=" << player_vector[i]->getHouse() << endl;
 	output << "Area Color=" << player_vector[i]->getAreaColor() << endl;
-	output << "Coal=" << player_vector[i]->getCoal() << endl;
-	output << "Oil=" << player_vector[i]->getOil() << endl;
-	output << "Garbage=" << player_vector[i]->getGarbage() << endl;
-	output << "Uranium=" << player_vector[i]->getUranium() << endl;
+	output << "Coal=" << player_vector[i]->getResourceQuantity("Coal") << endl;
+	output << "Oil=" << player_vector[i]->getResourceQuantity("Oil") << endl;
+	output << "Garbage=" << player_vector[i]->getResourceQuantity("Garbage") << endl;
+	output << "Uranium=" << player_vector[i]->getResourceQuantity("Uranium") << endl;
 	//house locations not at startup. 
 	//powerplants owned not at startup
 	output << "" << endl;
@@ -238,10 +238,10 @@ std::vector<Player *> IOFile::loadPlayer() {
 				playerObj->setElectro(electro);
 				playerObj->setHouse(house);
 				playerObj->setAreaColor(color);
-				playerObj->setCoal(coal);
-				playerObj->setOil(oil);
-				playerObj->setGarbage(garbage);
-				playerObj->setUranium(uranium);
+				playerObj->addResources("Coal",coal);
+				playerObj->addResources("Oil", oil);
+				playerObj->addResources("Garbage", garbage);
+				playerObj->addResources("Uranium", uranium);
 				player_vector.push_back(playerObj);
 			}
 		}

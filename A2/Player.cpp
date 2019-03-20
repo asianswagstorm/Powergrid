@@ -2,6 +2,7 @@
 #include "House.h"
 #include "Resource.h"
 #include "Powerplant.h"
+#include "ResourceHelper.h"
 #include <string>
 #include <iostream>
 
@@ -14,10 +15,7 @@ Player::Player() {
 	this->electro = 50;
 	this->house = 0;
 
-	this->coal = 0;
-	this->oil = 0;
-	this->garbage = 0;
-	this->uranium = 0;
+	this->resources = new ResourceHelper();
 }
 
 Player::Player(string name, string area_color) {
@@ -28,10 +26,7 @@ Player::Player(string name, string area_color) {
 	this->electro = 50;
 	this->house = 1;
 
-	this->coal=0;
-	this->oil=0;
-	this->garbage=0;
-	this->uranium=0;
+	this->resources = new ResourceHelper();
 
 }
 Player::~Player() {
@@ -77,55 +72,18 @@ void Player::addElectro(int electro)
 	this->electro += electro;
 }
 
-int Player::getCoal() const {
-	return coal;
+
+void Player::addResources(string resource_type, int quantity)  { //Adds resource to player's possessions
+	resources->addResourceQuantity(resource_type, quantity);
 }
 
-void Player::setCoal(int coal) {
-	this->coal = coal;
+int Player::getResourceQuantity(string resource_type)  {
+	return resources->getResourceQuantity(resource_type);
 }
 
-void Player::addCoal(int coal)
-{
-	this->coal += coal;
-}
+int Player::getResourceCost(string resource_type) {
+	return resources->getResourceCost(resource_type);
 
-int Player::getOil() const {
-	return oil;
-}
-
-void Player::setOil(int oil) {
-	this->oil = oil;
-}
-
-void Player::addOil(int oil)
-{
-	this->oil += oil;
-}
-
-int Player::getGarbage() const {
-	return garbage;
-}
-
-void Player::setGarbage(int garbage) {
-	this->garbage = garbage;
-}
-
-void Player::addGarbage(int garbage)
-{
-	this->garbage += garbage;
-}
-
-int Player::getUranium() const {
-	return uranium;
-}
-void Player::setUranium(int uranium) {
-	this->uranium = uranium;
-}
-
-void Player::addUranium(int uranium)
-{
-	this->uranium += uranium;
 }
 
 void Player::printPlayerInfo() {
@@ -133,9 +91,9 @@ void Player::printPlayerInfo() {
 		std::string("Electro: ") << electro << std::endl <<
 		std::string("Houses: ") << house << std::endl <<
 		std::string("Area Color: ") << area_color << std::endl <<
-		std::string("Coal: ") << coal << std::endl <<
-		std::string("Oil: ") << oil << std::endl <<
-		std::string("Garbage: ") << garbage << std::endl <<
-		std::string("Uranium: ") << uranium << std::endl;
+		std::string("Coal: ") << Player::getResourceQuantity("Coal") << std::endl <<
+		std::string("Oil: ") << Player::getResourceQuantity("Oil") << std::endl <<
+		std::string("Garbage: ") << Player::getResourceQuantity("Garbage") << std::endl <<
+		std::string("Uranium: ") << Player::getResourceQuantity("Uranium") << std::endl;
 		std::cout << std::endl;
 }
