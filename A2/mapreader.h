@@ -14,7 +14,7 @@ class mapreader
 public:
 	mapreader();
 	~mapreader();
-	void readMap();
+	void readMap(string mapFileName);
 
 	void setIndex(int index);
 	void setCityName(string cityName);
@@ -24,5 +24,5 @@ private:
 	int index;
 	string cityName;
 	string area;
-	
+	//read edges
 };

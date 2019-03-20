@@ -7,9 +7,12 @@
 //============================================================================
 //#ifndef MAPREADER_H_
 #include "mapreader.h"
+#include "Area.h"
+#include "IOFile.h"
 #include <fstream>
 #include <istream>
 #include <sstream>
+#include <algorithm>
 #include <vector>
 
 #define MAPREADER_H_
@@ -36,8 +39,8 @@ void mapreader::setArea(string area) {
 	this->area = area;
 }
 
-void mapreader::readMap() {
-	ifstream mapfile("map.txt");
+void mapreader::readMap(string mapFileName) {
+	ifstream mapfile(mapFileName+".txt");
 	int index;
 	string cityName;
 	string area;
@@ -50,59 +53,74 @@ void mapreader::readMap() {
 		system("pause");
 		exit(EXIT_FAILURE);
 	}
-	if (mapfile >> index  >> cityName  >> area) {
-		cout << ("Valid map") << endl;
+		std::vector<std::string>  areas;
+		std::vector <int> * initial_file_index = new vector<int>();
+		std::vector <std::string> * initial_file_cityName = new vector<std::string>();
+		std::vector <int> * initial_file_area = new vector<int>();
+
 		while (getline(mapfile, line) && (line != "") && !line.empty()) {
 			lineCounter++;
-			cout << line << endl;
-			std::stringstream lineHolder(line);
+			//cout << line << endl;
+			std::stringstream ss(line);
 
-			getline(lineHolder, indexHolder, ',');
+			getline(ss, indexHolder, ',');
 			index = stoi(indexHolder);
-			getline(lineHolder, cityName, ',');
-			getline(lineHolder, area, ',');
+			getline(ss, cityName, ',');
+			getline(ss, area, ',');
 
-			setIndex(index);
-			setCityName(cityName);
-			setArea(area);
+			areas.push_back(area);
+
+			initial_file_index->push_back(index);
+			initial_file_cityName->push_back(cityName);
+		
 		}
+
+		//clean up vector sort and unique part of <algorithm>
+		std::sort(areas.begin(), areas.end());
+		areas.erase(std::unique(areas.begin(), areas.end()), areas.end());
+
+		for (int i = 0; i < areas.size(); i++) {
+			if (areas[i] == "Purple") {
+				initial_file_area->push_back(0);
+			}
+
+			else if (areas[i] == "Blue") {
+				initial_file_area->push_back(1);
+			}
+
+			else if (areas[i] == "Red") {
+				initial_file_area->push_back(2);
+			}
+
+			else if (areas[i] == "Yellow") {
+				initial_file_area->push_back(3);
+			}
+
+			else if (areas[i] == "Brown") {
+				initial_file_area->push_back(4);
+			}
+
+			else if (areas[i] == "Green") {
+				initial_file_area->push_back(5);
+			}
+
+			else cout << ("Map Area not recognized") << endl;
+			
+			cout << areas[i] << endl;
+		}
+
+
+	if (Area::areAdjacent(*initial_file_area) == true) {
+		cout << ("Valid map") << endl;
+		IOFile::addEdges(); // load the edges
 	}
 	else {
-		cout << ("Not a valid map") << endl;
+		cout << ("Not a valid map, areas are not adjacent") << endl;
 	}
 }
 
 /*
 void Board::loadMap(string areaText, string mapText) {
-
-	ifstream inputAreas(areaText);;
-	string line;
-	inputAreas >> line; //Areas
-	inputAreas >> line;
-
-	int i1 = stoi(line); //area1
-	inputAreas >> line;
-	int i2 = stoi(line); //area2
-	inputAreas >> line;
-	int i3 = stoi(line); //area3
-
-	Area * a1 = new Area(i1);
-	Area * a2 = new Area(i2);
-	Area * a3 = new Area(i3);
-
-	//Used for areamanager constructor
-	vector<Area> * areas = new vector<Area>();
-	areas->push_back(*a1);
-	areas->push_back(*a2);
-	areas->push_back(*a3);
-
-	inputAreas.close();
-
-	AreaManager * area_manager = new AreaManager(); //do not delete
-	area_manager->setGameAreas(*areas); //load areas
-	Map *gameMap = new Map(area_manager); //load map
-
-	mapOfPlayersCity = new MapOfPlayersCity(gameMap); //load the areas into the map
 
 	//
 	//Load map section

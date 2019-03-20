@@ -1,0 +1,14 @@
+0, "Seattle",Purple
+1, "Portland",Purple
+2, "Boise",Purple
+3, "Billings",Purple
+4, "Cheyenne",Purple
+5, "Denver",Purple
+6, "Omaha",Purple
+35, "Norfolk",Green
+36, "Raleigh",Green
+37, "Atlanta",Green
+38, "Savannah",Green
+39, "Jacksonville",Green
+40, "Tampa",Green
+41, "Miami",Green

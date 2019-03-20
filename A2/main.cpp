@@ -51,11 +51,15 @@ int main() {
 	if (response != "new") {
 		//Load map
 		mapreader map;
+		string mapFileName;
+		std::cout << "Enter map file name not including .txt" << std::endl;
+		cin >> mapFileName;
 		/*
 		Game loadGame ("player.txt", "area.txt", "map.txt", "powerplant.txt", "nbPlayerAndTurn.txt")
 		//turnorder which player goes first (player with less cities)
 		*/
-		map.readMap(); //read the edges too
+		map.readMap(mapFileName);
+		system("pause");
 		return 0;
 	}
 	else {
