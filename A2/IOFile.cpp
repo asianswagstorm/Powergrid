@@ -174,14 +174,14 @@ void IOFile::savePlayer(vector<Player*> player_vector) {
 	output << "Name=" << player_vector[i]->getName() << endl;
 	output << "Electro=" << player_vector[i]->getElectro() << endl;
 	output << "Houses=" << player_vector[i]->getHouse() << endl;
-	output << "Area_Color=" << player_vector[i]->getAreaColor() << endl;
+	output << "Area Color=" << player_vector[i]->getAreaColor() << endl;
 	output << "Coal=" << player_vector[i]->getCoal() << endl;
 	output << "Oil=" << player_vector[i]->getOil() << endl;
 	output << "Garbage=" << player_vector[i]->getGarbage() << endl;
 	output << "Uranium=" << player_vector[i]->getUranium() << endl;
 	//house locations not at startup. 
 	//powerplants owned not at startup
-	output << endl;
+	output << "" << endl;
 	std::cout << "Player "<< i+1 <<" saved" << std::endl;
 	
 	}
@@ -192,8 +192,7 @@ void IOFile::savePlayer(vector<Player*> player_vector) {
 void IOFile::loadPlayer(std::vector<Player *> player_vector) {
 	Player * playerObj;
 	std::string line, variable, name, color, variable_value,player;
-	int electro,house,coal,oil,garbage,uranium; //,playerNum
-	std::vector <int> * player_nums = new std::vector <int>();
+	int electro,house,coal,oil,garbage,uranium; 
 	
 	ifstream playerInput("player.txt");
 	if (playerInput.is_open())
@@ -202,20 +201,8 @@ void IOFile::loadPlayer(std::vector<Player *> player_vector) {
 		{
 			std::stringstream ss(line);
 		
-
-			//if line contains :
-			/*
-			getline(ss, player, ':');
-			if (player.substr(0, 6) == "Player") {
-				playerNum = stoi(player.substr(6));
-				player_nums->push_back(playerNum);
-			}*/
-
-			//if line contains =
 			getline(ss, variable, '=');
 			getline(ss, variable_value, '=');
-
-			//cout << variable << ":" << variable_value << endl; // variables are empty 
 
 			if (variable == "Name") {
 				name = (variable_value);
@@ -261,10 +248,11 @@ void IOFile::loadPlayer(std::vector<Player *> player_vector) {
 			playerInput.close();
 
 	}
-	else cout << "Unable to open file";
+	else std::cout << "Unable to open file" << std::endl;
 
-	cout << endl<< "Player's Loaded." << endl << "Here are your current players : " << endl;
+	std::cout << std::endl<< "Player's Loaded." << std::endl << "Here are your current players : " << std::endl <<std::endl;
 	for (int i = 0; i < player_vector.size(); i++) {
+		std::cout << "Player " << i + 1 << ":" << std::endl;
 		player_vector[i]->printPlayerInfo();
 	}
 }

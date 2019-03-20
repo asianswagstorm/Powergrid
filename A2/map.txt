@@ -12,10 +12,3 @@
 11, "San Diego",Blue
 12, "Phoenix",Blue
 13, "Santa Fe",Blue
-14, "Kansas City",Red
-15, "Oklahoma City",Red
-16, "Dallas",Red
-17, "Houston",Red
-18, "Memphis",Red
-19, "New Orleans",Red
-20, "Birmingham",Red

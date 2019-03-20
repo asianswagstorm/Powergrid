@@ -11,7 +11,7 @@ using std::endl;
 Player::Player() {
 	this->name = "";
 	this->area_color = "";
-	this->electro = 0;
+	this->electro = 50;
 	this->house = 0;
 
 	this->coal = 0;
