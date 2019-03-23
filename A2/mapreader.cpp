@@ -46,7 +46,7 @@ void mapreader::readMap(string mapFileName) {
 	string area;
 	string line;
 	string indexHolder;
-
+	Map * theMap;
 	if (!mapfile) {
 		cout << ("Error: text file not found") << endl;
 		system("pause");
@@ -78,28 +78,35 @@ void mapreader::readMap(string mapFileName) {
 		areas.erase(std::unique(areas.begin(), areas.end()), areas.end());
 
 		for (int i = 0; i < areas.size(); i++) {
+			
 			if (areas[i] == "Purple") {
 				initial_file_area->push_back(0);
+				theMap = new Map(areas[i]);
 			}
 
 			else if (areas[i] == "Blue") {
 				initial_file_area->push_back(1);
+				theMap = new Map(areas[i]);
 			}
 
 			else if (areas[i] == "Red") {
 				initial_file_area->push_back(2);
+				theMap = new Map(areas[i]);
 			}
 
 			else if (areas[i] == "Yellow") {
 				initial_file_area->push_back(3);
+				theMap = new Map(areas[i]);
 			}
 
 			else if (areas[i] == "Brown") {
 				initial_file_area->push_back(4);
+				theMap = new Map(areas[i]);
 			}
 
 			else if (areas[i] == "Green") {
 				initial_file_area->push_back(5);
+				theMap = new Map(areas[i]);
 			}
 
 			else cout << ("Map Area not recognized") << endl;

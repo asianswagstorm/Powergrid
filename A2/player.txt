@@ -1,7 +1,7 @@
 Player1:
-Name=Paul
+Name=pop
 Electro=50
-Houses=1
+Houses=0
 Area Color=purple
 Coal=0
 Oil=0
@@ -9,9 +9,9 @@ Garbage=0
 Uranium=0
 
 Player2:
-Name=Henry
+Name=jack
 Electro=50
-Houses=1
+Houses=0
 Area Color=red
 Coal=0
 Oil=0

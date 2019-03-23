@@ -2,6 +2,11 @@
 #include "Player.h"
 #include "Map.h"
 #include "PowerPlant.h"
+#include "PowerPlantHelper.h"
+#include "Resource.h"
+#include "SummaryCard.h"
+#include "Area.h"
+#include "IOFile.h"
 
 #include <iostream>
 using namespace std;
@@ -11,17 +16,26 @@ public:
 	Game(std::vector<Player*> player_vector, Map *map);
 	~Game();
 
-	void setTurn(int turn);
-	int getTurn();
-	//void playerOrder(std::vector<Player*> player_vector);
+
+	void loadGame(int);
+	void setUpGame();
+
+	void setRound(int round);
+	int getRound() const;
+	void determinePlayerOrder();
+	int getFirstPlayer(std::vector<Player*> player_vector);
+
 	void buyPowerPlant();
+	
+
+
 
 private:
-	int turn;
+	int round;
 	std::vector<Player*> player_vector;
-	
-	bool step2;
-	bool step3;
+	PowerPlantHelper * powerplanthelper;
+	//bool phase2;
+	//bool phase2;
 	bool isEndGame = false;
 
 };

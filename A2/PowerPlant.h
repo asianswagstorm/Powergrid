@@ -20,9 +20,9 @@ public:
     int getTypeNum();
     int getHouse();
     void printPowerPlantSummary();
-	static void pool();
 
 private:
+
     int minPlantCost;
     string type;
     int typeNum;

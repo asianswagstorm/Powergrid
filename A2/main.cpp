@@ -1,16 +1,4 @@
-#include <iostream>
-#include <vector>
-#include "PowerPlant.h"
 #include <cstdlib>
-#include <algorithm> // std::random_shuffle
-#include <ctime> // std::time()
-#include "SummaryCard.h"
-#include "Map.h"
-#include "Area.h"
-#include "IOFile.h"
-#include "mapreader.h"
-#include "Player.h"
-
 #include <fstream>
 #include <istream>
 #include <sstream>
@@ -19,6 +7,8 @@
 #include <vector>
 #include <string>
 #include <list>
+
+#include "Game.h"
 
 int main() {
 
@@ -32,14 +22,11 @@ int main() {
 	2) the right number of players is created, and the right game pieces created.);
 
 		*/
-	int numPlayers, houseIndex;
-	string player_name, color, response;
-	bool isValidColorInput = false;
+	int numPlayers=0;
 	std::vector<Player*> player_vector;
-	std::vector<SummaryCard*> summary_card_vector;
-	vector<int> areas; //2-3 playes 3 areas , 4 players  4 areas, 5-6 players 5 areas  
-	Map theMap;
-	
+	Map * map = new Map;
+	string response;
+	Game * game = new Game(player_vector, map);
 	
 	//NEW (new) OR LOAD GAME. 
 	std::cout << "Write \"new\" for a NEW GAME." << std::endl << std::endl; 
@@ -47,125 +34,17 @@ int main() {
 	cin >> response;
 
 	if (response != "new") {
-		//Load map
-		mapreader map;
-		string mapFileName;
-		std::cout << "Enter map file name not including .txt" << std::endl;
-		cin >> mapFileName; 
-		/*
-		Game loadGame ("powerplant.txt", "numPlayersAndTurn.txt")
-		//turnorder which player goes first (player with less cities)
-		*/
-		map.readMap(mapFileName);
-		player_vector =  IOFile::loadPlayer();
-		numPlayers = player_vector.size();
-
-		for (int i = 0; i < numPlayers; i++) {
-			SummaryCard *sc = new SummaryCard();
-			std::cout << endl<<"===========Here is player"<<i+1<<"'s summary card=============" << std::endl << std::endl;
-			sc->SummaryCardInfo();
-		}
+		game->Game::loadGame(numPlayers);
 		
-		PowerPlant::pool(); // should show only 8, shuffled // Also should keep track of discarded cards or cards already in game. 
-	
-
-		system("pause");
-		return 0;
 	}
 	else {
-		std::cout << "\nNew Game Starting..." << std::endl;
-		
-		do {
-			std::cout << "How many players would like to play the game? (2-6): " << std::endl;
-			cin >> numPlayers;
-		} while (numPlayers < 2 || numPlayers > 6);
-
-		for (int i = 0; i < numPlayers; i++) {
-
-			std::cout << "Player " << i + 1 << " name: " << std::endl;
-			cin >> player_name;
-			std::cout << "Player " << i + 1 << " location color: " << std::endl;
-
-			while (isValidColorInput == false) { //Handling for a valid area color input
-				cin >> color;
-				if (color == "purple" || color == "blue" || color == "red" || color == "yellow" || color == "brown" || color == "green")
-				{
-					//if color not in 
-					if (areas.size() != 0) {
-						for (unsigned int j = 0; j < areas.size(); j++) {
-							if (areas[j] == Area::getAreaNumber(color)) {
-								std::cout << "Area already chosen , Please pick another location:" << std::endl;
-							}
-							else {
-								Map theMap = Map(color);
-								isValidColorInput = true;
-								break;
-							}
-						}
-					}
-					else {
-						Map theMap = Map(color);
-						isValidColorInput = true;
-						break;
-					}
-
-					
-				}
-				else {
-					std::cout << "Invalid Color Input, Please try again:" << std::endl;
-				}
-			}
-			
-			//handle 1 area per player
-
-			areas.push_back(Area::getAreaNumber(color));
-			
-			HouseHelper* hh = new HouseHelper();
-			/* Build House
-			//addhouse show available
-			std::cout << "Pick a city index to place your initial house: " << std::endl;
-			cin >> houseIndex;
-			House aHouse = House(houseIndex, Map::getCityName(houseIndex), color);
-			hh->addHouse(aHouse);
-			std::cout << std::endl << "House add in: "  << hh->getHouseVector()[0].getLocation() << std::endl;
-			*/
-
-			//create player
-			Player* player = new Player(player_name, color, hh); //need to save player into file to be loaded
-			std::cout << std::endl << "Player Created! Here are " << player_name << "'s current stats:" << std::endl;
-
-			player->printPlayerInfo();
-			player_vector.push_back(player);
-
-			//Overview / summary card
-			SummaryCard *sc = new SummaryCard();
-			summary_card_vector.push_back(sc);
-			std::cout << std::string("===========Here is your summary card=============") << std::endl << std::endl;
-			sc->SummaryCardInfo();
-
-			isValidColorInput = false;
-		}
-
-		if (Area::areAdjacent(areas) == false) {
-			std::cout << "Error, areas are not adjacent! " << std::endl;
-			system("pause");
-			return 1;
-		}
-
-		else {
-
-			//Powerplant Cards 
-			PowerPlant::pool(); // should show only 8, shuffled 
-
-			Area::setGameAreas(areas);
-			//save players 
-			IOFile::savePlayer(player_vector);
-			//create map
-			//Save map to map.txt
-			IOFile::saveMap(); //load map should read the edges too
-			//Map::testMap(theMap); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
-		}
+		game->Game::setUpGame();
+		//Map::testMap(map); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
+	
 	}
+
+	game->Game::determinePlayerOrder();
+
 	system("pause");
 	return 0;
 }
