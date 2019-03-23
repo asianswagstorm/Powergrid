@@ -32,13 +32,15 @@ int main() {
 	2) the right number of players is created, and the right game pieces created.);
 
 		*/
-	int numPlayers;
+	int numPlayers, houseIndex;
 	string player_name, color, response;
 	bool isValidColorInput = false;
 	std::vector<Player*> player_vector;
 	std::vector<SummaryCard*> summary_card_vector;
 	vector<int> areas; //2-3 playes 3 areas , 4 players  4 areas, 5-6 players 5 areas  
 	Map theMap;
+	
+	
 	//NEW (new) OR LOAD GAME. 
 	std::cout << "Write \"new\" for a NEW GAME." << std::endl << std::endl; 
 	std::cout << "Press any key to LOAD a game." << std::endl; 
@@ -117,9 +119,19 @@ int main() {
 			//handle 1 area per player
 
 			areas.push_back(Area::getAreaNumber(color));
+			
+			HouseHelper* hh = new HouseHelper();
+			/* Build House
+			//addhouse show available
+			std::cout << "Pick a city index to place your initial house: " << std::endl;
+			cin >> houseIndex;
+			House aHouse = House(houseIndex, Map::getCityName(houseIndex), color);
+			hh->addHouse(aHouse);
+			std::cout << std::endl << "House add in: "  << hh->getHouseVector()[0].getLocation() << std::endl;
+			*/
 
 			//create player
-			Player* player = new Player(player_name, color); //need to save player into file to be loaded
+			Player* player = new Player(player_name, color, hh); //need to save player into file to be loaded
 			std::cout << std::endl << "Player Created! Here are " << player_name << "'s current stats:" << std::endl;
 
 			player->printPlayerInfo();

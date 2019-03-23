@@ -2,7 +2,8 @@
 #include<string>
 #include <iostream>
 #include "Resource.h"
-#include "Powerplant.h"
+#include "PowerPlant.h"
+#include "HouseHelper.h"
 #include "ResourceHelper.h"
 
 using std::string;
@@ -10,8 +11,8 @@ class Player
 {
 public:
 	Player();
-	Player(string name, string area_color);
-	//Player(string area_color, int electro, HouseManager *hm, vector<Powerplant> *pp, ResourceManager *rm);
+	Player(string name, string area_color, HouseHelper* househelper);
+	Player(string name, string area_color, int elektro, HouseHelper * househelper, vector<PowerPlant> * powerplants, ResourceHelper * resourcehelper);
 	~Player();
 	
 	string getName() const;
@@ -24,26 +25,29 @@ public:
 	void setElectro(int electro);
 	void addElectro(int);
 
-	int getHouse() const;
-	void setHouse(int house);
-	void addHouse(int);
-	
+	HouseHelper* getHouse() const;
+	int getHouseCounter() const;
+
 	//resources 
 	void setResources(string resource_type, int quantity); //Adds resource to player's possessions
 	int getResourceQuantity(string resource_type) ;
 	int getResourceCost(string resource_type) ;
 	void printPlayerInfo();
 
-
-	//int getNumberHouses();
+	//void pass();//this one is used when the player chooses not to start an auction.
+	//void auction(); //this one is used when the player chooses a power plant for auction.
 
 private:
-	string name;
-	string area_color;
+	std::string name;
+	std::string area_color;
 	int electro;
-	int house;
-
+	
+	//powerplants
+	int powerPlantCounter;
+	std::vector<PowerPlant>* powerplants;
+	//houses
+	HouseHelper* househelper;
 	//resources
-	ResourceHelper* resources;
+	ResourceHelper* resourcehelper;
 
 };

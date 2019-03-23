@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 
+
 using std::cout;
 using std::endl;
 
@@ -13,22 +14,30 @@ Player::Player() {
 	this->name = "";
 	this->area_color = "";
 	this->electro = 50;
-	this->house = 0;
-
-	this->resources = new ResourceHelper();
+	this->househelper = new HouseHelper();
+	this->resourcehelper = new ResourceHelper();
 }
 
-Player::Player(string name, string area_color) {
-	//Each player takes an overview card, the wooden houses of one color and 50 Elektro.
-	//overview card = summary??
+Player::Player(string name, string area_color, HouseHelper* househelper) {
+
 	this->name = name;
 	this->area_color = area_color;
 	this->electro = 50;
-	this->house = 1;
-
-	this->resources = new ResourceHelper();
-
+	powerplants = new vector<PowerPlant>();
+	this->househelper = househelper;
+	this->resourcehelper = new ResourceHelper();
+	
 }
+
+Player::Player(string name,string area_color, int electro, HouseHelper * househelper, vector<PowerPlant> * powerplants, ResourceHelper * resourcehelper)
+{
+	this->area_color = area_color;
+	this->electro = electro;
+	this->househelper = househelper;
+	this->powerplants = powerplants;
+	this->resourcehelper = resourcehelper;
+}
+
 Player::~Player() {
 
 }
@@ -46,19 +55,6 @@ void Player::setAreaColor(string area_color) {
 	this->area_color = area_color;
 }
 
-int Player::getHouse() const {
-	return house;
-}
-
-void Player::setHouse(int house) {
-	this->house = house;
-}
-
-void Player::addHouse(int house)
-{
-	this->house += house;
-}
-
 int Player::getElectro() const {
 	return electro;
 }
@@ -72,28 +68,39 @@ void Player::addElectro(int electro)
 	this->electro += electro;
 }
 
+HouseHelper* Player::getHouse() const 
+{
+	return this->househelper;
+
+}
+
+int Player::getHouseCounter() const 
+{
+	return this->househelper->getHouse();
+}
 
 void Player::setResources(string resource_type, int quantity)  { //Adds resource to player's possessions
-	resources->setResource(resource_type, quantity);
+	resourcehelper->setResource(resource_type, quantity);
 }
 
 int Player::getResourceQuantity(string resource_type)  {
-	return resources->getResourceQuantity(resource_type);
+	return resourcehelper->getResourceQuantity(resource_type);
 }
 
 int Player::getResourceCost(string resource_type) {
-	return resources->getResourceCost(resource_type);
+	return resourcehelper->getResourceCost(resource_type);
 
 }
 
 void Player::printPlayerInfo() {
 		std::cout << std::string("Name: ") << name << std::endl <<
 		std::string("Electro: ") << electro << std::endl <<
-		std::string("Houses: ") << house << std::endl <<
+		std::string("Houses: ") << Player::getHouseCounter() << std::endl <<
 		std::string("Area Color: ") << area_color << std::endl <<
 		std::string("Coal: ") << Player::getResourceQuantity("Coal") << std::endl <<
 		std::string("Oil: ") << Player::getResourceQuantity("Oil") << std::endl <<
 		std::string("Garbage: ") << Player::getResourceQuantity("Garbage") << std::endl <<
 		std::string("Uranium: ") << Player::getResourceQuantity("Uranium") << std::endl;
+
 		std::cout << std::endl;
 }
