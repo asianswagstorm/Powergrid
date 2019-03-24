@@ -87,14 +87,7 @@ PowerPlantHelper::PowerPlantHelper()
 	
 	ppv->push_back(coal10);
 	
-	powerplantCardsShowned = new vector<PowerPlant>();
-	
-	for (int i = 0; i < ppv->size(); i++) {
-		powerplantCardsShowned->push_back((*ppv)[i]);
-		(*powerplantCardsShowned)[i].printPowerPlantSummary();
-		//(*ppv)[i].printPowerPlantSummary();
-	}
-	
+	PowerPlantHelper::printPPMarket(); //Temporary
 	ppv->push_back(eco13); //facedown
 	//PowerPlant deck in order
 	ppv->push_back(uranium11);
@@ -147,24 +140,69 @@ It is this stack of highest power plants that is then shuffled.
 	//Randomly shuffle the cards
 	//from index 9 (PowerPlant 13) to end-1 (excluding step 3)
 	random_shuffle(ppv->begin() + 9, ppv->end() - 1);
-	cout << "==================================================" << endl;
-	cout << "===========Supply Deck shuffled================" << endl << endl;;
+	std::cout << std::endl << "==================================================" << std::endl;
+	std::cout << "===========Supply Deck shuffled================" << std::endl << std::endl;;
 }
 
 
-/*
+//destructor
 PowerPlantHelper::~PowerPlantHelper() {}
 
-void PowerPlantHelper::printPPMarket() {}
+void PowerPlantHelper::printPPMarket() {
+	powerplantCardsShowned = new vector<PowerPlant>();
 
-int PowerPlantHelper::findPP(int typeNum) {}
+	std::cout << std::endl <<"---------------  Actual Market  ------------" << std::endl;
+
+	for (int i = 0; i < 8; i++) { //ppv->size()
+		powerplantCardsShowned->push_back((*ppv)[i]);
+
+		if (i==4)
+			std::cout << std::endl << "---------------  Future Market  ------------" << std::endl;
+
+		(*powerplantCardsShowned)[i].printPowerPlantSummary();
+		//(*ppv)[i].printPowerPlantSummary();
+	}
+}
 
 
-std::vector<PowerPlant> * PowerPlantHelper::getPPV() {}
+int PowerPlantHelper::findPPActual(int typeNum) {
 
-void PowerPlantHelper::setPPV(std::vector<PowerPlant> * ppv) {}
+	if (ppv->size() <= 4) { // check type number in actual market.
+		for (int i = 0; i < 4; i++) {
+			if ((*ppv)[i].getTypeNum() == typeNum) {
+				return i;
+			}
+			else return -1;
+		}
+	}
 
-string PowerPlantHelper::getPlantType(int index) {}
+}
 
-int PowerPlantHelper::getPlantReq(int index) {}
-*/
+bool PowerPlantHelper::isPPActual(int typeNum) {
+
+	if (findPPActual(typeNum) == -1) {
+		return false;
+	}
+	return true;
+}
+
+
+std::vector<PowerPlant> * PowerPlantHelper::getPPV() {
+
+	return this->ppv;
+}
+
+void PowerPlantHelper::setPPV(std::vector<PowerPlant> * ppv) {
+
+	this->ppv = ppv;
+}
+
+string PowerPlantHelper::getPlantType(int i) {
+
+	return (*ppv)[i].getType();
+}
+
+int PowerPlantHelper::getPlantResources(int i) {
+
+	return (*ppv)[i].getMinPlantCost();
+}

@@ -138,6 +138,7 @@ void Game::setUpGame() {
 
 		//Powerplant Cards 
 		powerplanthelper = new PowerPlantHelper();
+	
 
 		Area::setGameAreas(areas);
 		//save players 

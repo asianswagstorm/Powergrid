@@ -14,16 +14,17 @@ public:
 
 	void printPPMarket();
 
-	int findPP(int typeNum);
+	int findPPActual(int typeNum);
 
 
+	bool isPPActual(int typeNum);
 	vector<PowerPlant> * getPPV();
 
 	void setPPV(vector<PowerPlant> * ppv);
 
-	string getPlantType(int index);
+	string getPlantType(int i);
 
-	int getPlantReq(int index);
+	int getPlantResources(int i);
 
 
 private:
