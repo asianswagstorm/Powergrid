@@ -5,6 +5,13 @@
 4, "Cheyenne",Purple
 5, "Denver",Purple
 6, "Omaha",Purple
+7, "San Francisco",Blue
+8, "Salt Lake City",Blue
+9, "Las Vegas",Blue
+10, "Los Angeles",Blue
+11, "San Diego",Blue
+12, "Phoenix",Blue
+13, "Santa Fe",Blue
 14, "Kansas City",Red
 15, "Oklahoma City",Red
 16, "Dallas",Red

@@ -14,6 +14,12 @@ public:
 	static void readMapInput(string areaColor);
 	static void addEdges();
 
+	/*TO DO: 
+	static void savePlayerOrder();
+	static void savePowerplantsInGame(); //1 file with writing in game or not True False
+
+
+	*/
 };
 
 

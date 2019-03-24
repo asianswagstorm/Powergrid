@@ -14,6 +14,8 @@ Player::Player() {
 	this->name = "";
 	this->area_color = "";
 	this->electro = 50;
+	powerplants = new vector<PowerPlant>();
+	numOfPowerPlants = powerplants->size();
 	this->househelper = new HouseHelper();
 	this->resourcehelper = new ResourceHelper();
 }
@@ -24,6 +26,7 @@ Player::Player(string name, string area_color, HouseHelper* househelper) {
 	this->area_color = area_color;
 	this->electro = 50;
 	powerplants = new vector<PowerPlant>();
+	numOfPowerPlants = powerplants->size();
 	this->househelper = househelper;
 	this->resourcehelper = new ResourceHelper();
 	
@@ -35,6 +38,7 @@ Player::Player(string name,string area_color, int electro, HouseHelper * househe
 	this->electro = electro;
 	this->househelper = househelper;
 	this->powerplants = powerplants;
+	numOfPowerPlants = powerplants->size();
 	this->resourcehelper = resourcehelper;
 }
 
@@ -79,6 +83,21 @@ int Player::getHouseCounter() const
 	return this->househelper->getHouse();
 }
 
+vector<PowerPlant>* Player::getPowerPlants() const
+{
+	return this->powerplants;
+}
+
+int Player::getnumOfPowerPlants() const
+{
+	return this->powerplants->size();
+}
+
+void Player::setnumOfPowerPlants(int numOfPowerPlants)
+{
+	this->numOfPowerPlants = numOfPowerPlants;
+}
+
 void Player::setResources(string resource_type, int quantity)  { //Adds resource to player's possessions
 	resourcehelper->setResource(resource_type, quantity);
 }
@@ -96,6 +115,7 @@ void Player::printPlayerInfo() {
 		std::cout << std::string("Name: ") << name << std::endl <<
 		std::string("Electro: ") << electro << std::endl <<
 		std::string("Houses: ") << Player::getHouseCounter() << std::endl <<
+		std::string("PowerPlants: ") << Player::getnumOfPowerPlants() << std::endl <<
 		std::string("Area Color: ") << area_color << std::endl <<
 		std::string("Coal: ") << Player::getResourceQuantity("Coal") << std::endl <<
 		std::string("Oil: ") << Player::getResourceQuantity("Oil") << std::endl <<

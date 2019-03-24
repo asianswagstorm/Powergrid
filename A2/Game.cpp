@@ -157,6 +157,8 @@ int Game::getRound() const {
 	return round;
 }
 
+//TODO::: READ PLAYER FILE, check HOUSES. if tie, check Powerplant
+
 /*During this phase, the new player order is determined.The first player is the player with the most cities in his network(first house on the scoring track).If two or more players
 are tied for the most cities, the first player is the player among them with the largest - numbered power plant.Place this player‘s house in the first position in the player order
 area.Determine the remaining player positions using the same rules.*/

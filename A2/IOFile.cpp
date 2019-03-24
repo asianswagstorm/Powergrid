@@ -173,14 +173,14 @@ void IOFile::savePlayer(vector<Player*> player_vector) {
 	output << "Player" << i+1 << ":" << endl;
 	output << "Name=" << player_vector[i]->getName() << endl;
 	output << "Electro=" << player_vector[i]->getElectro() << endl;
-	output << "Houses=" << player_vector[i]->getHouseCounter() << endl;
+	output << "Houses=" << player_vector[i]->getHouseCounter() << endl; //Optional change to vector ex {0,1,2,3} * create vector print function
+	output << "PowerPlants=" << player_vector[i]->getnumOfPowerPlants() << endl; // Optional  change to vector ex {3,4,5} * create vector print function
 	output << "Area Color=" << player_vector[i]->getAreaColor() << endl;
 	output << "Coal=" << player_vector[i]->getResourceQuantity("Coal") << endl;
 	output << "Oil=" << player_vector[i]->getResourceQuantity("Oil") << endl;
 	output << "Garbage=" << player_vector[i]->getResourceQuantity("Garbage") << endl;
 	output << "Uranium=" << player_vector[i]->getResourceQuantity("Uranium") << endl;
 	 
-	//powerplants owned not at startup
 	output << "" << endl;
 	std::cout << "Player "<< i+1 <<" saved" << std::endl;
 	
@@ -192,7 +192,7 @@ void IOFile::savePlayer(vector<Player*> player_vector) {
 std::vector<Player *> IOFile::loadPlayer() {
 	Player * playerObj;
 	std::string line, variable, name, color, variable_value,player;
-	int electro, houseCount,coal,oil,garbage,uranium;
+	int electro, houseCount, powerplantCount, coal,oil,garbage,uranium;
 	std::vector<Player *> player_vector;
 
 	ifstream playerInput("player.txt");
@@ -214,7 +214,9 @@ std::vector<Player *> IOFile::loadPlayer() {
 			else if (variable == "Houses") {
 				houseCount = stoi(variable_value);
 			}
-
+			else if (variable == "PowerPlants") {
+				powerplantCount = stoi(variable_value);
+			} 
 			else if (variable == "Area Color") {
 				color = (variable_value);
 			}
@@ -237,6 +239,7 @@ std::vector<Player *> IOFile::loadPlayer() {
 				playerObj->setName(name);
 				playerObj->setElectro(electro);
 				playerObj->getHouse()->setHouse(houseCount);
+				playerObj->setnumOfPowerPlants(powerplantCount);
 				playerObj->setAreaColor(color);
 				playerObj->setResources("Coal",coal);
 				playerObj->setResources("Oil", oil);
