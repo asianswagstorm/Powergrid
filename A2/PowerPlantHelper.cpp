@@ -57,7 +57,7 @@ PowerPlantHelper::PowerPlantHelper()
 	PowerPlant eco44(44, "Eco", 0, 5);
 	PowerPlant eco50(50, "Eco", 0, 6);
 
-	PowerPlant step3(-1, "Step 3", -1, -1);
+	PowerPlant step3(-1, "Step 3", -1, -1);// "step 3" card!
 
 	/*Take the power plant cards numbered 03 to 10 and place them near the board in two horizontal rows.These power plants are an array of 2 x 4 cards(the power plant
 		market).In the upper row, place power plants numbered 03 to 06 in ascending order, left to right, beginning with the least expensive; this is the actual market.In the
@@ -68,7 +68,7 @@ PowerPlantHelper::PowerPlantHelper()
 	*/
 	//PowerPlant Start
    // this is the actual market
-	ppv = new vector<PowerPlant>();
+	ppv = new vector<PowerPlant>(); // ppv == powerPlantVector
 
 	ppv->push_back(oil3);
 	
@@ -186,6 +186,65 @@ bool PowerPlantHelper::isPPActual(int typeNum) {
 	return true;
 }
 
+//FromGithub
+//Sorts the powerplantVector first 8 elements according to 
+//their miniumum bid
+void PowerplantManager::sortMarket() {
+
+	int ppVSize = ppv->size();
+
+	if (ppVSize <= 8) {
+		std::sort(ppv->begin(), ppv->end());
+	}
+	//sort only the first 8 elements
+	else {
+		std::sort(ppv->begin(), ppv->begin() + 8);
+	}
+}
+
+//FromGithub
+//Checks the Actual market to see if the player has enough electro
+//To purchase one of the items
+bool PowerplantManager::hasEnoughElektroForMarket(int elektro) {
+
+	//checks only first powerplant since market is already sorted
+	if ((*ppv)[0].getBid() <= elektro) { 
+		return true;
+	}
+	return false;
+}
+
+//FromGithub  I don't understand this function, need explanation...
+//After the player makes a final buy, it will add the pwp to one of the 3 slots, and 
+//remove it from the market
+
+// Powerplant* PowerplantManager::getAndRemoveSpecificPowerplant(int powerPlantBid) {
+// 	Powerplant* pwpdummy = new Powerplant();
+// 	int count = 0;
+// 	for (Powerplant pp : *powerplantsVector) {
+// 		if (powerPlantBid == pp.getBid()) {
+// 			//can have better solution, but i didnt want to change the code everywhere else
+// 			pwpdummy = new Powerplant(pp.getBid(),pp.getType(),pp.getResourceReq(),pp.getCitiesPowered());
+// 			//call remove function
+// 			break;
+// 		}
+// 		count++;
+// 	}
+// 	powerplantsVector->erase(powerplantsVector->begin() + count);
+// 	sortMarket();
+	
+// 	//if step3 is found set the step3 card as the highest big
+// 	if ((*powerplantsVector)[0].getBid() == -1) {
+// 		cout << "Step 3 card found. Setting it to 999999 as the highest bid, and shuffling the draw pile" << endl;
+// 		(*powerplantsVector)[0].setBid(999999); //set step3 card as the highest bid
+// 		sortMarket(); //resort market
+// 		random_shuffle(powerplantsVector->begin() + 8, powerplantsVector->end()); //shuffling the draw pile (cards after step3 card)
+// 		step3trigger = true;
+// 	}
+// 	return pwpdummy;
+
+// }
+
 
 std::vector<PowerPlant> * PowerPlantHelper::getPPV() {
 
@@ -206,3 +265,107 @@ int PowerPlantHelper::getPlantResources(int i) {
 
 	return (*ppv)[i].getMinPlantCost();
 }
+
+//git
+//Returns number of cities powered by the plant
+int PowerplantManager::getCitiesPowered(int i) {
+
+	return (*ppv)[i].getCitiesPowered();
+}
+
+bool PowerplantManager::getStep3Trigger() {
+	return step3trigger;
+}
+
+void PowerplantManager::setStep3(bool value)
+{
+	step3 = value;
+}
+
+void PowerplantManager::setStep3Trigger(bool value)
+{
+	step3trigger = value;
+}
+
+
+
+//git
+//helper fuctions for buildingPhaseReorder
+void PowerplantManager::removeLowestPowerplant() {
+	ppv->erase(ppv->begin());
+}
+
+int PowerplantManager::getPlantNumber(int i) {
+
+	return (*ppv)[i].getBid();
+
+
+}
+void PowerplantManager::buildingPhaseReorder(int highestNumberOfHouses)
+{
+	if (step3) {
+		//if we are in step3 then erase the first powerplant
+		powerplantsVector->erase(powerplantsVector->begin());
+		//get ppvector.size
+		int ppVSize = powerplantsVector->size();
+
+		if (ppVSize >= 6) {
+			for (int i = 0; i < 6; i++) {
+				if ((*ppv)[i].getBid() <= highestNumberOfHouses) {
+					ppv->erase(ppv->begin() + i);
+					sortMarket();
+					i = 0; //reset i=0 so it rechecks if a smaller pp is found
+					continue;
+				}
+			}
+		}
+		//else do nothing since the market will still be sorted and we will just remove the lowest powerplant
+	}
+	else {
+		//in step1 or step2
+		int count = 0;
+		for (int i = 0; i < 8; i++) {
+			if ((*ppv)[i].getBid() == -1) {
+				step3trigger = true;
+				continue;
+			}
+			else if ((*ppv[i].getBid() <= highestNumberOfHouses) {
+				ppv->erase(ppv->begin() + i);
+				sortMarket();
+				i = 0; //reset i=0 so it rechecks if a smaller pp is found
+				continue;
+			}
+		}
+
+		if (step3trigger) {
+			cout << "Step 3 card found in building phase. Deleting step3 card, lowest powerplant card and shuffling the drawing deck" << endl;
+			powerplantsVector->erase(powerplantsVector->begin()); //delete the step3 card
+			powerplantsVector->erase(powerplantsVector->begin() + 1); //delete the lowest powerplant
+			random_shuffle(powerplantsVector->begin() + 6, powerplantsVector->end()); //shuffling the draw pile
+		}
+
+	}
+
+	
+}
+				 
+//git	should belong to part 4			 
+// void PowerplantManager::bureaucracyPhaseReorder()
+// {
+// 	Powerplant highestplant( 
+// 		(*powerplantsVector)[8].getBid(),
+// 		(*powerplantsVector)[8].getType(), 
+// 		(*powerplantsVector)[8].getResourceReq(), 
+// 		(*powerplantsVector)[8].getCitiesPowered());
+// 	powerplantsVector->erase(powerplantsVector->begin() + 8); //delete the highest powerplant
+// 	powerplantsVector->push_back(highestplant);
+// 	sortMarket();
+
+// 	if ((*powerplantsVector)[0].getBid() == -1) {
+// 		step3trigger = true;
+// 		cout << "Step 3 card found in bureaucracy phase. Deleting step3 card, lowest powerplant card and shuffling the drawing deck" << endl;
+// 		powerplantsVector->erase(powerplantsVector->begin()); //delete the step3 card
+// 		powerplantsVector->erase(powerplantsVector->begin() + 1); //delete the lowest powerplant
+// 		random_shuffle(powerplantsVector->begin() + 6, powerplantsVector->end()); //shuffling the draw pile
+// 	}
+// }				
