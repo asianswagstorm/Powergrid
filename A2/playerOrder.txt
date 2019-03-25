@@ -1,0 +1,15 @@
+1:
+Name=Paul
+Houses=3
+PowerPlants=1
+
+2:
+Name=Jerry
+Houses=2
+PowerPlants=2
+
+3:
+Name=Tom
+Houses=2
+PowerPlants=1
+

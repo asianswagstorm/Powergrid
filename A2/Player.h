@@ -41,6 +41,8 @@ public:
 
 	//void pass();//this one is used when the player chooses not to start an auction.
 	//void auction(); //this one is used when the player chooses a power plant for auction.
+	bool powerplantPurchased = false;
+	bool hasAuction = false;
 
 private:
 	std::string name;

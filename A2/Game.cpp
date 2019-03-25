@@ -19,13 +19,11 @@ Game::Game() {
 }
 //need to save the round number for load
 Game::Game(std::vector<Player*> player_vector, Map *map) {
-	round = 2; //player's first game round , set round as 2 to test load game
+	round = 1; //player's first game round , set round as 2 to test load game
 	this->player_vector = player_vector;
 }
 Game::~Game() { //destructor
 }
-
-void Game::buyPowerPlant() {}
 
 void Game::loadGame(int numPlayers) {
 	//Load map
@@ -52,7 +50,7 @@ void Game::loadGame(int numPlayers) {
 
 
 void Game::setUpGame() {
-	int numPlayers = 0, houseIndex;
+	int numPlayers = 0;
 	string player_name, color;
 	std::vector<SummaryCard*> summary_card_vector;
 	vector<int> areas; //2-3 playes 3 areas , 4 players  4 areas, 5-6 players 5 areas  
@@ -105,14 +103,6 @@ void Game::setUpGame() {
 		areas.push_back(Area::getAreaNumber(color));
 
 		HouseHelper* hh = new HouseHelper();
-		/* Build House
-		//addhouse show available
-		std::cout << "Pick a city index to place your initial house: " << std::endl;
-		cin >> houseIndex;
-		House aHouse = House(houseIndex, Map::getCityName(houseIndex), color);
-		hh->addHouse(aHouse);
-		std::cout << std::endl << "House add in: "  << hh->getHouseVector()[0].getLocation() << std::endl;
-		*/
 
 		//create player
 		Player* player = new Player(player_name, color, hh); //need to save player into file to be loaded
@@ -168,6 +158,7 @@ void Game::determinePlayerOrder() {
 	case(1): {//if the first round every player have 0 houses, so game order is random. //Problem with LOAD
 		std::cout << endl << "This is the first round, all players have equal amount of houses and powerplants, Order is Random" << endl;
 		std::random_shuffle(this->player_vector.begin(), this->player_vector.end()); // from algorithm
+		IOFile::savePlayerOrder(player_vector);
 		break;
 
 	}
@@ -181,16 +172,13 @@ void Game::determinePlayerOrder() {
 			swapPlayers(*player_vector[i], *player_vector[nextPlayer]);
 			i++;
 		}
-		
+		IOFile::savePlayerOrder(player_vector);
 		std::cout << endl << "------------------PLAYER ORDER ----------------" << endl;
 
 		for (Player* player : this->player_vector) {
-			
-
 			std::cout << player->getName() << ", " << player->getHouseCounter() << " Houses, " << player->getnumOfPowerPlants() << " PowerPlants. " << std::endl;
-			
 		}
-
+		
 		break;
 	}
 	}
@@ -202,7 +190,7 @@ int Game::getFirstPlayer(std::vector<Player*> player_vector, int i) {
 	int maxPowerPlant = player_vector[i]->Player::getnumOfPowerPlants(); 
 	//Player::getPowerPlants()->size() 
 	
-	for (int j = i+1; j < player_vector.size(); j++) {
+	for (unsigned int j = i+1; j < player_vector.size(); j++) {
 		if (player_vector[j]->Player::getHouse()->HouseHelper::getHouse() > maxHouse) {
 
 			maxHouse = player_vector[j]->Player::getHouse()->HouseHelper::getHouse();
@@ -227,3 +215,22 @@ void Game::swapPlayers(Player& player1, Player& player2) {
 	player1 = player2;
 	player2 = temp;
 }
+
+void Game::buyPowerPlant() {
+	int AuctionWinner, playerBid;
+
+	for (int i = 0; i < this->player_vector.size(); i++) { //loop every player to let them buy powerplants
+
+		if (player_vector[i]->powerplantPurchased == true) { // if already bought powerplant, skip player.
+			player_vector[i]->hasAuction = true;
+			continue;
+		}
+		powerplanthelper->PowerPlantHelper::printPPMarket();
+		std::cout<<endl << player_vector[i]->getName() << " starts the bid: enter a bid less than equal to powerplant card number. (This is the minimum bid in Electros to purchase the powerplant):" << endl <<endl;
+		cin >> playerBid;
+	
+	
+	}
+
+}
+

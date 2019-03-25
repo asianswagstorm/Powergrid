@@ -264,3 +264,21 @@ std::vector<Player *> IOFile::loadPlayer() {
 
 	return player_vector;
 }
+
+void IOFile::savePlayerOrder(vector<Player*> player_vector) {
+	ofstream output;
+	// Create or open a file
+	output.open("playerOrder.txt");
+	for (int i = 0; i < player_vector.size(); i++) {
+		output << i + 1 << ":" << endl;
+		output << "Name=" << player_vector[i]->getName() << endl;
+		output << "Houses=" << player_vector[i]->getHouseCounter() << endl; 
+		output << "PowerPlants=" << player_vector[i]->getnumOfPowerPlants() << endl; 
+		output << "" << endl;
+	}
+
+	std::cout << "Player Order saved" << std::endl;
+	output.close();
+
+}
+

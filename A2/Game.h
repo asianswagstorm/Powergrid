@@ -27,8 +27,6 @@ public:
 	void swapPlayers(Player& player1, Player& player2);
 
 	void buyPowerPlant();
-	
-
 
 
 private:

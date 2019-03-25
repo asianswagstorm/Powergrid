@@ -36,16 +36,17 @@ int main() {
 	cin >> response;
 
 	if (response != "new") {
+		game->setRound(2); // temporary
 		game->Game::loadGame(numPlayers);
 		
 	}
 	else {
 		game->Game::setUpGame();
 		//Map::testMap(map); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
-	
 	}
 
-	game->Game::determinePlayerOrder(); //return vector of order
+	game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
+	game->Game::buyPowerPlant();
 
 	system("pause");
 	return 0;

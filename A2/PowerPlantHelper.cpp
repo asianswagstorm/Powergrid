@@ -87,7 +87,7 @@ PowerPlantHelper::PowerPlantHelper()
 	
 	ppv->push_back(coal10);
 	
-	PowerPlantHelper::printPPMarket(); //Temporary
+	//PowerPlantHelper::printPPMarket(); //Temporary
 	ppv->push_back(eco13); //facedown
 	//PowerPlant deck in order
 	ppv->push_back(uranium11);
