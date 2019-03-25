@@ -23,7 +23,8 @@ public:
 	void setRound(int round);
 	int getRound() const;
 	void determinePlayerOrder();
-	int getFirstPlayer(std::vector<Player*> player_vector);
+	int getFirstPlayer(std::vector<Player*> player_vector, int i);
+	void swapPlayers(Player& player1, Player& player2);
 
 	void buyPowerPlant();
 	

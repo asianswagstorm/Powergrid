@@ -19,7 +19,7 @@ Game::Game() {
 }
 //need to save the round number for load
 Game::Game(std::vector<Player*> player_vector, Map *map) {
-	round = 1; //player's first game round 
+	round = 2; //player's first game round , set round as 2 to test load game
 	this->player_vector = player_vector;
 }
 Game::~Game() { //destructor
@@ -164,33 +164,66 @@ are tied for the most cities, the first player is the player among them with the
 area.Determine the remaining player positions using the same rules.*/
 void Game::determinePlayerOrder() {
 
-	switch (round)  {
-	case(1): {//if the first round every player have 0 houses, so game order is random.
-		std::cout << endl<<"This is the first round, all players have equal amount of houses and powerplants, Order is Random" << endl;
-		std::random_shuffle(player_vector.begin(), player_vector.end()); // from algorithm
+	switch (Game::getRound()) {
+	case(1): {//if the first round every player have 0 houses, so game order is random. //Problem with LOAD
+		std::cout << endl << "This is the first round, all players have equal amount of houses and powerplants, Order is Random" << endl;
+		std::random_shuffle(this->player_vector.begin(), this->player_vector.end()); // from algorithm
 		break;
 
 	}
 	default: {
 		std::cout << "Player order is decided on the player with the highest controlled cities (Houses owned)" << endl <<
 			"If a tie exists, then order is decided based on player with highest owned powerplants. " << endl;
-		int max = 0;
-		//
-		for (int i = 0; player_vector.size(); i++) {
+		int nextPlayer = 0, i = 0, firstPlayer;
+		firstPlayer = Game::getFirstPlayer(this->player_vector, i);
+		for (Player* p : this->player_vector) {
+			nextPlayer = Game::getFirstPlayer(this->player_vector, i);
+			swapPlayers(*player_vector[i], *player_vector[nextPlayer]);
+			i++;
+		}
+		
+		std::cout << endl << "------------------PLAYER ORDER ----------------" << endl;
 
+		for (Player* player : this->player_vector) {
+			
+
+			std::cout << player->getName() << ", " << player->getHouseCounter() << " Houses, " << player->getnumOfPowerPlants() << " PowerPlants. " << std::endl;
+			
 		}
 
-
+		break;
 	}
-
-
 	}
-
 }
 
-int Game::getFirstPlayer(std::vector<Player*> player_vector) {
-	int house = player_vector[0]->getHouse()->getHouse(); //player->househelper->int
-	//int powerplant = player_vector[0];
-	int max = 0;
-	return 0;
+int Game::getFirstPlayer(std::vector<Player*> player_vector, int i) {
+	int max = i;
+	int maxHouse = player_vector[i]->Player::getHouse()->HouseHelper::getHouse();
+	int maxPowerPlant = player_vector[i]->Player::getnumOfPowerPlants(); 
+	//Player::getPowerPlants()->size() 
+	
+	for (int j = i+1; j < player_vector.size(); j++) {
+		if (player_vector[j]->Player::getHouse()->HouseHelper::getHouse() > maxHouse) {
+
+			maxHouse = player_vector[j]->Player::getHouse()->HouseHelper::getHouse();
+			max = j;
+		}
+
+		else if (player_vector[j]->Player::getHouse()->HouseHelper::getHouse() == maxHouse) {
+			if (player_vector[j]->getnumOfPowerPlants() > maxPowerPlant) {
+				maxPowerPlant = player_vector[j]->getnumOfPowerPlants();
+				max = (j);
+
+			}
+		}
+	}
+	
+	return max;
+}
+
+void Game::swapPlayers(Player& player1, Player& player2) {
+	Player temp;
+	temp = player1;
+	player1 = player2;
+	player2 = temp;
 }

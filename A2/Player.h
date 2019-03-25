@@ -33,7 +33,6 @@ public:
 	vector<PowerPlant>* getPowerPlants() const;
 	int getnumOfPowerPlants() const;
 	void setnumOfPowerPlants(int numOfPowerPlants);
-
 	//resources 
 	void setResources(string resource_type, int quantity); //Adds resource to player's possessions
 	int getResourceQuantity(string resource_type) ;

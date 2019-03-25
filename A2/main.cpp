@@ -1,4 +1,5 @@
 #include <cstdlib>
+
 #include <fstream>
 #include <istream>
 #include <sstream>
@@ -9,6 +10,7 @@
 #include <list>
 
 #include "Game.h"
+
 
 int main() {
 
@@ -43,7 +45,7 @@ int main() {
 	
 	}
 
-	game->Game::determinePlayerOrder();
+	game->Game::determinePlayerOrder(); //return vector of order
 
 	system("pause");
 	return 0;

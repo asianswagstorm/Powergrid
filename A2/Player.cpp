@@ -90,7 +90,7 @@ vector<PowerPlant>* Player::getPowerPlants() const
 
 int Player::getnumOfPowerPlants() const
 {
-	return this->powerplants->size();
+	return this->numOfPowerPlants;
 }
 
 void Player::setnumOfPowerPlants(int numOfPowerPlants)
