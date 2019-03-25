@@ -124,3 +124,25 @@ void Player::printPlayerInfo() {
 
 		std::cout << std::endl;
 }
+
+//this one is used when the player chooses not to start an auction.
+bool  Player::pass() {
+	Player::powerplantPurchased = true;
+	return powerplantPurchased;
+}
+
+//this one is used when the player chooses a power plant for auction.
+bool  Player::auction() {
+	Player::hasAuction = true;
+	return hasAuction;
+}
+
+bool  Player::getPass() {
+	return Player::powerplantPurchased;
+}
+
+
+void Player::resetAuction() {
+	Player::hasAuction = false;
+	Player::powerplantPurchased = false;
+}

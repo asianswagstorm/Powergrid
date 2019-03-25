@@ -9,6 +9,7 @@
 
 #include "Game.h"
 #include "PowerPlant.h"
+#include "PowerPlantHelper.h"
 #include "Map.h"
 #include "mapreader.h"
 #include "IOFile.h"
@@ -218,17 +219,47 @@ void Game::swapPlayers(Player& player1, Player& player2) {
 
 void Game::buyPowerPlant() {
 	int AuctionWinner, playerBid;
+	string response = "" ;
 
-	for (int i = 0; i < this->player_vector.size(); i++) { //loop every player to let them buy powerplants
+	//reset the auction status
+	for (unsigned int j = 0; j < this->player_vector.size(); j++) {
+		player_vector[j]->resetAuction();
+	}
 
-		if (player_vector[i]->powerplantPurchased == true) { // if already bought powerplant, skip player.
-			player_vector[i]->hasAuction = true;
+	for (unsigned int i = 0; i < this->player_vector.size(); i++) { //loop every player to let them buy powerplants
+
+		if (player_vector[i]->getPass() == true) { // if already bought powerplant, skip player.
+			player_vector[i]->auction(); //set auction = true
+			continue; //gets out of the loop
+		}
+
+		powerplanthelper->PowerPlantHelper::printPPMarket();
+
+		std::cout << std::endl << "PHASE 2 POWERPLANT AUCTIONING" << std::endl ;
+		std::cout << std::endl << player_vector[i]->getName() << " starts the bid: enter a bid less than equal to powerplant card number." << std::endl << "(This is the minimum bid in Electros to purchase the powerplant):" << endl <<endl;
+	
+		while (response != "yes" && response != "no") {
+			std::cout << "Do you want to auction on a powerplants (yes/no): ";
+			cin >> response; std::cout << endl;
+		}
+
+		if (response == "no") {
+			cout << player_vector[i]->getName() << " has passed on auctioning a power plant." << endl;
+			player_vector[i]->pass();
 			continue;
 		}
-		powerplanthelper->PowerPlantHelper::printPPMarket();
-		std::cout<<endl << player_vector[i]->getName() << " starts the bid: enter a bid less than equal to powerplant card number. (This is the minimum bid in Electros to purchase the powerplant):" << endl <<endl;
+
+
+		std:cout << player_vector[i]->getName() <<" currently has " << player_vector[i]->getElectro() << " elektros, enter your bid" << endl;
 		cin >> playerBid;
 	
+		//check if in actual market.
+		if (powerplanthelper->PowerPlantHelper::isPPActual(playerBid) == false) {
+			cout << endl << "!!!! This powerplant card is not in the Actual Market, INVALID BID" << endl << endl;
+		}else if (player_vector[i]->getElectro() < playerBid) {
+			cout << endl << "!!!! Insufficient funds, PowerPlant: " << playerBid << " costs " << playerBid << "Elektros" << endl;
+			std::cout << "You only have "<< player_vector[i]->getElectro() << " Elektros " << endl;
+		}
 	
 	}
 

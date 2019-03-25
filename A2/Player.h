@@ -39,10 +39,10 @@ public:
 	int getResourceCost(string resource_type) ;
 	void printPlayerInfo();
 
-	//void pass();//this one is used when the player chooses not to start an auction.
-	//void auction(); //this one is used when the player chooses a power plant for auction.
-	bool powerplantPurchased = false;
-	bool hasAuction = false;
+	bool pass();//this one is used when the player chooses not to start an auction.
+	bool auction(); //this one is used when the player chooses a power plant for auction.
+	void resetAuction();
+	bool getPass();
 
 private:
 	std::string name;
@@ -58,4 +58,6 @@ private:
 	//resources
 	ResourceHelper* resourcehelper;
 
+	bool powerplantPurchased = false;
+	bool hasAuction = false;
 };
