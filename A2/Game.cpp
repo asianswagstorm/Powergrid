@@ -217,9 +217,38 @@ void Game::swapPlayers(Player& player1, Player& player2) {
 	player2 = temp;
 }
 
+Player * Game::getNextPlayer(Player& player) {
+	if (&player == &*player_vector[0]) { //if the first player, return next (second)
+		return player_vector[1];
+	}
+	if ((player_vector).size() == 3) {
+		if (&player == &*player_vector[1]) { //if second player, return next (third)
+			return player_vector[2];
+		}
+	}
+	if ((player_vector).size() == 4) {
+		if (&player == &*player_vector[2]) { //if third player, return next (fourth)
+			return player_vector[3];
+		}
+	}
+	if ((player_vector).size() == 5) {
+		if (&player == &*player_vector[3]) { //if fourth player, return next (fifth)
+			return player_vector[4];
+		}
+	}
+	if ((player_vector).size() == 6) {
+		if (&player == &*player_vector[4]) { //if fifth player, return next (sixth)
+			return player_vector[5];
+		}
+	}
+
+	return player_vector[0]; //else return first 
+}
+
 void Game::buyPowerPlant() {
-	int AuctionWinner=-1, playerBid = -1 , k = 0, playersWithAuction = -1;
-	string response = "" ;
+	int AuctionWinner=-1, init_playerBid = -2 , k = 0, playersWithAuction = -1, auctionSize=-1, auction_bid = -2;
+	//response= would you like to but a plant? , bid_response= do you want to join the auction for a powerplant
+	std::vector<Player*> player_with_auction;
 
 	//reset the auction status
 	for (unsigned int j = 0; j < this->player_vector.size(); j++) {
@@ -227,70 +256,145 @@ void Game::buyPowerPlant() {
 	}
 
 	for (unsigned int i = 0; i < this->player_vector.size(); i++) { //loop every player to let them buy powerplants
-
+		auctionSize = (int)i; //players with auction
+		bool isInActual = false;
+		bool canAfford = false;
+		
 		if (player_vector[i]->getPass() == true) { // if already bought powerplant, skip player.
 			player_vector[i]->auction(); //set auction = true
 			continue; //gets out of the loop
 		}
-
+		std::cout << std::endl << "PHASE 2 POWERPLANT AUCTIONING" << std::endl ;
 		powerplanthelper->PowerPlantHelper::printPPMarket();
 
-		std::cout << std::endl << "PHASE 2 POWERPLANT AUCTIONING" << std::endl ;
-		std::cout << std::endl << player_vector[i]->getName() << " starts the bid " << std::endl << std::endl;
-	
-		if(Game::getRound() > 1){ // first round player must buy powerplant
-		while (response != "yes" && response != "no") {
-			std::cout << "Do you want to auction on a powerplants (yes/no): ";
-			cin >> response; std::cout << endl;
+
+		if(i == 0)
+		std::cout << std::endl << player_vector[i]->getName() << " is the first person to start the bid according to the player order rules. " << std::endl << std::endl;
+		else {
+		
+		//check if previous player has passed on bid
+			if (player_vector[i-1]->getPass() == true) { //passed up on a bid. 
+				auctionSize--; 
+			}
+			std::cout << std::endl << player_vector[i]->getName() << "'s turn. " << std::endl; 
+			std::cout << "To start the bid " << std::endl;
+		
 		}
+		
+		string response = ""; //used to reset the response when a player responds
+
+		if(Game::getRound() >= 1){ // first round player must buy powerplant , I set round = 2 for testing in main. 
+			while (response != "yes" && response != "no") {
+			std::cout << player_vector[i]->getName() << ", do you want to auction on a powerplant (yes/no): ";
+			cin >> response; std::cout << endl;
+			}
 
 		if (response == "no") {
 			cout << player_vector[i]->getName() << " has passed on auctioning a power plant." << endl;
-			player_vector[i]->pass();
+			player_vector[i]->pass(); 
 			continue;
-		}
-		}
+			}// end no
+		}//end if round
 
-		while(powerplanthelper->PowerPlantHelper::isPPActual(playerBid) == false || player_vector[i]->getElectro() < playerBid)
+		if (response == "yes") {
+			while (isInActual == false || canAfford == false)
 			{ //if invalid bid (inssuficient fund or powerplant not in actual market
+				std::cout << player_vector[i]->getName() << " currently has " << player_vector[i]->getElectro() << " elektros " << std::endl;
+				std::cout << "Enter a bid less than equal to max powerplant card number in actual market." << std::endl << "(This is the minimum bid in Electros to purchase the powerplant) : " << endl;
 
-		std::cout << player_vector[i]->getName() << " currently has " << player_vector[i]->getElectro() << " elektros " << std::endl;
-		std::cout << "Enter a bid less than equal to max powerplant card number in actual market." << std::endl << "(This is the minimum bid in Electros to purchase the powerplant) : " << endl;
+				cin >> init_playerBid;
 
-		cin >> playerBid;
-	
-	
-		//check if in actual market.
-		if (powerplanthelper->PowerPlantHelper::isPPActual(playerBid) == false) {
-			cout << endl << "!!!! This powerplant card is not in the Actual Market, INVALID BID" << endl << endl;
-		}else if (player_vector[i]->getElectro() < playerBid) {
-			cout << endl << "!!!! Insufficient funds, PowerPlant: " << playerBid << " costs " << playerBid << "Elektros" << endl;
-			std::cout << "You only have "<< player_vector[i]->getElectro() << " Elektros " << endl;
-		}
-	
-			}
+				isInActual = powerplanthelper->PowerPlantHelper::isPPActual(init_playerBid);
+				canAfford = (player_vector[i]->getElectro() > init_playerBid);
 
-		int powerplantNum = playerBid;
-		//if True 
+				//check if in actual market.
+				if (isInActual == false) {
+					cout << endl << "!!!! This powerplant card is not in the Actual Market, INVALID BID" << endl << endl;
+				}
+				else if (canAfford == false) {
+					cout << endl << "!!!! Insufficient funds, PowerPlant: " << init_playerBid << " costs " << init_playerBid << " Elektros" << endl;
+					std::cout << "You only have " << player_vector[i]->getElectro() << " Elektros " << std::endl << std::endl ;
+				}
+				else {
+					std::cout << "Correct Input, card " << init_playerBid << " is in actual market." << std::endl << std::endl;
+					
+					//player_vector[i]->auction(); //set auction true
+					continue;
+				}
 
-		std::vector<Player*> player_with_auction;
-		//check if player has auction
+			}//end while
+
+		} // end yes
+
+	//auction while  
+		while(auctionSize != player_vector.size()){ // while not end of player round
+			if (auctionSize == player_vector.size() - 1 || player_vector.size() - player_with_auction.size() == 1) { // if last player or last player has no auction
+				int k = 0;
+
+				for (unsigned int j = 0; j < player_vector.size(); j++) {
+					if (player_vector[j]->getAuction() == false)
+						AuctionWinner = k;
+					k++;
+				}
+				break;
+			}		
+			//check if same bid. 
+		cout << std::endl << "------------ Starting Auction -----------" << std::endl << std::endl;
 		
-		for (Player* players : player_vector) {
-			if (players->Player::getAuction() == true) {
-				player_with_auction.push_back(player_vector[k]);
-				k++;
-			}
+		player_vector[i] = Game::getNextPlayer(*player_vector[i]); //get next player to start an auction
+		while (player_vector[i]->getAuction() == true) {
+			player_vector[i] = getNextPlayer(*player_vector[i]);
 		}
+		string bid_response = "";
 
-		playersWithAuction = player_with_auction.size();
+		while (bid_response != "yes" && bid_response != "no") {
+			std::cout << "The Current Bid is for powerplant: " << init_playerBid << endl;
+			std::cout << player_vector[i]->getName() << " Would you wish to bid on this powerplant? Type yes or no " << endl;
+			cin >> bid_response;
 
+			if (bid_response == "no") {
+				auctionSize++;
+				std::cout << player_vector[i]->getName() << " has passed ont joining the auction for powerplant:" << init_playerBid << std::endl;
+				player_vector[i]->pass();
+				break;
+			}
+			else if (bid_response == "yes") {
+				std::cout << "Please enter the amount you want to bid for powerplant: " << init_playerBid << std::endl;
+				cin >> auction_bid;
+
+				bool lowBid = auction_bid <= init_playerBid;
+				bool cantAfford = player_vector[i]->getElectro() < init_playerBid;
 		
+				if (lowBid) { //can no longer bid
+					cout << "This bid is too low, you lose the chance to buy a powerplant this round." << std::endl;
+					player_vector[i]->pass();
+					auctionSize++;
+					
+				}
+				else if (cantAfford) { //can no longer bid
+					cout << "You do not have enough electro to buy this powerplant." << std::endl;
+					player_vector[i]->pass();
+					auctionSize++;
+					
+				}
+
+				if (lowBid == false && cantAfford == false) {
+					init_playerBid = auction_bid;
+					std::cout << "The bid changed to: " << init_playerBid << std::endl << std::endl;
+					
+				}
+				
+			}//end yes bid_response
+		}//end while bid response
+
+		}//end auction while 	
+		
+		int powerplantNum = init_playerBid;
 		std::cout << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << powerplantNum << endl;
 		player_vector[AuctionWinner]->pass();
-		//player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->  getAndRemoveSpecificPowerplant(intialPlantValue));
+		player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(powerplantNum));
 		player_vector[AuctionWinner]->removeElectro(powerplantNum);
-		
+	
 	}//main for loop done
 
 }

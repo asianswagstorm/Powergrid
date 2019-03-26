@@ -150,11 +150,13 @@ PowerPlantHelper::~PowerPlantHelper() {}
 
 void PowerPlantHelper::printPPMarket() {
 	powerplantCardsShowned = new vector<PowerPlant>();
-
+	powerplantActualMarket = new vector<PowerPlant>();
 	std::cout << std::endl <<"---------------  Actual Market  ------------" << std::endl;
 
 	for (int i = 0; i < 8; i++) { //ppv->size()
 		powerplantCardsShowned->push_back((*ppv)[i]);
+		if (i < 4)
+			powerplantActualMarket->push_back((*powerplantCardsShowned)[i]);
 
 		if (i==4)
 			std::cout << std::endl << "---------------  Future Market  ------------" << std::endl;
@@ -166,18 +168,15 @@ void PowerPlantHelper::printPPMarket() {
 
 
 int PowerPlantHelper::findPPActual(int typeNum) {
-
-	if (ppv->size() <= 4) { // check type number in actual market.
-		for (int i = 0; i < 4; i++) {
-			if ((*ppv)[i].getTypeNum() == typeNum) {
+	
+	 int i=0;
+		for (PowerPlant powerplant : *powerplantActualMarket) {
+			if (powerplant.getTypeNum() == typeNum) {
 				return i;
 			}
+			i++;
 		}
-		return -1;
-	}
-
-	else return -1;
-
+	return -1;
 }
 
 bool PowerPlantHelper::isPPActual(int typeNum) {
@@ -185,7 +184,7 @@ bool PowerPlantHelper::isPPActual(int typeNum) {
 	if (findPPActual(typeNum) == -1) {
 		return false;
 	}
-	return true;
+	else return true;
 }
 
 
@@ -207,4 +206,30 @@ string PowerPlantHelper::getPlantType(int i) {
 int PowerPlantHelper::getPlantResources(int i) {
 
 	return (*ppv)[i].getMinPlantCost();
+}
+
+PowerPlant* PowerPlantHelper::removePowerPlant(int playerBid) {
+
+	PowerPlant* powerplantObj = new PowerPlant();
+	int i = 0;
+	for (PowerPlant pp : *powerplantActualMarket) {
+		if (playerBid == pp.PowerPlant::getTypeNum()) {
+			powerplantObj = new PowerPlant(pp.PowerPlant::getTypeNum(), pp.getType(), pp.PowerPlant::getMinPlantCost(), pp.PowerPlant::getHouse());
+			break;
+		}
+		i++;
+	}
+	ppv->erase(ppv->begin() + i);
+	ppv->erase(powerplantCardsShowned->begin() + i);
+	ppv->erase(powerplantActualMarket->begin() + i);
+	
+	//if step3 is found set the step3 card as the highest big
+	if ((*powerplantCardsShowned)[0].getTypeNum() == -1) {
+		cout << "Step 3 card found. shuffle the draw pile" << endl;
+		(*powerplantCardsShowned)[0].setTypeNum(-1); 
+		random_shuffle(ppv->begin() + 8, ppv->end()); //shuffling the draw pile (cards after step3 card)
+		isStep3 = true;
+	}
+	return powerplantObj;
+
 }

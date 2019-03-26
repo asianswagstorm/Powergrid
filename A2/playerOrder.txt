@@ -1,15 +1,15 @@
 1:
 Name=Paul
-Houses=3
-PowerPlants=1
+Houses=0
+PowerPlants=0
 
 2:
-Name=Jerry
-Houses=2
-PowerPlants=2
+Name=Jonh
+Houses=0
+PowerPlants=0
 
 3:
-Name=Tom
-Houses=2
-PowerPlants=1
+Name=Jack
+Houses=0
+PowerPlants=0
 

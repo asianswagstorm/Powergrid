@@ -25,7 +25,7 @@ public:
 	void determinePlayerOrder();
 	int getFirstPlayer(std::vector<Player*> player_vector, int i);
 	void swapPlayers(Player& player1, Player& player2);
-
+	Player * getNextPlayer(Player& player);
 	void buyPowerPlant();
 
 
