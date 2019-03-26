@@ -169,7 +169,7 @@ void IOFile::savePlayer(vector<Player*> player_vector) {
 
 	output.open("player.txt");
 
-	for (int i = 0; i < player_vector.size(); i++) {
+	for (unsigned int i = 0; i < player_vector.size(); i++) {
 	output << "Player" << i+1 << ":" << endl;
 	output << "Name=" << player_vector[i]->getName() << endl;
 	output << "Electro=" << player_vector[i]->getElectro() << endl;
@@ -257,7 +257,7 @@ std::vector<Player *> IOFile::loadPlayer() {
 	}
 
 	std::cout << std::endl<< "Player's Loaded." << std::endl << "Here are your current players : " << std::endl <<std::endl;
-	for (int i = 0; i < player_vector.size(); i++) {
+	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		std::cout << "Player " << i + 1 << ":" << std::endl;
 		player_vector[i]->printPlayerInfo();
 	}
@@ -269,7 +269,7 @@ void IOFile::savePlayerOrder(vector<Player*> player_vector) {
 	ofstream output;
 	// Create or open a file
 	output.open("playerOrder.txt");
-	for (int i = 0; i < player_vector.size(); i++) {
+	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		output << i + 1 << ":" << endl;
 		output << "Name=" << player_vector[i]->getName() << endl;
 		output << "Houses=" << player_vector[i]->getHouseCounter() << endl; 

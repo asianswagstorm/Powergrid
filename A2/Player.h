@@ -24,6 +24,7 @@ public:
 	int getElectro() const;
 	void setElectro(int electro);
 	void addElectro(int);
+	void removeElectro(int);
 
 	//house
 	HouseHelper* getHouse() const;
@@ -33,6 +34,10 @@ public:
 	vector<PowerPlant>* getPowerPlants() const;
 	int getnumOfPowerPlants() const;
 	void setnumOfPowerPlants(int numOfPowerPlants);
+	void addPowerPlant(PowerPlant * powerplant); // adds a powerplant to the powerplants vector
+	//powerplanthelper add powerplant 	std::vector<PowerPlant>* powerplants;
+
+
 	//resources 
 	void setResources(string resource_type, int quantity); //Adds resource to player's possessions
 	int getResourceQuantity(string resource_type) ;
@@ -43,6 +48,7 @@ public:
 	bool auction(); //this one is used when the player chooses a power plant for auction.
 	void resetAuction();
 	bool getPass();
+	bool getAuction();
 
 private:
 	std::string name;

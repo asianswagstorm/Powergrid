@@ -45,6 +45,8 @@ int Area::getAreaNumber(string area_color) {
 	if (area_color == "green") {
 		return 5; //green area
 	}
+
+	else return -1;
 	
 }
 

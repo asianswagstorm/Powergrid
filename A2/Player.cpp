@@ -72,6 +72,12 @@ void Player::addElectro(int electro)
 	this->electro += electro;
 }
 
+void Player::removeElectro(int electro)
+{
+	this->electro -= electro;
+}
+
+
 HouseHelper* Player::getHouse() const 
 {
 	return this->househelper;
@@ -96,6 +102,36 @@ int Player::getnumOfPowerPlants() const
 void Player::setnumOfPowerPlants(int numOfPowerPlants)
 {
 	this->numOfPowerPlants = numOfPowerPlants;
+}
+
+void Player::addPowerPlant(PowerPlant * powerplant)
+{
+	//During the game each player can have only 3 power plants at any time. (from game rule) , // if powerplant vector is full
+	if (this->powerplants->size() == 3) {
+		std::cout << std::endl << "ERROR YOU ALREADY HAVE MAXIMUM POWERPLANT" << std::endl;
+		std::cout << "You must replace one of your powerplants before adding a new one." << std::endl;
+		for (int i = 0; i < 3; i++) { 
+			std::cout << i + 1 << ": ";
+			(*powerplants)[i].printPowerPlantSummary(); 
+			std::cout << std::endl;
+		}
+		int ppToBeRemoved = -1;
+		std::cout << std::endl << "Enter the powerplant number you wish to remove:" << std::endl;
+		
+		while (ppToBeRemoved < 1 && ppToBeRemoved > 3) {
+			cin >> ppToBeRemoved;
+			if (ppToBeRemoved < 1 || ppToBeRemoved > 3)
+				std::cout << "Invalid Input (must be between 1 - 3): " << std::endl;
+			else
+				break;
+		}
+		this->powerplants->erase(this->powerplants->begin() + (ppToBeRemoved-1));
+		this->powerplants->push_back(*powerplant);	
+	}
+	else{
+		this->powerplants->push_back(*powerplant);
+		Player::setnumOfPowerPlants(Player::getnumOfPowerPlants() + 1);
+	}
 }
 
 void Player::setResources(string resource_type, int quantity)  { //Adds resource to player's possessions
@@ -139,6 +175,10 @@ bool  Player::auction() {
 
 bool  Player::getPass() {
 	return Player::powerplantPurchased;
+}
+
+bool Player::getAuction() {
+	return hasAuction;
 }
 
 

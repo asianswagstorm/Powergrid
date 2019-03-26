@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "House.h";
+#include "House.h"
 
 using namespace std;
 

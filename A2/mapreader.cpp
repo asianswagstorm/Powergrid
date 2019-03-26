@@ -77,7 +77,7 @@ void mapreader::readMap(string mapFileName) {
 		std::sort(areas.begin(), areas.end());
 		areas.erase(std::unique(areas.begin(), areas.end()), areas.end());
 
-		for (int i = 0; i < areas.size(); i++) {
+		for (unsigned int i = 0; i < areas.size(); i++) {
 			
 			if (areas[i] == "Purple") {
 				initial_file_area->push_back(0);

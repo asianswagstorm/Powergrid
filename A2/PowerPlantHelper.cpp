@@ -136,7 +136,7 @@ It is this stack of highest power plants that is then shuffled.
 
 	//Used to make random_shuffle random
    //See:https://stackoverflow.com/questions/13459953/random-shuffle-not-really-random
-	std::srand(std::time(0));
+	std::srand((unsigned int)std::time(0));
 	//Randomly shuffle the cards
 	//from index 9 (PowerPlant 13) to end-1 (excluding step 3)
 	random_shuffle(ppv->begin() + 9, ppv->end() - 1);
@@ -172,9 +172,11 @@ int PowerPlantHelper::findPPActual(int typeNum) {
 			if ((*ppv)[i].getTypeNum() == typeNum) {
 				return i;
 			}
-			else return -1;
 		}
+		return -1;
 	}
+
+	else return -1;
 
 }
 
