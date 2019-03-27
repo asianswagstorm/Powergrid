@@ -181,8 +181,15 @@ bool Player::getAuction() {
 	return hasAuction;
 }
 
+void  Player::setPass(bool powerplantPurchased) {
+	this->powerplantPurchased = powerplantPurchased;
+
+}
+void  Player::setAuction(bool hasAuction) {
+	this->hasAuction = hasAuction;
+}
 
 void Player::resetAuction() {
-	Player::hasAuction = false;
-	Player::powerplantPurchased = false;
+	Player::setPass(false);
+	Player::setAuction(false);
 }
