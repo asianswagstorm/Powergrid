@@ -493,3 +493,90 @@ Player * Game::getNextPlayer(Player & p) {
 
 	return player_vector[0];
 }
+
+
+
+
+
+void Game::bureaucracy() {
+	ofstream output;
+	output.open("gamelog.txt");
+	output << "*****************************************************************" << endl;
+	cout << " PART 5: BUREAUCRACY" << endl;
+	cout << "*****************************************************************" << endl;
+
+	string powerDecision;
+	vector<int> numberCitiesPoweredAtEnd;
+
+	reverse(vector_player.begin(), vector_player.end());
+	for (Player* player : vector_player) {
+
+		int poweredPlants[3] = { -1,-1,-1 }; //Initial status (no powered plants)
+		/*Money received depends on the number of powered houses.
+		<---->If no house powered ---> the automatically 10 elektro.
+		- Giving them the ability to decide how many houses they want to power based on their resources.*/
+		cout << "**********************************************************************************************************************" << endl;
+		cout << "Player " << player->getAreaColor() << " has " << player->getHouse()->getHouseCounter() << " houses." << endl;
+		cout << "Attention: You can only power cities that you own, any powering except that will be a loss of resources." << endl;
+		cout << "**********************************************************************************************************************" << endl;
+		cout << "Do you want to power any Cities?";
+		cout << "(yes or no)";
+		cin >> powerDecision; cout << endl;
+
+
+		//If yes, player will power cities
+		if ( powerDecision == "yes") {
+			int choice = -1;
+			int numberCitiesPowered = 0;
+
+			//case 1: no houses to power---> 10 elektros will be offered to the player
+			if (player->getHouseCounter() == 0) {
+				choice = 0;
+				cout << "You have no cities to power!" << endl;
+				cout << "You are offered 10 Elektros" << endl;
+			}
+
+			while (choice != 0) {
+				player->showPlantInfo();
+				//Request to enter plant--> if no break
+				cout << "What plant do you wish to power: ";
+				cout << "(If you wish to exit enter 0)";
+				cin >> choice;
+				cout << endl;
+
+				for (int i = 0; i <= 2; i++) {
+					if (poweredPlants[i] == -1) {
+						poweredPlants[i] = choice;
+
+						player->addPowerPlant(choice);
+						numberCitiesPowered += player->getnumOfPowerPlants(choice);
+
+						cout << "You have " << numberCitiesPowered << " cities powered" << endl;
+						break;
+					}
+					else if (poweredPlants[i] == choice) {
+						cout << "You have already powered that plant!" << endl << endl;
+						break;
+					}
+				}
+
+
+			}
+
+			if (numberCitiesPowered > player->getHouseCounter()) {
+				cout << "You can only power cities that you own" << endl;
+				numberCitiesPowered = player->getHouseCounter();
+			}
+			//Player gets paid according to number of cities they supply
+			player->addElectro(numberCitiesPowered);
+
+			}
+			//Player chooses to power no cities
+			else {
+				player->addElectro(0);// No supply decision taken---> no elektros in return
+			}
+	  }
+
+}
+
+
