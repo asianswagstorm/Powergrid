@@ -542,7 +542,7 @@ void Game::bureaucracy() {
 					if (poweredPlants[i] == -1) {
 						poweredPlants[i] = choice;
 
-						player->addPowerPlant(choice);
+						player->powerACity(choice);
 						numberCitiesPowered += player->getnumOfPowerPlants(choice);
 
 						cout << "You have " << numberCitiesPowered << " cities powered" << endl;

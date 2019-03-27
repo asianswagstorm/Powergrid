@@ -193,3 +193,58 @@ void Player::resetAuction() {
 	Player::setPass(false);
 	Player::setAuction(false);
 }
+
+void Player::powerACity(int pNumber) {
+	PowerplantManager * pp = new PowerplantManager();
+
+	int index = pp->findPowerplant(pNumber);
+	string type = pp->getPlantType(index);
+	int amount = pp->getPlantReq(index);
+	if (type == "Hybrid") {
+
+		string choice;
+		if (getResource("Coal") >= amount && getResource("Oil") >= amount) {
+
+			while (choice != "Oil" && choice != "oil" && choice != "Coal" && choice != "coal") {
+				cout << "Would you like to remove " << amount << " units of Coal or Oil? ";
+				cin >> choice;
+
+				if (choice == "Oil" || choice == "oil") {
+					this->resources->remove("Oil", amount);
+				}
+
+				if (choice == "Coal" || choice == "coal") {
+					this->resources->remove("Coal", amount);
+				}
+				cout << endl;
+			}
+		}
+
+		else if (getResource("Coal") >= amount) {
+			choice = "Coal";
+			this->resources->remove(choice, amount);
+		}
+
+		else if (getResource("Oil") >= amount) {
+			choice = "Oil";
+			this->resources->remove(choice, amount);
+		}
+
+		cout << "Removed(hybrid) " << amount << " units of " << choice << endl;
+		delete pp;
+		return;
+	}
+
+	if (type == "Eco") {
+		delete pp;
+		return;
+	}
+
+
+	this->resources->remove(type, amount);
+
+	cout << "Removed " << amount << " units of " << type << endl;
+
+	delete pp; //Freeing heap
+
+}

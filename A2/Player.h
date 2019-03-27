@@ -34,6 +34,7 @@ public:
 	vector<PowerPlant>* getPowerPlants() const;
 	int getnumOfPowerPlants() const;
 	void setnumOfPowerPlants(int numOfPowerPlants);
+	void powerCity(int index);
 	void addPowerPlant(PowerPlant * powerplant); // adds a powerplant to the powerplants vector
 	//powerplanthelper add powerplant 	std::vector<PowerPlant>* powerplants;
 
