@@ -27,6 +27,7 @@ public:
 	void swapPlayers(Player& player1, Player& player2);
 	Player * getNextPlayer(Player& player);
 	void buyPowerPlant();
+	void bureaucracy();
 
 
 private:

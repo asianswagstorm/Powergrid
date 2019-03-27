@@ -14,6 +14,8 @@
 #include "mapreader.h"
 #include "IOFile.h"
 #include "SummaryCard.h"
+#include "player.h"
+#include "resource.h"
 
 Game::Game() {
 	round = 0; //default contructor, no game so no round 
