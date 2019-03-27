@@ -499,8 +499,8 @@ Player * Game::getNextPlayer(Player & p) {
 
 
 void Game::bureaucracy() {
-	ofstream output;
-	output.open("gamelog.txt");
+
+
 	output << "*****************************************************************" << endl;
 	cout << " PART 5: BUREAUCRACY" << endl;
 	cout << "*****************************************************************" << endl;
