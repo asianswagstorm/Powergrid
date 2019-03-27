@@ -49,6 +49,8 @@ int main() {
 	std::cout << endl;
 	game->Game::buyPowerPlant();
 
+	game->Game::bureaucracy();
+
 	system("pause");
 	return 0;
 }
