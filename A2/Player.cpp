@@ -1,7 +1,8 @@
 #include "Player.h"
 #include "House.h"
 #include "Resource.h"
-#include "Powerplant.h"
+#include "PowerPlant.h"
+#include "PowerPlantHelper.h"
 #include "ResourceHelper.h"
 #include <string>
 #include <iostream>
@@ -195,39 +196,39 @@ void Player::resetAuction() {
 }
 
 void Player::powerACity(int pNumber) {
-	PowerplantManager * pp = new PowerplantManager();
+	PowerPlantHelper * pp = new PowerPlantHelper();
 
-	int index = pp->findPowerplant(pNumber);
+	int index = pp->findPowerPlant(pNumber);
 	string type = pp->getPlantType(index);
-	int amount = pp->getPlantReq(index);
+	int amount = pp->getPlantResources(index);
 	if (type == "Hybrid") {
 
 		string choice;
-		if (getResource("Coal") >= amount && getResource("Oil") >= amount) {
+		if (getResourceQuantity("Coal") >= amount && getResourceQuantity("Oil") >= amount) {
 
 			while (choice != "Oil" && choice != "oil" && choice != "Coal" && choice != "coal") {
 				cout << "Would you like to remove " << amount << " units of Coal or Oil? ";
 				cin >> choice;
 
 				if (choice == "Oil" || choice == "oil") {
-					this->resources->remove("Oil", amount);
+					this->resourcehelper->remove("Oil", amount);
 				}
 
 				if (choice == "Coal" || choice == "coal") {
-					this->resources->remove("Coal", amount);
+					this->resourcehelper->remove("Coal", amount);
 				}
 				cout << endl;
 			}
 		}
 
-		else if (getResource("Coal") >= amount) {
+		else if (getResourceQuantity("Coal") >= amount) {
 			choice = "Coal";
-			this->resources->remove(choice, amount);
+			this->resourcehelper->remove(choice, amount);
 		}
 
-		else if (getResource("Oil") >= amount) {
+		else if (getResourceQuantity("Oil") >= amount) {
 			choice = "Oil";
-			this->resources->remove(choice, amount);
+			this->resourcehelper->remove(choice, amount);
 		}
 
 		cout << "Removed(hybrid) " << amount << " units of " << choice << endl;
@@ -241,7 +242,7 @@ void Player::powerACity(int pNumber) {
 	}
 
 
-	this->resources->remove(type, amount);
+	this->resourcehelper->remove(type, amount);
 
 	cout << "Removed " << amount << " units of " << type << endl;
 

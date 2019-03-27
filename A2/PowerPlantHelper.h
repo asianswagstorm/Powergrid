@@ -16,6 +16,7 @@ public:
 
 	int findPPActual(int typeNum);
 
+	int findPowerPlant(int bid);
 
 	bool isPPActual(int typeNum);
 	vector<PowerPlant> * getPPV();

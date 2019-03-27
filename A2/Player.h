@@ -34,7 +34,7 @@ public:
 	vector<PowerPlant>* getPowerPlants() const;
 	int getnumOfPowerPlants() const;
 	void setnumOfPowerPlants(int numOfPowerPlants);
-	void powerCity(int index);
+	void powerACity(int index);
 	void addPowerPlant(PowerPlant * powerplant); // adds a powerplant to the powerplants vector
 	//powerplanthelper add powerplant 	std::vector<PowerPlant>* powerplants;
 
@@ -50,6 +50,8 @@ public:
 	void resetAuction();
 	bool getPass();
 	bool getAuction();
+	void setPass(bool);
+	void setAuction(bool);
 
 private:
 	std::string name;
@@ -67,4 +69,6 @@ private:
 
 	bool powerplantPurchased = false;
 	bool hasAuction = false;
+	
+
 };

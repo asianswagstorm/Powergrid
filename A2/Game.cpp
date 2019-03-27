@@ -377,16 +377,15 @@ void Game::buyPowerPlant() {
 					std::cout << "You only have " << player_vector[i]->getElectro() << " Elektros " << std::endl << std::endl;
 				}
 				std::cout << "Correct Input, card " << init_playerBid << " is in actual market." << std::endl << std::endl;
-				player_vector[i]->auction();
+
 			}//end while
 		}//end response yes
 	//auction while  
 		while (auctionSize != numPlayers) { // while not end of player round
 
-			cout << endl << " Numb Players : " << numPlayers << endl << endl;
-			cout << " players with auction: " << player_with_Auction_vector.size() << endl << endl; //2 ?
-			cout << " auction size: " << auctionSize << endl;
-
+		//	cout << endl << " Numb Players : " << numPlayers << endl << endl;
+		//	cout << " players with auction: " << player_with_Auction_vector.size() << endl << endl; //2 ?
+		//	cout << " auction size: " << auctionSize << endl;
 			int playersWithAuction = player_with_Auction_vector.size();
 
 			if (auctionSize == numPlayers - 1 || numPlayers - playersWithAuction == 1) { // if last player or last player has no auction
@@ -448,7 +447,6 @@ void Game::buyPowerPlant() {
 					p->auction();
 					player_with_Auction_vector.push_back(p);
 					auctionSize++;
-
 				}
 
 				if (lowBid == false && cantAfford == false) { //If won auction
@@ -476,19 +474,19 @@ void Game::buyPowerPlant() {
 
 		int powerplantNum = temp;
 		//Errors
-		//std::cout << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << powerplantNum << std::endl << std::endl;
+		std::cout << "Hello ??? " << std::endl << std::endl;
+		std::cout << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << powerplantNum << std::endl << std::endl;
 		//player_vector[AuctionWinner]->setAuction(false);
-		//player_vector[AuctionWinner]->pass();
-		//player_vector[AuctionWinner]->setnumOfPowerPlants(player_vector[AuctionWinner]->getnumOfPowerPlants() + 1);
-		//player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(powerplantNum));
-		//player_vector[AuctionWinner]->removeElectro(powerplantNum);
+		player_vector[AuctionWinner]->pass();
+		player_vector[AuctionWinner]->setnumOfPowerPlants(player_vector[AuctionWinner]->getnumOfPowerPlants() + 1);
+		player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(powerplantNum));
+		player_vector[AuctionWinner]->removeElectro(powerplantNum);
 
 	}//main for loop done
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		player_vector[i]->printPlayerInfo();
 	}
-
 }
 
 void Game::bureaucracy() {
@@ -543,7 +541,7 @@ void Game::bureaucracy() {
 						poweredPlants[i] = choice;
 
 						player->powerACity(choice);
-						numberCitiesPowered += player->getnumOfPowerPlants(choice);
+						numberCitiesPowered += player->getnumOfPowerPlants();
 
 						cout << "You have " << numberCitiesPowered << " cities powered" << endl;
 						player->printPlayerInfo();

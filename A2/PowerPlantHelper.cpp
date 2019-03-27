@@ -166,6 +166,18 @@ void PowerPlantHelper::printPPMarket() {
 	}
 }
 
+int PowerPlantHelper::findPowerPlant(int bid) {
+	int index = 0;
+
+	for (PowerPlant pp : *ppv) {
+		if (pp.getTypeNum() == bid) {
+			return index;
+		}
+		index++;
+	}
+
+	return -2; //Not real powerplant
+}
 
 int PowerPlantHelper::findPPActual(int typeNum) {
 	
@@ -220,8 +232,8 @@ PowerPlant* PowerPlantHelper::removePowerPlant(int playerBid) {
 		i++;
 	}
 	ppv->erase(ppv->begin() + i);
-	ppv->erase(powerplantCardsShowned->begin() + i);
-	ppv->erase(powerplantActualMarket->begin() + i);
+	//ppv->erase(powerplantCardsShowned->begin() + i);
+	//ppv->erase(powerplantActualMarket->begin() + i);
 	
 	//if step3 is found set the step3 card as the highest big
 	if ((*powerplantCardsShowned)[0].getTypeNum() == -1) {
