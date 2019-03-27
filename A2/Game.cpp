@@ -534,6 +534,7 @@ void Game::bureaucracy() {
 				choice = 0;
 				cout << "You have no cities to power!" << endl;
 				cout << "You are offered 10 Elektros" << endl;
+				cout << player->printPlayerInfo();
 			}
 
 			while (choice != 0) {
@@ -552,6 +553,7 @@ void Game::bureaucracy() {
 						numberCitiesPowered += player->getnumOfPowerPlants(choice);
 
 						cout << "You have " << numberCitiesPowered << " cities powered" << endl;
+						cout << player->printPlayerInfo();
 						break;
 					}
 					else if (poweredPlants[i] == choice) {
