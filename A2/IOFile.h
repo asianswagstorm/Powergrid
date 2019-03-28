@@ -14,6 +14,7 @@ public:
 	static void readMapInput(string areaColor);
 	static void addEdges();
 	static void savePlayerOrder(vector<Player*> player_vector);
+	
 	/*TO DO: 
 	static void savePowerplantsInGame(); //1 file with writing in game or not True False
 	//void savePowerplants();

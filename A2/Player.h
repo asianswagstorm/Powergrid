@@ -29,6 +29,7 @@ public:
 	//house
 	HouseHelper* getHouse() const;
 	int getHouseCounter() const;
+	bool hasEnoughtElektro(int amount);
 
 	//powerplant
 	vector<PowerPlant>* getPowerPlants() const;
@@ -37,7 +38,6 @@ public:
 	void powerACity(int index);
 	void addPowerPlant(PowerPlant * powerplant); // adds a powerplant to the powerplants vector
 	//powerplanthelper add powerplant 	std::vector<PowerPlant>* powerplants;
-
 
 	//resources 
 	void setResources(string resource_type, int quantity); //Adds resource to player's possessions
@@ -75,5 +75,4 @@ private:
 	bool powerplantPurchased = false;
 	bool hasAuction = false;
 	
-
 };

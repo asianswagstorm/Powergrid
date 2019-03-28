@@ -30,7 +30,9 @@ public:
 	void buyPowerPlant();
 	void buyMaterial();
 	void bureaucracy();
-	//void buildHouse();
+	void buildHouse();
+	//int ChooseIndexToBuild();
+
 
 private:
 	int round;

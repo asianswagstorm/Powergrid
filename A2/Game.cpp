@@ -17,13 +17,18 @@
 #include "player.h"
 #include "resource.h"
 
+using namespace std;
 Game::Game() {
+	resourceMarket = new ResourceMarket();
+	powerplanthelper = new PowerPlantHelper();
 	round = 0; //default contructor, no game so no round 
 }
 //need to save the round number for load
 Game::Game(std::vector<Player*> player_vector, Map *map) {
 	round = 1; //player's first game round , set round as 2 to test load game
 	this->player_vector = player_vector;
+	resourceMarket = new ResourceMarket();
+	powerplanthelper = new PowerPlantHelper();
 }
 Game::~Game() { //destructor
 }
@@ -351,7 +356,7 @@ void Game::buyPowerPlant() {
 			}
 
 			if (response == "no") {
-				cout << player_vector[i]->getName() << " has passed on auctioning a power plant." << endl;
+				std::cout << player_vector[i]->getName() << " has passed on auctioning a power plant." << endl;
 				player_vector[i]->pass(); //passing the oppurtunity to buy a powerplant
 				continue;
 			}// end no
@@ -513,24 +518,6 @@ void Game::buyMaterial() {
 
 			cin >> materialChoice; cout << endl;
 
-			/* if (materialChoice == "1") {
-				 resourceMarket->showInfo();
-				 system("pause");
-				 continue;
-			 }
-
-			 if (materialChoice == "2") {
-				 p->printPlayerInfo();
-				 system("pause");
-				 continue;
-			 }
-
-			 if (materialChoice == "3") {
-				 p->printPlayerInfo();
-				 system("pause");
-				 continue;
-			 }*/
-
 
 			if (materialChoice == "coal" || materialChoice == "Coal") {
 				cout << "How many coal do you want to buy: ";
@@ -613,6 +600,121 @@ void Game::buyMaterial() {
 			}
 		}
 	}
+}
+
+
+void::Game::buildHouse() {
+	/*
+
+	string response;
+	for (Player* p : player_vector) {
+
+		std::cout << p->getName() << " Would you like to build a house in: " << p->getAreaColor << " area " << endl;
+		std::cout << "Type 'yes' for yes or 'n' for no." << std::endl;
+		cin >> response;
+
+		while (true) {
+
+			if (response == "yes") {
+
+				int houseCount = p->Player::getHouse()->HouseHelper::getHouse();
+
+				//if player does not have enough electro to purchase 1 house of 10 elektro
+				if (!p->hasEnoughtElektro(10)) {
+					cout << p->getName() << " Does not have enough elektro to build a house, less than 10 elektro" << endl;
+					break;
+				}
+
+				//if player has no houses yet
+				if (houseCount == 0) {
+					cout << "You can build in these Cities:" << endl;
+
+					//print free locations TO DO::
+					//mapOfPlayersCity->printAvailableIndices();
+
+					cout << "You currently have " << p->getElectro() << " elektro" << endl;
+
+					
+					House house(index, mapOfPlayersCity->getIndexName(index));
+
+					p->removeElectro(mapOfPlayersCity->costToBuildHouse(index)); //remove money depending on the cost to build the house
+					p->getHouse()->addHouse(house);
+					mapOfPlayersCity->setPlayerHouse(index, p->getName());
+					cout << endl << "Map presentation: " << endl;
+					mapOfPlayersCity->printPlayersCity();
+					cout << endl << "Purchase completed" << endl;
+					cout << "You now have " << p->getElectro() << " elektro" << endl;
+					cout <<p->getName() << " would you like to build a house?." << endl;
+					cout << "Type 'y' for yes or 'n' for no." << endl;
+					cin >> response;
+				}
+				else
+				{
+
+					pair<vector<double>, vector<list<int> > > costAndPath = mapOfPlayersCity->getAvailableIndicesCost(p->getHouseManager()->getHouseIndices(), p->getElektro());
+					vector<double> costVector = costAndPath.first;
+					vector<list<int> > pathVector = costAndPath.second;
+
+					//If there is no free city to put a house in
+					if (costAndPath == pair<vector<double>, vector<list<int> > >()) {
+						cout << p->getName() << "There is no city in that map that is free to play." << endl;
+						break;
+					}
+
+					else {
+						cout << endl << "You currently have " << p->getElectro() << " elektro" << endl;
+						cout << "These are the houses you can purchase: " << endl;
+
+						//print indices
+						mapOfPlayersCity->printAvailableIndicesCost(p->Player::getHouse()->HouseHelper::getHouse()->getHouseIndices(), p->getElectro()); //->getHouseIndices() DNE
+
+						//Get input from player and get the position of the index in the vector
+						pair<int, int> indexPositionPair = pleaseChooseIndexToBuildIn(pathVector);
+						int playerIndex = indexPositionPair.first;
+						int indexPosition = indexPositionPair.second;
+
+						cout << "You are purchasing the house at Index " + playerIndex << endl;
+
+
+						//Go from the shortest path and build houses that the player 
+						//does not currently own and have an empty space
+						for (int index : pathVector[indexPosition]) {
+
+							//if the player does not currently own the house and the city is free to build then build house
+							if (mapOfPlayersCity->playerOwnsHouseAndCityHasEmptySpace(p->Player::getHouse()->HouseHelper::getHouse()->getHouseIndices(), index)) {
+
+								House house(index, mapOfPlayersCity->getIndexName(index)); //create house
+								p->Player::getHouse()->addHouse(house); //add house to player
+								//mapOfPlayersCity->setPlayerHouse(index, p->getColor()); //add house in map
+								cout << "House index " << index << " name: " << mapOfPlayersCity->getIndexName(index) << " purchased" << endl;
+							}
+
+						}
+
+						//Get cost of purchase of the index the player wants to purchase
+						int costOfPurchase = (int)costVector[indexPosition];
+						p->removeElectro(costOfPurchase); //substract elektro
+
+						cout << endl << "Map presentation: " << endl;
+						mapOfPlayersCity->printPlayersCity();
+						cout << endl << "Purchase completed" << endl;
+						cout << "You now have " << p->getElectro() << " elektro" << endl;
+						cout << p->getName() << " would you like to build a house?." << endl;
+						cout << "yes or no." << endl;
+						cin >> response;
+					}
+
+				}
+			}
+			if (response == "yes" ) {
+				continue;
+			}
+			else if (response == "no") {
+				break;
+			}
+		}
+	}
+	*/
 }
 
 

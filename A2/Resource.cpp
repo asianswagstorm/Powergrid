@@ -12,7 +12,7 @@ void Resource::setQuantity(int qty) {
 }
 
 //Accessor function to return the amount of resources.
-int Resource::getQuantity() const {
+int Resource::getQuantity() {
     return quantity;
 }
 

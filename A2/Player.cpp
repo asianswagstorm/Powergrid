@@ -195,6 +195,16 @@ void Player::resetAuction() {
 	Player::setAuction(false);
 }
 
+// Check if the player has enough money to buy a house
+bool Player::hasEnoughtElektro(int amount) {
+
+	int temp = this->electro;
+	if ((temp - amount) >= 0) {
+		return true;
+	}
+	return false;
+}
+
 void Player::powerACity(int pNumber) {
 	PowerPlantHelper * pp = new PowerPlantHelper();
 
@@ -292,7 +302,7 @@ bool Player::validateResourcePurchase(int cost, int quantity, string type) {
 			cout << "Cannot store that many Coal!" << endl;
 			return false;
 		}
-		//cout << "Validated" << endl;
+	
 	}
 
 	if (type == "Oil") {
@@ -303,7 +313,7 @@ bool Player::validateResourcePurchase(int cost, int quantity, string type) {
 			cout << "Cannot store that many Oil!" << endl;
 			return false;
 		}
-		//cout << "Validated" << endl;
+		
 	}
 
 	if (type == "Garbage") {
@@ -311,7 +321,7 @@ bool Player::validateResourcePurchase(int cost, int quantity, string type) {
 			cout << "Cannot store that many Garbage!" << endl;
 			return false;
 		}
-		//cout << "Validated" << endl;
+		
 	}
 
 	if (type == "Uranium") {
@@ -319,12 +329,12 @@ bool Player::validateResourcePurchase(int cost, int quantity, string type) {
 			cout << "Cannot store that many Uranium!" << endl;
 			return false;
 		}
-		//cout << "Validated" << endl;
+		
 	}
 
-	//At this point all validation have passed we can let user buy it.
+	//let user buy resource.
 	this->setResources(type, quantity);
-	// this->subtractMoney(cost);
+	 this->removeElectro(cost);
 	return true;
 
 }

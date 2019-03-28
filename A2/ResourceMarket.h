@@ -16,8 +16,7 @@ public:
 	int getMarketCost(string resource, int quantity); //Returns cost of any quantity of a resource.
 	int getMarketQuantity(string resource); //Return total quantity of resource currently in market
 
-	void saveMarket(); // Saves ResourceMarket to resourcemarket.txt file 
-	void loadMarket(); // Loads ResourceMarket from resourcemarket.txt file
+
 	void updateMarket(string resource, int quantity); //Removes resources purchased by players during phase 3
 	void showInfo();
 

@@ -17,7 +17,7 @@ public:
     void setQuantity(int qty);
     void addQuantity(int qty);
     void removeQuantity(int qty);
-    int getQuantity() const;
+    int getQuantity() ;
     void setColor(string color);
     string getColor() const;
 
