@@ -249,3 +249,82 @@ void Player::powerACity(int pNumber) {
 	delete pp; //Freeing heap
 
 }
+
+int Player::getTotalStorage() {
+	int storage = 0;
+	for (PowerPlant pp : *powerplants) {
+		storage += pp.getTypeNum();
+	}
+	return storage;
+}
+
+//Returns total amount of specific resource that can be stored
+int Player::getResourceStorage(string resource) {
+	int storage = 0;
+
+	for (PowerPlant pp : *powerplants) {
+		if (pp.getType() == resource) {
+			storage += pp.getTypeNum();
+		}
+
+		if (pp.getType() == "Hybrid" && (resource == "Coal" || resource == "Oil")) {
+			storage += pp.getTypeNum();
+		}
+
+	}
+	return storage;
+}
+
+//validates the resources that we purchased
+bool Player::validateResourcePurchase(int cost, int quantity, string type) {
+
+	if (this->getElectro() < cost) {
+		cout << "Not enough elektros to purchase resources!" << endl;
+		return false;
+	}
+
+
+	if (type == "Coal") {
+		bool condition1 = getResourceStorage("Coal") < (getResourceQuantity("Coal") + quantity); //Cannot buy more resources than total storage
+		bool condition2 = getTotalStorage() < (getResourceQuantity("Coal") + getResourceQuantity("Oil") + quantity); //Cannot buy specific quantity that exceeds that types storage
+
+		if (condition1 || condition2) {
+			cout << "Cannot store that many Coal!" << endl;
+			return false;
+		}
+		//cout << "Validated" << endl;
+	}
+
+	if (type == "Oil") {
+		bool condition1 = getResourceStorage("Oil") < (getResourceQuantity("Oil") + quantity);
+		bool condition2 = getTotalStorage() < (getResourceQuantity("Coal") + getResourceQuantity("Oil") + quantity);
+
+		if (condition1 || condition2) {
+			cout << "Cannot store that many Oil!" << endl;
+			return false;
+		}
+		//cout << "Validated" << endl;
+	}
+
+	if (type == "Garbage") {
+		if (getResourceStorage("Garbage") < getResourceQuantity("Garbage") + quantity) {
+			cout << "Cannot store that many Garbage!" << endl;
+			return false;
+		}
+		//cout << "Validated" << endl;
+	}
+
+	if (type == "Uranium") {
+		if (getResourceStorage("Uranium") < getResourceQuantity("Uranium") + quantity) {
+			cout << "Cannot store that many Uranium!" << endl;
+			return false;
+		}
+		//cout << "Validated" << endl;
+	}
+
+	//At this point all validation have passed we can let user buy it.
+	this->setResources(type, quantity);
+	// this->subtractMoney(cost);
+	return true;
+
+}

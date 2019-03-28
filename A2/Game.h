@@ -5,6 +5,7 @@
 #include "PowerPlantHelper.h"
 #include "Resource.h"
 #include "SummaryCard.h"
+#include "ResourceMarket.h"
 #include "Area.h"
 #include "IOFile.h"
 
@@ -27,15 +28,16 @@ public:
 	void swapPlayers(Player& player1, Player& player2);
 	Player * getNextPlayer(Player& player);
 	void buyPowerPlant();
+	void buyMaterial();
 	void bureaucracy();
-
+	//void buildHouse();
 
 private:
 	int round;
 	std::vector<Player*> player_vector;
 	PowerPlantHelper * powerplanthelper;
 	//bool phase2;
-	//bool phase2;
+	ResourceMarket * resourceMarket;
 	bool isEndGame = false;
 
 };

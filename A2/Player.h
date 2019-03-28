@@ -53,6 +53,11 @@ public:
 	void setPass(bool);
 	void setAuction(bool);
 
+	bool validateResourcePurchase(int cost, int quantity, string type);
+	int getTotalStorage();
+	int getResourceStorage(string resource);
+
+
 private:
 	std::string name;
 	std::string area_color;

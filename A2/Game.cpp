@@ -393,7 +393,7 @@ void Game::buyPowerPlant() {
 				int k = 0;
 				for (int j = 0; j < numPlayers; j++) {
 
-					if (player_vector[j]->getAuction() == false) {
+					if (player_vector[j]->getAuction() == false) {//first is always false
 						AuctionWinner = k;
 						cout << endl << "Winner is: " << AuctionWinner << endl;
 					}
@@ -406,7 +406,7 @@ void Game::buyPowerPlant() {
 
 			std::cout << std::endl << "------------ Starting Auction -----------" << std::endl << std::endl;
 
-			Player * p = Game::getNextPlayer(*player_vector[i]); //get next player to start an auction
+			p = Game::getNextPlayer(*player_vector[i]); //get next player to start an auction
 
 			while (p->getAuction() == true) {
 				p = getNextPlayer(*p);
@@ -474,20 +474,147 @@ void Game::buyPowerPlant() {
 
 		int powerplantNum = temp;
 		//Errors
-		std::cout << "Hello ??? " << std::endl << std::endl;
+		
 		std::cout << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << powerplantNum << std::endl << std::endl;
 		//player_vector[AuctionWinner]->setAuction(false);
 		player_vector[AuctionWinner]->pass();
-		player_vector[AuctionWinner]->setnumOfPowerPlants(player_vector[AuctionWinner]->getnumOfPowerPlants() + 1);
 		player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(powerplantNum));
+		player_vector[AuctionWinner]->setnumOfPowerPlants(player_vector[AuctionWinner]->getnumOfPowerPlants());
 		player_vector[AuctionWinner]->removeElectro(powerplantNum);
 
 	}//main for loop done
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
+	IOFile::savePlayer(player_vector);
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		player_vector[i]->printPlayerInfo();
 	}
 }
+
+
+
+/* Step 3 - Buy raw material. In this part, the last player will begin. In other words, it's the reverse order of buying power plant who starts. */
+void Game::buyMaterial() {
+
+
+	cout << "------------Part 3------------" << endl;
+	cout << endl;
+	cout << "BUY RAW MATERIALS" << endl;
+	cout << endl;
+
+	string materialChoice;
+	int qty;
+	reverse(player_vector.begin(), player_vector.end()); //from <algorithm>
+
+	for (Player* p : player_vector) {
+		cout << "Starting with the last player to buy the raw material. Here is the LAST-PLAYER with the name: " << p->getName() << endl << endl;
+		while (true) {
+			cout << endl << p->getName() << "'s turn, then choose what you want to buy: " << endl << "(coal, oil, uranium, or garbage)" << " When you finish please type f or F  " << endl;
+
+
+			cin >> materialChoice; cout << endl;
+
+			/* if (materialChoice == "1") {
+				 resourceMarket->showInfo();
+				 system("pause");
+				 continue;
+			 }
+
+			 if (materialChoice == "2") {
+				 p->printPlayerInfo();
+				 system("pause");
+				 continue;
+			 }
+
+			 if (materialChoice == "3") {
+				 p->printPlayerInfo();
+				 system("pause");
+				 continue;
+			 }*/
+
+
+			if (materialChoice == "coal" || materialChoice == "Coal") {
+				cout << "How many coal do you want to buy: ";
+				cin >> qty;
+
+				//Validating if market has enough resources (Note: getMarketCost calls getMarketQuantity)
+				if (resourceMarket->getMarketCost("Coal", qty) == -1) {
+					cout << "CONTINUE" << endl;
+					system("pause");
+					continue;
+				}
+
+				//Validating if player can store or purchase the quantity of resources
+				if (p->validateResourcePurchase(resourceMarket->getMarketCost("Coal", qty), qty, "Coal")) {
+					cout << "Cost was: " << resourceMarket->getMarketCost("Coal", qty) << " elektros." << endl;
+					cout << endl << "Here is how much elektros you have after buying " << p->getElectro() << "$" << endl;
+					cout << "Current coal you have: " << p->getResourceQuantity("Coal") << endl;
+					resourceMarket->updateMarket("Coal", qty);
+				}
+
+			}
+			else if (materialChoice == "oil" || materialChoice == "Oil") {
+
+				cout << "How many oil do you want to buy: ";
+				cin >> qty;
+
+				//Validating if market has enough resources (Note: getMarketCost calls getMarketQuantity)
+				if (resourceMarket->getMarketCost("Oil", qty) == -1) {
+					continue;
+				}
+
+				//Validating if player can store or purchase the quantity of resources
+				if (p->validateResourcePurchase(resourceMarket->getMarketCost("Oil", qty), qty, "Oil")) {
+					cout << "Cost was: " << resourceMarket->getMarketCost("Oil", qty) << " elektros." << endl;
+					cout << endl << "Here is how much elektros you have after buying " << p->getElectro() << "$" << endl;
+					cout << "Current oil you have: " << p->getResourceQuantity("Oil") << endl;
+					resourceMarket->updateMarket("Oil", qty);
+				}
+
+			}
+			else if (materialChoice == "uranium" || materialChoice == "Uranium") {
+
+				cout << "How many uranium do you want to buy: ";
+				cin >> qty;
+
+				//Validating if market has enough resources (Note: getMarketCost calls getMarketQuantity)
+				if (resourceMarket->getMarketCost("Uranium", qty) == -1) {
+					continue;
+				}
+
+				//Validating if player can store or purchase the quantity of resources
+				if (p->validateResourcePurchase(resourceMarket->getMarketCost("Uranium", qty), qty, "Uranium")) {
+					cout << "Cost was: " << resourceMarket->getMarketCost("Uranium", qty) << " elektros." << endl;
+					cout << endl << "Here is how much elektros you have after buying " << p->getElectro() << "$" << endl;
+					cout << "Current uranium you have: " << p->getResourceQuantity("Uranium") << endl;
+					resourceMarket->updateMarket("Uranium", qty);
+				}
+			}
+
+			else if (materialChoice == "garbage" || materialChoice == "Garbage") {
+
+				cout << "How many garbage do you want to buy: ";
+				cin >> qty;
+
+				//Validating if market has enough resources (Note: getMarketCost calls getMarketQuantity)
+				if (resourceMarket->getMarketCost("Garbage", qty) == -1) {
+					continue;
+				}
+
+				//Validating if player can store or purchase the quantity of resources
+				if (p->validateResourcePurchase(resourceMarket->getMarketCost("Garbage", qty), qty, "Garbage")) {
+					cout << "Cost was: " << resourceMarket->getMarketCost("Garbage", qty) << " elektros." << endl;
+					cout << endl << "Here is how much elektros you have after buying " << p->getElectro() << "$" << endl;
+					cout << "Current garbage you have: " << p->getResourceQuantity("Garbage") << endl;
+					resourceMarket->updateMarket("Garbage", qty);
+				}
+			}
+			else if (materialChoice == "f" || materialChoice == "F") {
+				break;
+			}
+		}
+	}
+}
+
 
 void Game::bureaucracy() {
 	int choice;
@@ -507,13 +634,12 @@ void Game::bureaucracy() {
 		<---->If no house powered ---> the automatically 10 elektro.
 		- Giving them the ability to decide how many houses they want to power based on their resources.*/
 		cout << "**********************************************************************************************************************" << endl;
-		cout << "Player " << player->getAreaColor() << " has " << player->getHouse()->getHouse() << " houses." << endl;
+		cout << player->getName() << " has " << player->getHouse()->getHouse() << " houses." << endl;
 		cout << "Attention: You can only power cities that you own, any powering except that will be a loss of resources." << endl;
 		cout << "**********************************************************************************************************************" << endl;
 		cout << "Do you want to power any Cities?";
 		cout << "(yes or no)";
 		cin >> powerDecision; cout << endl;
-
 
 		//If yes, player will power cities
 		if (powerDecision == "yes") {
@@ -525,6 +651,9 @@ void Game::bureaucracy() {
 				choice = 0;
 				cout << "You have no cities to power!" << endl;
 				cout << "You are offered 10 Elektros" << endl;
+				
+				player->setElectro(player->getElectro() + 10);
+
 				player->printPlayerInfo();
 			}
 
