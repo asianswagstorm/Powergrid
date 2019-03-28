@@ -1,0 +1,15 @@
+1:
+Name=Paul
+Houses=0
+PowerPlants=0
+
+2:
+Name=Jonh
+Houses=0
+PowerPlants=0
+
+3:
+Name=Jack
+Houses=0
+PowerPlants=0
+

@@ -1,0 +1,7 @@
+28, "Detroit", 4
+29, "Buffalo", 4
+30, "Pittsburgh", 4
+31, "Boston", 4
+32, "New York", 4
+33, "Philadelphia", 4
+34, "Washington D.C", 4
