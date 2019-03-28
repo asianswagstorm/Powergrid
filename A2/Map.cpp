@@ -174,3 +174,26 @@ std::cout << std::endl;
 std::cout << std::string("Starting City: ") + test->getCityName(start_node) + std::string(" Ending City: ") + test->getCityName(end_node) << std::endl;
 }
 }
+
+bool Map::indexInGame(int i) {
+	if (Map::getIndexNumber(i) != NULL) {
+		return true;
+	}
+	else return false;
+}
+
+vector<int> Map::getPlayedIndicesVector() {
+
+	vector<int> indices = vector<int>();
+
+	int i = 0;
+	for (vector<neighbor> city : *map) {
+		if (city.size() != 0) {
+			indices.push_back(i);
+		}
+		i++;
+	}
+
+	return indices;
+
+}

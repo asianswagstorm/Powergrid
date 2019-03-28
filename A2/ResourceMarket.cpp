@@ -17,9 +17,9 @@ ResourceMarket::ResourceMarket() {
 
 	market[1] = new ResourceHelper();
 	market[1]->edit("Coal", 3, 2);
-	market[1]->edit("Oil", 0, 2);
-	market[1]->edit("Garbage", 0, 2);
-	market[1]->edit("Uranium", 0, 2);
+	market[1]->edit("Oil", 3, 2);
+	market[1]->edit("Garbage", 3, 2);
+	market[1]->edit("Uranium", 1, 2);
 
 	market[2] = new ResourceHelper();
 	market[2]->edit("Coal", 3, 3);
@@ -79,8 +79,6 @@ ResourceMarket::ResourceMarket() {
 ResourceMarket::~ResourceMarket() {
 
 }
-
-
 
 //Removes resources purchased by players during phase 3
 void ResourceMarket::updateMarket(string resource, int quantity) {

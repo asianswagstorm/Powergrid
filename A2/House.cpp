@@ -11,16 +11,20 @@ House::House(){
 	house_color = "";
 }
 
-//Destructor
-House::~House(){
-
+House::House(int index, string location) {
+	this->index = index;
+	this->location = location;
 }
-
 //Constructor initializes house location
 House::House(int index, string location , string house_color){
     this->index = index;
     this->location = location;
 	this->house_color = house_color;
+}
+
+//Destructor
+House::~House() {
+
 }
 
 int House::getIndex()

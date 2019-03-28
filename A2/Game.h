@@ -31,14 +31,11 @@ public:
 	void buyMaterial();
 	void bureaucracy();
 	void buildHouse();
-	//int ChooseIndexToBuild();
-
 
 private:
 	int round;
 	std::vector<Player*> player_vector;
 	PowerPlantHelper * powerplanthelper;
-	//bool phase2;
 	ResourceMarket * resourceMarket;
 	bool isEndGame = false;
 

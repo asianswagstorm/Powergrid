@@ -6,8 +6,9 @@ using namespace std;
 class House{
 public:
     House();
-    ~House();
+	House(int, string);
     House(int, string,string);
+	~House();
     int getIndex();
     void setIndex(int);
     string getLocation();

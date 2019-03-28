@@ -263,7 +263,7 @@ void Player::powerACity(int pNumber) {
 int Player::getTotalStorage() {
 	int storage = 0;
 	for (PowerPlant pp : *powerplants) {
-		storage += pp.getTypeNum();
+		storage += pp.getStorage();
 	}
 	return storage;
 }
@@ -274,11 +274,11 @@ int Player::getResourceStorage(string resource) {
 
 	for (PowerPlant pp : *powerplants) {
 		if (pp.getType() == resource) {
-			storage += pp.getTypeNum();
+			storage += pp.getStorage();
 		}
 
 		if (pp.getType() == "Hybrid" && (resource == "Coal" || resource == "Oil")) {
-			storage += pp.getTypeNum();
+			storage += pp.getStorage();
 		}
 
 	}

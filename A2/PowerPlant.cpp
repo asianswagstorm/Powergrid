@@ -20,7 +20,7 @@ PowerPlant::PowerPlant(int typeNum, string type, int minPlantCost, int house){
     this->type = type; 
     this->typeNum = typeNum;
     this->house = house;
-
+	this->storage = 2 * minPlantCost;
 }
 
 //Destructor
@@ -60,6 +60,10 @@ string PowerPlant::getType(){
 
 int PowerPlant::getTypeNum() {
     return typeNum;
+}
+
+int PowerPlant::getStorage() {
+	return storage;
 }
 
 //Accessor function that gets the number of houses the power plant can power

@@ -46,9 +46,11 @@ public:
 	static int getArea(int index);
 	static string getAreaColor(int index);
 	static void addIndexNameArea(int index, string name, int area);
+	bool indexInGame(int index);
 	static void addEdge(int index1, int index2, double weight);
 	static int getMapSize();
-		//Map-graph methods
+	vector<int> getPlayedIndicesVector();
+	//Map-graph methods
 	std::list<vertex_t> DijkstraGetShortestPathTo(vertex_t vertex,const std::vector<vertex_t> &previous);
 
 	void DijkstraComputePaths(vertex_t source,const adjacency_list_t &adjacency_list,std::vector<weight_t> &min_distance,std::vector<vertex_t> &previous);

@@ -18,6 +18,7 @@ public:
     int getMinPlantCost();
     string getType();
     int getTypeNum();
+	int getStorage();
     int getHouse();
     void printPowerPlantSummary();
 
@@ -27,6 +28,7 @@ private:
     string type;
     int typeNum;
     int house;
+	int storage = 2 * minPlantCost;
 };
 
 #endif //POWERPLANT_H

@@ -15,14 +15,8 @@
 int main() {
 
 	/*
-	the houses objects,
-	resources tokens,
-	the money(elektro),
-	and the “step 3” card. ?? What's this???
-
 	1) the game valid board map can be loaded and its verified  and invalid map(s) are rejected without the program crashing;
 	2) the right number of players is created, and the right game pieces created.);
-
 		*/
 	int numPlayers=0;
 	std::vector<Player*> player_vector;
@@ -47,10 +41,10 @@ int main() {
 
 	game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
 	std::cout << endl;
-	//game->Game::buyPowerPlant();
-	//game->Game::buyMaterial();
-	//game->Game::buildHouse();
-	//game->Game::bureaucracy();
+	game->Game::buyPowerPlant();
+	game->Game::buyMaterial();
+	game->Game::buildHouse();
+	game->Game::bureaucracy();
 
 	system("pause");
 	return 0;
