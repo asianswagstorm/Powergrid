@@ -329,54 +329,60 @@ void Game::buyPowerPlant() {
 		}
 
 		// if already bought powerplant, skip player.
-		if (player_vector[i]->getPass() == true) {
+		if (p->getPass() == true) {
 			//player_vector[i]->auction(); //set auction = true
-			player_vector[i]->setAuction(false);
+			p->setAuction(false);
 			player_with_Auction_vector.push_back(player_vector[i]);
 			continue; //gets out of the loop
 		}
 		std::cout << std::endl << "PHASE 2 POWERPLANT AUCTIONING" << std::endl;
 		powerplanthelper->PowerPlantHelper::printPPMarket();
 
+		if(p->getPass() == false){
 		if (i == 0)
-			std::cout << std::endl << player_vector[i]->getName() << " is the first person to start the bid according to the player order rules. " << std::endl << std::endl;
+			std::cout << std::endl << p->getName() << " is the first person to start the bid according to the player order rules. " << std::endl << std::endl;
 
 		else {
 			//check if previous player has passed on bid
 			if (player_vector[i - 1]->getPass() == true) { //passed up on starting a bid. 
 				player_index--; //skip the player
 			}
-			std::cout << std::endl << player_vector[i]->getName() << "'s turn. " << std::endl;
+			std::cout << std::endl << p->getName() << "'s turn. " << std::endl;
 			std::cout << "To start the bid " << std::endl;
+		}
+		}
+		
+		if (p->getPass() == true && p == player_vector[numPlayers - 1]) {
+			break;
 		}
 
 		response = "";
 		if (Game::getRound() >= 1) { // first round player must buy powerplant , I set round = 2 for testing in main. 
 			while (response != "yes" && response != "no") {
-				std::cout << player_vector[i]->getName() << ", do you want to auction on a powerplant (yes/no): ";
+				std::cout << p->getName() << ", do you want to auction on a powerplant (yes/no): ";
 				cin >> response; std::cout << endl;
 			}
 
 			if (response == "no") {
 				std::cout << player_vector[i]->getName() << " has passed on auctioning a power plant." << endl;
-				player_vector[i]->pass(); //passing the oppurtunity to buy a powerplant
-				player_vector[i]->setAuction(false);
+				p->pass(); //passing the oppurtunity to buy a powerplant
+				p->setAuction(false);
 				continue;
 			}// end no
 		}//end if round
 		if (response == "yes") {
-			player_vector[i]->auction(); //has an auction
-			player_vector[i]->setPass(false);
+			p->auction(); //has an auction
+			p->setPass(false);
 			//player_vector[i]->setPass(false); //Didnt pass on buying a powerplant
 			while (isInActual == false || canAfford == false)
 			{ //if invalid bid (inssuficient fund or powerplant not in actual market
-				std::cout << player_vector[i]->getName() << " currently has " << player_vector[i]->getElectro() << " elektros " << std::endl;
+				std::cout << player_vector[i]->getName() << " currently has " << p->getElectro() << " elektros " << std::endl;
 				std::cout << "Enter a bid less than equal to max powerplant card number in actual market." << std::endl << "(This is the minimum bid in Electros to purchase the powerplant) : " << endl;
 
 				std::cin >> init_playerBid;
 
 				isInActual = powerplanthelper->PowerPlantHelper::isPPActual(init_playerBid);
-				canAfford = (player_vector[i]->getElectro() > init_playerBid);
+				canAfford = (p->getElectro() > init_playerBid);
 
 				//check if in actual market.
 				if (isInActual == false) {
@@ -384,7 +390,7 @@ void Game::buyPowerPlant() {
 				}
 				else if (canAfford == false) {
 					std::cout << endl << "!!!! Insufficient funds, PowerPlant: " << init_playerBid << " costs " << init_playerBid << " Elektros" << endl;
-					std::cout << "You only have " << player_vector[i]->getElectro() << " Elektros " << std::endl << std::endl;
+					std::cout << "You only have " << p->getElectro() << " Elektros " << std::endl << std::endl;
 				}
 				std::cout << "Correct Input, card " << init_playerBid << " is in actual market." << std::endl << std::endl;
 
@@ -397,7 +403,7 @@ void Game::buyPowerPlant() {
 			//cout << " players with auction: " << player_with_Auction_vector.size() << endl << endl; //2 ?
 			//cout << " player index: " << player_index << endl;
 			int playersWithAuction = player_with_Auction_vector.size();
-			//p = Game::getNextPlayer(*player_vector[i]); //get next player to start an auction
+			
 
 			//determine the winner
 			if (player_index == numPlayers - 1 || numPlayers - playersWithAuction == 1) { // if last player or last player has no auction
@@ -475,7 +481,7 @@ void Game::buyPowerPlant() {
 
 			if (bid_response == "no") { //Don't want to join the bidding war, should go to next.
 				temp = temp;
-				std::cout << p->getName() << " has passed on joining the auction for powerplant:" << init_playerBid << std::endl;
+				std::cout << p->getName() << " has passed on joining the auction for powerplant:" << temp << std::endl;
 				p->setAuction(false); // set auction to be true
 				player_with_Auction_vector.push_back(p);
 				player_index++;
@@ -483,15 +489,15 @@ void Game::buyPowerPlant() {
 
 		}//end auction while 	
 
-		int powerplantNum = temp;
+		//int powerplantNum = temp;
 		//Errors
 		
-		std::cout << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << powerplantNum << std::endl << std::endl;
+		std::cout << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << temp << std::endl << std::endl;
 		//player_vector[AuctionWinner]->setAuction(false);
-		player_vector[AuctionWinner]->pass();
-		player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(powerplantNum));
+		player_vector[AuctionWinner]->setPass(true);
+		player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(temp));
 		player_vector[AuctionWinner]->setnumOfPowerPlants(player_vector[AuctionWinner]->getnumOfPowerPlants());
-		player_vector[AuctionWinner]->removeElectro(powerplantNum);
+		player_vector[AuctionWinner]->removeElectro(temp);
 
 	}//main for loop done
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
@@ -500,8 +506,6 @@ void Game::buyPowerPlant() {
 		player_vector[i]->printPlayerInfo();
 	}
 }
-
-
 
 /* Step 3 - Buy raw material. In this part, the last player will begin. In other words, it's the reverse order of buying power plant who starts. */
 void Game::buyMaterial() {
@@ -612,18 +616,19 @@ void::Game::buildHouse() {
 	
 	string response;
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
-
-		std::cout << player_vector[i]->getName() << " Would you like to build a house in: " << player_vector[i]->Player::getAreaColor() << " area " << endl;
+		Player * p = player_vector[i];
+		Map theMap = Map(p->Player::getAreaColor());
+		std::cout << p->getName() << " Would you like to build a house in: " << p->Player::getAreaColor() << " area " << endl;
 		std::cout << "yes or no." << std::endl;
 		std::cin >> response;
 
 		if (response == "yes") {
 
-			int houseCount = player_vector[i]->Player::getHouse()->HouseHelper::getHouse();
+			int houseCount = p->Player::getHouse()->HouseHelper::getHouse();
 
 			//if player does not have enough electro to purchase 1 house of 10 elektro
-			if (!player_vector[i]->hasEnoughtElektro(10)) {
-				std::cout << player_vector[i]->getName() << " Does not have enough elektro to build a house, less than 10 elektro" << endl;
+			if (!p->hasEnoughtElektro(10)) {
+				std::cout << p->getName() << " Does not have enough elektro to build a house, less than 10 elektro" << endl;
 				break;
 			}
 
@@ -631,34 +636,50 @@ void::Game::buildHouse() {
 
 			std::cout << "You can build in these Cities:" << endl;
 
+			for (unsigned int k = 0; k < (player_vector.size()*7); k++) {
+				if (Map::getCityName(k) == "")
+					std::cout << "" ;
+				else
+				std::cout << "Map Index: "  << Map::getIndexNumber(k) << ", City Name: "<< Map::getCityName(k) <<endl;
+			
+			}
+
 			int index;
 			std::cout << std::endl << "Please choose an Map Index you want to build a house in, refer to map file" << endl;
 			cout << "Map Index: ";
 
 			cin >> index;
 
-			std::cout << "You currently have " << player_vector[i]->getElectro() << " elektro a house costs 10 elektros" << endl;
+			while (index < 0 || index > player_vector.size()) {
+				std::cout << "Invaid Input enter a valid one" << std::endl;
+				std::cin >> index;
+			}
+
+			std::cout << "You currently have " << p->getElectro() << " elektro a house costs 10 elektros" << endl;
 
 			House house(index, Map::getCityName(index));
 
-			player_vector[i]->removeElectro(10);
+			p->removeElectro(10);
 
-			player_vector[i]->getHouse()->addHouse(house);
-			player_vector[i]->Player::getHouse()->HouseHelper::setHouse(player_vector[i]->getHouseCounter() + 1);
-
-			std::cout << endl << "Map presentation: " << endl;
+			p->Player::getHouse()->HouseHelper::addHouse(house);
+			p->Player::getHouse()->HouseHelper::setHouse(p->Player::getHouse()->HouseHelper::getHouseVector().size() + 1);
 
 			std::cout << endl << "Purchase completed" << endl;
-			std::cout << "You now have " << player_vector[i]->getElectro() << " elektro" << endl;
-
-			std::cout << player_vector[i]->getName() << " would you like to build another house?." << endl;
+			std::cout << "You now have " << p->getElectro() << " elektro" << endl;
+			std::cout << "You now have " << p->Player::getHouse()->HouseHelper::getHouseVector().size() << " houses" << endl;
+			
+			std::cout << p->getName() << " would you like to build another house?." << endl;
 			std::cout << "yes or no." << endl;
 			std::cin >> response;
 
 		}
-			
+			if (response == "yes") {
+			continue;
+			}
+
 			if (response == "no") {
-				break;
+				p = getNextPlayer(*p);
+	
 			}
 	}
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
