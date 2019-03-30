@@ -508,107 +508,72 @@ void Game::buyPowerPlant() {
 }
 
 /* Step 3 - Buy raw material. In this part, the last player will begin. In other words, it's the reverse order of buying power plant who starts. */
-void Game::buyMaterial() {
+void Game::buyResources() {
 
 
-	std::cout << "------------Part 3------------" << endl;
+	std::cout << "------------Phase 3------------" << endl;
 	std::cout << endl;
 	std::cout << "BUYING RESOURCES" << endl;
 	std::cout << endl;
 
-	string materialChoice;
+	string materialChoice="";
+	
 	int qty;
 	reverse(player_vector.begin(), player_vector.end()); //from <algorithm>
-
+	bool validMaterialChoice = false;
 	for (Player* p : player_vector) {
-		std::cout << "Starting with the last player to buy resource. Here is the LAST-PLAYER with the name: " << p->getName() << endl << endl;
+		std::cout << "Player order reversed: " << p->getName() << std::endl << std::endl;
+		
+		this->resourceMarket->ResourceMarket::showRemaining();
+		
 		while (true) {
-			std::cout << endl << p->getName() << "'s turn, then choose what you want to buy: " << endl << "(coal, oil, uranium, or garbage)" << " When you finish please type f or F  " << endl;
-
-
+			while (validMaterialChoice == false){
+			std::cout << std::endl << std::endl << p->getName() << "'s turn, choose what you want to buy: " << endl << "(coal, oil, uranium, or garbage)" << " When you finish please type f  " << endl;
 			std::cin >> materialChoice; std::cout << endl;
+			materialChoice[0] = toupper(materialChoice[0]); //capitilize the first letter
+			
 
-
-			if (materialChoice == "coal" || materialChoice == "Coal") {
-				std::cout << "How many coal do you want to buy: ";
+			if (materialChoice == "Coal" || materialChoice == "Oil" || materialChoice == "Uranium" || materialChoice == "Garbage" || materialChoice == "Uranium" || materialChoice == "F")
+				validMaterialChoice = true;
+			}
+			//check invalid materialChoice
+			
+			if (materialChoice != "F") {
+				std::cout << std::endl << "How many " << materialChoice << " do you want to buy: ";
 				std::cin >> qty;
+			}
+			else { break; }
+			
+				
+				//Check the Resource Market Storage  (Note: getMarketCost calls getMarketQuantity)
 
-				//Validating if market has enough resources (Note: getMarketCost calls getMarketQuantity)
-				if (resourceMarket->getMarketCost("Coal", qty) == -1) {
-					std::cout << "CONTINUE" << endl;
+				/* getMarketCost, should just return the price according the market depending on quantity
+				if cost = -1 , player cannot afford it 
+				*/
+
+				
+				if (resourceMarket->getMarketCost(materialChoice, qty) == -1) {
+					std::cout << "Player Cannot Afford to buy the resource" << endl;
 					system("pause");
 					continue;
 				}
+				//first round only has 3 coal
+				//Buy the resource  validateResourcePurchase in player class 
+				//validateResourcePurchase(int cost, int quantity, string type)
 
-				//Validating if player can store or purchase the quantity of resources
-				if (p->validateResourcePurchase(resourceMarket->getMarketCost("Coal", qty), qty, "Coal")) {
-					std::cout << "Cost was: " << resourceMarket->getMarketCost("Coal", qty) << " elektros." << endl;
-					std::cout << endl << "Here is how much elektros you have after buying " << p->getElectro() << "$" << endl;
-					std::cout << "Current coal you have: " << p->getResourceQuantity("Coal") << endl;
-					resourceMarket->updateMarket("Coal", qty);
+				if (p->validateResourcePurchase(resourceMarket->getMarketCost(materialChoice, qty), qty, materialChoice)) {
+
+					std::cout << "Cost was: " << resourceMarket->getMarketCost(materialChoice, qty) << " elektros." << endl;
+					std::cout << endl << "Here is how much elektros you have after buying " << qty  <<" " <<  materialChoice << ": "<< p->getElectro() << "$" << endl;
+					std::cout << "You current have " << p->getResourceQuantity(materialChoice) << " " << materialChoice << endl;
+					
+					resourceMarket->updateMarket(materialChoice, qty); //error here 
 				}
-
-			}
-			else if (materialChoice == "oil" || materialChoice == "Oil") {
-
-				std::cout << "How many oil do you want to buy: ";
-				std::cin >> qty;
-
-				//Validating if market has enough resources (Note: getMarketCost calls getMarketQuantity)
-				if (resourceMarket->getMarketCost("Oil", qty) == -1) {
-					continue;
+				else{
+				std::cout << "Invalid" << endl;
 				}
-
-				//Validating if player can store or purchase the quantity of resources
-				if (p->validateResourcePurchase(resourceMarket->getMarketCost("Oil", qty), qty, "Oil")) {
-					cout << "Cost was: " << resourceMarket->getMarketCost("Oil", qty) << " elektros." << endl;
-					cout << endl << "Here is how much elektros you have after buying " << p->getElectro() << "$" << endl;
-					cout << "Current oil you have: " << p->getResourceQuantity("Oil") << endl;
-					resourceMarket->updateMarket("Oil", qty);
-				}
-
-			}
-			else if (materialChoice == "uranium" || materialChoice == "Uranium") {
-
-				std::cout << "How many uranium do you want to buy: ";
-				std::cin >> qty;
-
-				//Validating if market has enough resources (Note: getMarketCost calls getMarketQuantity)
-				if (resourceMarket->getMarketCost("Uranium", qty) == -1) {
-					continue;
-				}
-
-				//Validating if player can store or purchase the quantity of resources
-				if (p->validateResourcePurchase(resourceMarket->getMarketCost("Uranium", qty), qty, "Uranium")) {
-					std::cout << "Cost was: " << resourceMarket->getMarketCost("Uranium", qty) << " elektros." << endl;
-					std::cout << endl << "Here is how much elektros you have after buying " << p->getElectro() << "$" << endl;
-					std::cout << "Current uranium you have: " << p->getResourceQuantity("Uranium") << endl;
-					resourceMarket->updateMarket("Uranium", qty);
-				}
-			}
-
-			else if (materialChoice == "garbage" || materialChoice == "Garbage") {
-
-				std::cout << "How many garbage do you want to buy: ";
-				std::cin >> qty;
-
-				//Validating if market has enough resources (Note: getMarketCost calls getMarketQuantity)
-				if (resourceMarket->getMarketCost("Garbage", qty) == -1) {
-					continue;
-				}
-
-				//Validating if player can store or purchase the quantity of resources
-				if (p->validateResourcePurchase(resourceMarket->getMarketCost("Garbage", qty), qty, "Garbage")) {
-					std::cout << "Cost was: " << resourceMarket->getMarketCost("Garbage", qty) << " elektros." << endl;
-					std::cout << endl << "Here is how much elektros you have after buying " << p->getElectro() << "$" << endl;
-					std::cout << "Current garbage you have: " << p->getResourceQuantity("Garbage") << endl;
-					resourceMarket->updateMarket("Garbage", qty);
-				}
-			}
-			else if (materialChoice == "f" || materialChoice == "F") {
-				break;
-			}
-		}
+				validMaterialChoice = false;
+		} //while end
 	}
 }
 
@@ -646,11 +611,11 @@ void::Game::buildHouse() {
 
 			int index;
 			std::cout << std::endl << "Please choose an Map Index you want to build a house in, refer to map file" << endl;
-			cout << "Map Index: ";
+			std::cout << "Map Index: ";
 
-			cin >> index;
+			std::cin >> index;
 
-			while (index < 0 || index > player_vector.size()) {
+			while (index < 0 || index > (player_vector.size()*7)) {
 				std::cout << "Invaid Input enter a valid one" << std::endl;
 				std::cin >> index;
 			}
@@ -691,6 +656,8 @@ void::Game::buildHouse() {
 
 
 void Game::bureaucracy() {
+	/*
+	//needs refill
 	int choice;
 
 	cout << "*****************************************************************" << endl;
@@ -704,16 +671,16 @@ void Game::bureaucracy() {
 	for (Player* player : player_vector) {
 
 		int poweredPlants[3] = { -1,-1,-1 }; //Initial status (no powered plants)
-		/*Money received depends on the number of powered houses.
-		<---->If no house powered ---> the automatically 10 elektro.
-		- Giving them the ability to decide how many houses they want to power based on their resources.*/
-		cout << "**********************************************************************************************************************" << endl;
-		cout << player->getName() << " has " << player->getHouse()->getHouse() << " houses." << endl;
-		cout << "Attention: You can only power cities that you own, any powering except that will be a loss of resources." << endl;
-		cout << "**********************************************************************************************************************" << endl;
-		cout << "Do you want to power any Cities?";
-		cout << "(yes or no)";
-		cin >> powerDecision; cout << endl;
+		//Money received depends on the number of powered houses.
+		//<---->If no house powered ---> the automatically 10 elektro.
+		//- Giving them the ability to decide how many houses they want to power based on their resources.
+		std::cout << "**********************************************************************************************************************" << endl;
+		std::cout << player->getName() << " has " << player->getHouse()->getHouse() << " houses." << endl;
+		std::cout << "Attention: You can only power cities that you own, any powering except that will be a loss of resources." << endl;
+		std::cout << "**********************************************************************************************************************" << endl;
+		std::cout << "Do you want to power any Cities?";
+		std::cout << "(yes or no)";
+		std::cin >> powerDecision; cout << endl;
 
 		//If yes, player will power cities
 		if (powerDecision == "yes") {
@@ -772,7 +739,7 @@ void Game::bureaucracy() {
 			player->addElectro(0);// No supply decision taken---> no elektros in return
 		}
 	}
-
+*/
 }
 
 

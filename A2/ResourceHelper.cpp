@@ -58,19 +58,19 @@ void ResourceHelper::setResource(string type, int quantity) {
 
 int ResourceHelper::getResourceQuantity(string resource) {
 	if (resource == "Coal") {
-		return coal->getQuantity();
+		return this->coal->getQuantity(); //null
 	}
 
 	if (resource == "Oil") {
-		return oil->getQuantity();
+		return this->oil->getQuantity();
 	}
 
 	if (resource == "Garbage") {
-		return garbage->getQuantity();
+		return this->garbage->getQuantity();
 	}
 
 	if (resource == "Uranium") {
-		return uranium->getQuantity();
+		return this->uranium->getQuantity();
 	}
 
 	else return -1;
@@ -79,19 +79,19 @@ int ResourceHelper::getResourceQuantity(string resource) {
 int ResourceHelper::getResourceCost(string resource) {
 
 	if (resource == "Coal") {
-		return coal->getCost();
+		return this->coal->getCost();
 	}
 
 	if (resource == "Oil") {
-		return oil->getCost();
+		return this->oil->getCost();
 	}
 
 	if (resource == "Garbage") {
-		return garbage->getCost();
+		return this->garbage->getCost();
 	}
 
 	if (resource == "Uranium") {
-		return uranium->getCost();
+		return this->uranium->getCost();
 	}
 
 	else return -1;
@@ -102,57 +102,57 @@ int ResourceHelper::getResourceCost(string resource) {
 void ResourceHelper::removeSingleResource(string resource) {
 
 	if (resource == "Coal") {
-		coal->removeQuantity(1);
+		this->coal->removeQuantity(1);
 	}
 
 	if (resource == "Oil") {
-		oil->removeQuantity(1);
+		this->oil->removeQuantity(1);
 	}
 
 	if (resource == "Garbage") {
-		garbage->removeQuantity(1);
+		this->garbage->removeQuantity(1);
 	}
 
 	if (resource == "Uranium") {
-		uranium->removeQuantity(1);
+		this->uranium->removeQuantity(1);
 	}
 }
 
 void ResourceHelper::remove(string resource, int qty) {
 
 	if (resource == "Coal") {
-		coal->removeQuantity(qty);
+		this->coal->removeQuantity(qty);
 	}
 
 	if (resource == "Oil") {
-		oil->removeQuantity(qty);
+		this->oil->removeQuantity(qty);
 	}
 
 	if (resource == "Garbage") {
-		garbage->removeQuantity(qty);
+		this->garbage->removeQuantity(qty);
 	}
 
 	if (resource == "Uranium") {
-		uranium->removeQuantity(qty);
+		this->uranium->removeQuantity(qty);
 	}
 }
 
 void ResourceHelper::addSingleResource(string resource) {
 
 	if (resource == "Coal") {
-		coal->addQuantity(1);
+		this->coal->addQuantity(1);
 	}
 
 	if (resource == "Oil") {
-		oil->addQuantity(1);
+		this->oil->addQuantity(1);
 	}
 
 	if (resource == "Garbage") {
-		garbage->addQuantity(1);
+		this->garbage->addQuantity(1);
 	}
 
 	if (resource == "Uranium") {
-		uranium->addQuantity(1);
+		this->uranium->addQuantity(1);
 	}
 
 }

@@ -35,16 +35,11 @@ public:
 	vector<PowerPlant>* getPowerPlants() const;
 	int getnumOfPowerPlants() const;
 	void setnumOfPowerPlants(int numOfPowerPlants);
-	void powerACity(int index);
+	
+	void powerACity(int index); // bureaucracy fix
+	
 	void addPowerPlant(PowerPlant * powerplant); // adds a powerplant to the powerplants vector
-	//powerplanthelper add powerplant 	std::vector<PowerPlant>* powerplants;
-
-	//resources 
-	void setResources(string resource_type, int quantity); //Adds resource to player's possessions
-	int getResourceQuantity(string resource_type) ;
-	int getResourceCost(string resource_type) ;
-	void printPlayerInfo();
-
+	
 	bool pass();//this one is used when the player chooses not to start an auction.
 	bool auction(); //this one is used when the player chooses a power plant for auction.
 	void resetAuction();
@@ -52,11 +47,17 @@ public:
 	bool getAuction();
 	void setPass(bool);
 	void setAuction(bool);
+	//powerplanthelper add powerplant 	std::vector<PowerPlant>* powerplants;
 
+	//resources 
+	void setResources(string resource_type, int quantity); //Adds resource to player's possessions
+	int getResourceQuantity(string resource_type) ;
+	int getResourceCost(string resource_type) ;
+	void printPlayerInfo();
+	 
 	bool validateResourcePurchase(int cost, int quantity, string type);
 	int getTotalStorage();
 	int getResourceStorage(string resource);
-
 
 private:
 	std::string name;

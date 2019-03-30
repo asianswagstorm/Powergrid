@@ -31,24 +31,6 @@ IOFile::~IOFile()
 {
 }
 
-/*//Saves player houses
-	for (unsigned int i = 0; i < player_houses->size(); i++) {
-		if ((*player_houses)[i].size() == 0) {
-			outputMap << i << endl;
-		}
-		else if ((*player_houses)[i].size() == 1) {
-			outputMap << i << "," << (*player_houses)[i][0] << endl;
-		}
-		else if ((*player_houses)[i].size() == 2) {
-			outputMap << i << "," << (*player_houses)[i][0] << "," << (*player_houses)[i][1] << endl;
-		}
-		else if ((*player_houses)[i].size() == 3) {
-			outputMap << i << "," << (*player_houses)[i][0] << "," << (*player_houses)[i][1] << "," << (*player_houses)[i][2] << endl;
-		}
-	}
-
-*/
-
 //need to filter based on active areas
 void IOFile::readMapInput(string areaColor) {
 	ifstream mapInputs;

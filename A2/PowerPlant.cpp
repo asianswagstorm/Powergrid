@@ -62,7 +62,7 @@ int PowerPlant::getTypeNum() {
     return typeNum;
 }
 
-int PowerPlant::getStorage() {
+int PowerPlant::getStorage() { //should be number of resources a powerplant can hold. For now do not implement
 	return storage;
 }
 
