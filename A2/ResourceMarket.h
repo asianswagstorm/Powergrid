@@ -28,8 +28,8 @@ private:
 	ResourceHelper * market[12];
 
 	//Internal Behaviour Methods that should not be accessed outside of class
-	//int findEmpty(string resource); //Finds the last index that is empty, this will be the index used to refill the resource
-	//int findRemaining(string resource); //Finds the last index that is not full but not empty
+	int findEmpty(string resource); //Finds the last index that is empty, this will be the index used to refill the resource
+	int findRemaining(string resource); //Finds the last index that is not full but not empty
 	void refillHelper(string resource, int quantity); //Refills the market
 
 };

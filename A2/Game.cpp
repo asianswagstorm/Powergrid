@@ -302,6 +302,7 @@ Player * Game::getNextPlayer(Player & p) {
 }
 
 void Game::buyPowerPlant() {
+	//TO DO: SAVE THE RESOURCE POWERPLANTS WON TO FILE WITH THE PLAYER WHO OWNS IT.
 	int AuctionWinner, player_index = -1, auction_bid = -2, temp = 0;
 	string response; //response= would you like to but a plant? //used to reset the response when a player responds
 	string bid_response = ""; // do you want to join the auction war for a powerplant
@@ -327,7 +328,6 @@ void Game::buyPowerPlant() {
 			player_vector[q]->resetAuction();
 
 		}
-
 		// if already bought powerplant, skip player.
 		if (p->getPass() == true) {
 			//player_vector[i]->auction(); //set auction = true
@@ -507,10 +507,9 @@ void Game::buyPowerPlant() {
 	}
 }
 
-/* Step 3 - Buy raw material. In this part, the last player will begin. In other words, it's the reverse order of buying power plant who starts. */
+//Step 3 - Buy resources from the resource market. 
 void Game::buyResources() {
-
-
+	//TO DO: SAVE THE RESOURCE MARKET TO FILES AND LOAD THEM.
 	std::cout << "------------Phase 3------------" << endl;
 	std::cout << endl;
 	std::cout << "BUYING RESOURCES" << endl;
@@ -523,35 +522,24 @@ void Game::buyResources() {
 	bool validMaterialChoice = false;
 	for (Player* p : player_vector) {
 		std::cout << "Player order reversed: " << p->getName() << std::endl << std::endl;
-		
-		this->resourceMarket->ResourceMarket::showRemaining();
-		
 		while (true) {
-			while (validMaterialChoice == false){
-			std::cout << std::endl << std::endl << p->getName() << "'s turn, choose what you want to buy: " << endl << "(coal, oil, uranium, or garbage)" << " When you finish please type f  " << endl;
-			std::cin >> materialChoice; std::cout << endl;
-			materialChoice[0] = toupper(materialChoice[0]); //capitilize the first letter
-			
+			this->resourceMarket->ResourceMarket::showRemaining();
 
-			if (materialChoice == "Coal" || materialChoice == "Oil" || materialChoice == "Uranium" || materialChoice == "Garbage" || materialChoice == "Uranium" || materialChoice == "F")
-				validMaterialChoice = true;
+			while (validMaterialChoice == false) {
+				std::cout << std::endl << std::endl << p->getName() << "'s turn, choose what you want to buy: " << endl << "(coal, oil, uranium, or garbage)" << " When you finish please type f  " << endl;
+				std::cin >> materialChoice; std::cout << endl;
+				materialChoice[0] = toupper(materialChoice[0]); //capitilize the first letter
+
+
+				if (materialChoice == "Coal" || materialChoice == "Oil" || materialChoice == "Uranium" || materialChoice == "Garbage" || materialChoice == "Uranium" || materialChoice == "F")
+					validMaterialChoice = true;
 			}
 			//check invalid materialChoice
-			
+
 			if (materialChoice != "F") {
 				std::cout << std::endl << "How many " << materialChoice << " do you want to buy: ";
 				std::cin >> qty;
-			}
-			else { break; }
-			
-				
-				//Check the Resource Market Storage  (Note: getMarketCost calls getMarketQuantity)
 
-				/* getMarketCost, should just return the price according the market depending on quantity
-				if cost = -1 , player cannot afford it 
-				*/
-
-				
 				if (resourceMarket->getMarketCost(materialChoice, qty) == -1) {
 					std::cout << "Player Cannot Afford to buy the resource" << endl;
 					system("pause");
@@ -564,21 +552,23 @@ void Game::buyResources() {
 				if (p->validateResourcePurchase(resourceMarket->getMarketCost(materialChoice, qty), qty, materialChoice)) {
 
 					std::cout << "Cost was: " << resourceMarket->getMarketCost(materialChoice, qty) << " elektros." << endl;
-					std::cout << endl << "Here is how much elektros you have after buying " << qty  <<" " <<  materialChoice << ": "<< p->getElectro() << "$" << endl;
+					std::cout << endl << "Here is how much elektros you have after buying " << qty << " " << materialChoice << ": " << p->getElectro() << "$" << endl;
 					std::cout << "You current have " << p->getResourceQuantity(materialChoice) << " " << materialChoice << endl;
-					
+
 					resourceMarket->updateMarket(materialChoice, qty); //error here 
 				}
-				else{
-				std::cout << "Invalid" << endl;
-				}
 				validMaterialChoice = false;
-		} //while end
-	}
+			}
+			else {
+				validMaterialChoice = false;
+				break;
+			}
+		}//end while true
+	}//end for
 }
 
 void::Game::buildHouse() {
-	
+	//TO DO: REMOVE THE HOUSES ALREADY BOUGHT, SAVE TO FILE AND THEN PUSH TO VECTOR
 	string response;
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		Player * p = player_vector[i];
@@ -606,7 +596,6 @@ void::Game::buildHouse() {
 					std::cout << "" ;
 				else
 				std::cout << "Map Index: "  << Map::getIndexNumber(k) << ", City Name: "<< Map::getCityName(k) <<endl;
-			
 			}
 
 			int index;
@@ -627,7 +616,7 @@ void::Game::buildHouse() {
 			p->removeElectro(10);
 
 			p->Player::getHouse()->HouseHelper::addHouse(house);
-			p->Player::getHouse()->HouseHelper::setHouse(p->Player::getHouse()->HouseHelper::getHouseVector().size() + 1);
+			p->Player::getHouse()->HouseHelper::setHouse(p->Player::getHouse()->HouseHelper::getHouseVector().size());
 
 			std::cout << endl << "Purchase completed" << endl;
 			std::cout << "You now have " << p->getElectro() << " elektro" << endl;
@@ -648,7 +637,7 @@ void::Game::buildHouse() {
 			}
 	}
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
-	IOFile::savePlayer(player_vector);
+	IOFile::savePlayer(player_vector); // needs to add the new houses
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		player_vector[i]->printPlayerInfo();
 	}
@@ -656,6 +645,7 @@ void::Game::buildHouse() {
 
 
 void Game::bureaucracy() {
+	//TO DO SUNDAY MARCH 31th!!!!
 	/*
 	//needs refill
 	int choice;

@@ -58,10 +58,10 @@ ResourceMarket::ResourceMarket() {
 	market[7]->edit("Uranium", 0, 8);
 	//round9
 	market[8] = new ResourceHelper();
-	market[8]->edit("Uranium", 1, 10);
+	market[8]->edit("Uranium", 0, 10);
 	//round10
 	market[9] = new ResourceHelper();
-	market[9]->edit("Uranium", 1, 12);
+	market[9]->edit("Uranium", 0, 12);
 	//round11
 	market[10] = new ResourceHelper();
 	market[10]->edit("Uranium", 1, 14);
@@ -253,7 +253,7 @@ void ResourceMarket::refillHelper(string resource, int quantity) {
 
 		for (int i = 0; i < 8; i++) { 
 
-			while (market[i]->getResourceQuantity(resource) < 3) { //getResourceQuantity?????
+			while (market[i]->getResourceQuantity(resource) < 3) { //max is 3
 				market[i]->addSingleResource(resource);
 				quantity--;
 				if (quantity == 0)
@@ -267,7 +267,7 @@ void ResourceMarket::refillHelper(string resource, int quantity) {
 	if (resource == "Uranium") {
 		for (int i = 8; i < 12; i++) { 
 			
-			while (market[i]->getResourceQuantity(resource) < 1) { //why???
+			while (market[i]->getResourceQuantity(resource) < 1) { //max uranium is 1
 				market[i]->addSingleResource(resource);//addOneUnit
 				quantity--;
 			
@@ -283,17 +283,17 @@ void ResourceMarket::refillHelper(string resource, int quantity) {
 
 //It returns current cost of an valid quantity of a resource
 int ResourceMarket::getMarketCost(string resource, int quantity) {
-	cout << "The market only has " << this->getMarketQuantity(resource) <<endl;
+	
 	if (quantity > this->getMarketQuantity(resource)) {
-		cout << "The market only has " << this->getMarketQuantity(resource) << " " << resource << " Inssuficient quantity "<< endl;
+		cout << "The market only has " << this->getMarketQuantity(resource) << " " << resource << " Insufficient quantity "<< endl;
+		cout << "You are asking for " << quantity << " " << resource << " Quantity too high. " << endl;
 		return -1;
 	}
 
-	//loop through market and get price.
-	/*
 	//The following are helper counters for the functionality of the method
 	int i = 0;
-	
+	int i1 = findRemaining(resource); //-1 is everything is full or not empty
+	int i2 = findEmpty(resource); //-1 if nothing is empty
 	int counter = 0;
 	bool insideIndex = true;
 
@@ -329,8 +329,6 @@ int ResourceMarket::getMarketCost(string resource, int quantity) {
 
 	}//End of while
 	return cost;
-	*/
-	return 1; // set cost as 1 for now
 }
 
 void ResourceMarket::showInfo() {
@@ -369,4 +367,40 @@ void ResourceMarket::showRemaining() {
 		<< "Remaining Garbage in Market: " << getTotal("Garbage") << std::endl
 		<< "Remaining Uranium in Market: " << getTotal("Uranium") << std::endl;
 
+}
+int ResourceMarket::findRemaining(string resource) {
+
+	if (resource == "Uranium") //Should not use this function for Uranium since Uranium can only have 1
+		return findEmpty("Uranium");
+
+	for (int i = 7; i >= 0; i--) {
+
+		//If index is not full
+		if (market[i]->getResourceQuantity(resource) == 1 || market[i]->getResourceQuantity(resource) == 2) {
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+int ResourceMarket::findEmpty(string resource) {
+
+	int i = 0; // i is a global variable
+
+	if (resource == "Oil" || resource == "Coal" || resource == "Garbage")
+		i = 7;
+	else {
+		i = 11;
+	}
+
+	for (i; i >= 0; i--) {
+
+		//If index has empty "Resource" 
+		if (market[i]->getResourceQuantity(resource) == 0) {
+			return i;
+		}
+	}
+
+	return -1;
 }

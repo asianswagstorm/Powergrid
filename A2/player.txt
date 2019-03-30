@@ -1,7 +1,7 @@
 Player1:
 Name=Paul
-Electro=7
-Houses=2
+Electro=40
+Houses=1
 PowerPlants=0
 Area Color=purple
 Coal=0
@@ -11,8 +11,8 @@ Uranium=0
 
 Player2:
 Name=Jonh
-Electro=27
-Houses=2
+Electro=47
+Houses=1
 PowerPlants=0
 Area Color=blue
 Coal=0
@@ -22,8 +22,8 @@ Uranium=0
 
 Player3:
 Name=Jack
-Electro=41
-Houses=0
+Electro=57
+Houses=1
 PowerPlants=0
 Area Color=red
 Coal=0
