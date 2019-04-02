@@ -10,16 +10,21 @@ class PowerPlant{
 public:
     PowerPlant();
     ~PowerPlant();
-    PowerPlant(int, string, int, int);
+    PowerPlant(int, string, int, int, bool, string);
     void setMinPlantCost(int minPlantCost);
     void setTypeNum(int typeNum);
     void setType(string type);
     void setHouse(int house);
     int getMinPlantCost();
-    string getType();
+	string getType();
     int getTypeNum();
 	int getStorage();
     int getHouse();
+	string getOwner();
+	bool getInDeck();
+	void setInDeck(bool inDeck);
+	void setOwner(string ownedBy);
+
     void printPowerPlantSummary();
 
 private:
@@ -29,6 +34,8 @@ private:
     int typeNum;
     int house;
 	int storage = 2 * minPlantCost;
+	bool inDeck;
+	string ownedBy;
 };
 
 #endif //POWERPLANT_H

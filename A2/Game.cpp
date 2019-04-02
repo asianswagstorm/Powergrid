@@ -21,7 +21,7 @@ using namespace std;
 
 Game::Game() {
 	this->resourceMarket = new ResourceMarket();
-	this->powerplanthelper = new PowerPlantHelper();
+	this->powerplanthelper = new PowerPlantHelper();// this would create new ppv every time update the cards
 
 	round = 0; //default contructor, no game so no round 
 }
@@ -58,7 +58,6 @@ void Game::loadGame(int numPlayers) {
 
 	powerplanthelper = new PowerPlantHelper(); // should show only 8 // Also should keep track of discarded cards or cards already in game. 
 }
-
 
 void Game::setUpGame() {
 	int numPlayers = 0;
@@ -302,11 +301,13 @@ Player * Game::getNextPlayer(Player & p) {
 }
 
 void Game::buyPowerPlant() {
+
 	//TO DO: SAVE THE RESOURCE POWERPLANTS WON TO FILE WITH THE PLAYER WHO OWNS IT.
 	int AuctionWinner, player_index = -1, auction_bid = -2, temp = 0;
 	string response; //response= would you like to but a plant? //used to reset the response when a player responds
 	string bid_response = ""; // do you want to join the auction war for a powerplant
 	std::vector<Player*> player_with_Auction_vector;
+	
 	int numPlayers = this->player_vector.size();
 	//reset the auction status
 	for (int j = 0; j < numPlayers; j++) {
@@ -491,13 +492,18 @@ void Game::buyPowerPlant() {
 
 		//int powerplantNum = temp;
 		//Errors
-		
+		if (temp == 0) {
+			temp = init_playerBid;
+		}
 		std::cout << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << temp << std::endl << std::endl;
 		//player_vector[AuctionWinner]->setAuction(false);
+		
 		player_vector[AuctionWinner]->setPass(true);
-		player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(temp));
+		player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(temp, player_vector[AuctionWinner]));
 		player_vector[AuctionWinner]->setnumOfPowerPlants(player_vector[AuctionWinner]->getnumOfPowerPlants());
 		player_vector[AuctionWinner]->removeElectro(temp);
+		temp = 0;
+		
 
 	}//main for loop done
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;

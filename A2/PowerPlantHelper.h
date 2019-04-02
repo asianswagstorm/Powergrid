@@ -1,5 +1,6 @@
 #pragma once
 #include "Powerplant.h"
+#include "Player.h"
 #include <vector>
 #include <algorithm>
 
@@ -27,11 +28,12 @@ public:
 
 	int getPlantResources(int i);
 	
-	PowerPlant* removePowerPlant(int playerBid);
+	PowerPlant* removePowerPlant(int playerBid,Player * p);
 
 	bool isStep3 = false;
 private:
 	vector<PowerPlant> * ppv;
+	vector<PowerPlant> * ppvClone;
 	vector<PowerPlant> *powerplantCardsShowned;
 	vector<PowerPlant> *powerplantActualMarket;
 };

@@ -10,16 +10,19 @@ PowerPlant::PowerPlant(){
     minPlantCost = 1;
     type = "null";
     typeNum = 1;
-    house = 1;
-
+    house = 0;
+	inDeck = true;
+	ownedBy = "";
 }
 
 //Constructor initializes power plants 
-PowerPlant::PowerPlant(int typeNum, string type, int minPlantCost, int house){
+PowerPlant::PowerPlant(int typeNum, string type, int minPlantCost, int house, bool inDeck, string ownedBy){
     this->minPlantCost = minPlantCost;
     this->type = type; 
     this->typeNum = typeNum;
     this->house = house;
+	this->inDeck = true;
+	this->ownedBy = ownedBy;
 	this->storage = 2 * minPlantCost;
 }
 
@@ -56,7 +59,6 @@ int PowerPlant::getMinPlantCost(){
 string PowerPlant::getType(){
     return type;
 }
-
 
 int PowerPlant::getTypeNum() {
     return typeNum;
@@ -97,4 +99,16 @@ int PowerPlant::getHouse(){
 	}
 }
 
- //static vector<PowerPlant*> powerplantCardsInGame;
+ string PowerPlant::getOwner() {
+	 return this->ownedBy;
+ }
+ bool PowerPlant::getInDeck() {
+	 return this->inDeck;
+ }
+ void PowerPlant::setInDeck(bool inDeck) {
+	 this->inDeck = inDeck;
+ }
+ void PowerPlant::setOwner(string ownedBy) {
+	 this->ownedBy = ownedBy;
+ }
+

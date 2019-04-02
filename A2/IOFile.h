@@ -15,12 +15,19 @@ public:
 	static void addEdges();
 	static void savePlayerOrder(vector<Player*> player_vector);
 	
-	/*TO DO: 
-	static void savePowerplantsInGame(); //1 file with writing in game or not True False
-	//void savePowerplants();
-	//void loadPowerplants(string);
+	//TO DO: 
 
-	*/
+	static void savePowerplants(vector<PowerPlant> ppv);//1 file with writing in game or not True False
+	static void loadPowerplants(string);
+
+	static void savePlayerHouse(vector<House*> house_vector);
+	static void loadPlayerHouse();
+	
+	static void saveResourceMarket();
+	static void loadResourceMarket();
+
+	static void updatePlayerResources();
+	
 };
 
 

@@ -37,9 +37,9 @@ int main() {
 
 	game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
 	std::cout << endl;
-	//game->Game::buyPowerPlant();
+	game->Game::buyPowerPlant();
 	 // game->Game::buyResources(); //done //still need to save to file
-	game->Game::buildHouse();
+	//game->Game::buildHouse();
 	//game->Game::bureaucracy(); //redo
 
 	system("pause");

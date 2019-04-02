@@ -1,5 +1,7 @@
-#include "PowerPlantHelper.h"
-#include "PowerPlant.h"
+#include "PowerPlantHelper.h";
+#include "PowerPlant.h";
+#include "Player.h";
+#include "IOFile.h";
 #include <vector>
 #include <algorithm> 
 #include <ctime> 
@@ -9,55 +11,55 @@ using namespace std;
 
 PowerPlantHelper::PowerPlantHelper()
 {
-	PowerPlant coal4(4, "Coal", 2, 1);
-	PowerPlant coal8(8, "Coal", 3, 2);
-	PowerPlant coal10(10, "Coal", 2, 2);
-	PowerPlant coal15(15, "Coal", 2, 3);
-	PowerPlant coal20(20, "Coal", 3, 5);
-	PowerPlant coal25(25, "Coal", 2, 5);
-	PowerPlant coal31(31, "Coal", 3, 6);
-	PowerPlant coal36(36, "Coal", 3, 7);
-	PowerPlant coal42(42, "Coal", 2, 6);
+	PowerPlant coal4(4, "Coal", 2, 1,true,"");
+	PowerPlant coal8(8, "Coal", 3, 2, true, "");
+	PowerPlant coal10(10, "Coal", 2, 2, true, "");
+	PowerPlant coal15(15, "Coal", 2, 3, true, "");
+	PowerPlant coal20(20, "Coal", 3, 5, true, "");
+	PowerPlant coal25(25, "Coal", 2, 5, true, "");
+	PowerPlant coal31(31, "Coal", 3, 6, true, "");
+	PowerPlant coal36(36, "Coal", 3, 7, true, "");
+	PowerPlant coal42(42, "Coal", 2, 6, true, "");
 
-	PowerPlant oil3(3, "Oil", 2, 1);
-	PowerPlant oil7(7, "Oil", 3, 2);
-	PowerPlant oil9(9, "Oil", 1, 1);
-	PowerPlant oil16(16, "Oil", 2, 3);
-	PowerPlant oil26(26, "Oil", 2, 5);
-	PowerPlant oil32(32, "Oil", 3, 6);
-	PowerPlant oil35(35, "Oil", 1, 5);
-	PowerPlant oil40(40, "Oil", 2, 6);
+	PowerPlant oil3(3, "Oil", 2, 1, true, "");
+	PowerPlant oil7(7, "Oil", 3, 2, true, "");
+	PowerPlant oil9(9, "Oil", 1, 1, true, "");
+	PowerPlant oil16(16, "Oil", 2, 3, true, "");
+	PowerPlant oil26(26, "Oil", 2, 5, true, "");
+	PowerPlant oil32(32, "Oil", 3, 6, true, "");
+	PowerPlant oil35(35, "Oil", 1, 5, true, "");
+	PowerPlant oil40(40, "Oil", 2, 6, true, "");
 
-	PowerPlant hybrid5(5, "Hybrid", 2, 1);
-	PowerPlant hybrid12(12, "Hybrid", 2, 2);
-	PowerPlant hybrid21(21, "Hybrid", 2, 4);
-	PowerPlant hybrid29(29, "Hybrid", 1, 4);
-	PowerPlant hybrid46(46, "Hybrid", 3, 7);
+	PowerPlant hybrid5(5, "Hybrid", 2, 1, true, "");
+	PowerPlant hybrid12(12, "Hybrid", 2, 2, true, "");
+	PowerPlant hybrid21(21, "Hybrid", 2, 4, true, "");
+	PowerPlant hybrid29(29, "Hybrid", 1, 4, true, "");
+	PowerPlant hybrid46(46, "Hybrid", 3, 7, true, "");
 
-	PowerPlant garbage6(6, "Garbage", 1, 1);
-	PowerPlant garbage14(14, "Garbage", 2, 2);
-	PowerPlant garbage19(19, "Garbage", 2, 3);
-	PowerPlant garbage24(24, "Garbage", 2, 4);
-	PowerPlant garbage30(30, "Garbage", 3, 6);
-	PowerPlant garbage38(38, "Garbage", 3, 7);
+	PowerPlant garbage6(6, "Garbage", 1, 1, true, "");
+	PowerPlant garbage14(14, "Garbage", 2, 2, true, "");
+	PowerPlant garbage19(19, "Garbage", 2, 3, true, "");
+	PowerPlant garbage24(24, "Garbage", 2, 4, true, "");
+	PowerPlant garbage30(30, "Garbage", 3, 6, true, "");
+	PowerPlant garbage38(38, "Garbage", 3, 7, true, "");
 
-	PowerPlant uranium11(11, "Uranium", 1, 1);
-	PowerPlant uranium17(17, "Uranium", 1, 2);
-	PowerPlant uranium23(23, "Uranium", 1, 3);
-	PowerPlant uranium28(28, "Uranium", 1, 4);
-	PowerPlant uranium34(34, "Uranium", 1, 5);
-	PowerPlant uranium39(39, "Uranium", 1, 6);
+	PowerPlant uranium11(11, "Uranium", 1, 1, true, "");
+	PowerPlant uranium17(17, "Uranium", 1, 2, true, "");
+	PowerPlant uranium23(23, "Uranium", 1, 3, true, "");
+	PowerPlant uranium28(28, "Uranium", 1, 4, true, "");
+	PowerPlant uranium34(34, "Uranium", 1, 5, true, "");
+	PowerPlant uranium39(39, "Uranium", 1, 6, true, "");
 
-	PowerPlant eco13(13, "Eco", 0, 1);
-	PowerPlant eco18(18, "Eco", 0, 2);
-	PowerPlant eco22(22, "Eco", 0, 2);
-	PowerPlant eco27(27, "Eco", 0, 3);
-	PowerPlant eco33(33, "Eco", 0, 4);
-	PowerPlant eco37(37, "Eco", 0, 4);
-	PowerPlant eco44(44, "Eco", 0, 5);
-	PowerPlant eco50(50, "Eco", 0, 6);
+	PowerPlant eco13(13, "Eco", 0, 1, true, "");
+	PowerPlant eco18(18, "Eco", 0, 2, true, "");
+	PowerPlant eco22(22, "Eco", 0, 2, true, "");
+	PowerPlant eco27(27, "Eco", 0, 3, true, "");
+	PowerPlant eco33(33, "Eco", 0, 4, true, "");
+	PowerPlant eco37(37, "Eco", 0, 4, true, "");
+	PowerPlant eco44(44, "Eco", 0, 5, true, "");
+	PowerPlant eco50(50, "Eco", 0, 6, true, "");
 
-	PowerPlant step3(-1, "Step 3", -1, -1);
+	PowerPlant step3(-1, "Step 3", -1, -1, true, "");
 
 	/*Take the power plant cards numbered 03 to 10 and place them near the board in two horizontal rows.These power plants are an array of 2 x 4 cards(the power plant
 		market).In the upper row, place power plants numbered 03 to 06 in ascending order, left to right, beginning with the least expensive; this is the actual market.In the
@@ -87,7 +89,6 @@ PowerPlantHelper::PowerPlantHelper()
 	
 	ppv->push_back(coal10);
 	
-	//PowerPlantHelper::printPPMarket(); //Temporary
 	ppv->push_back(eco13); //facedown
 	//PowerPlant deck in order
 	ppv->push_back(uranium11);
@@ -133,6 +134,11 @@ When the Step 3 Card is drawn, there is a stack of power plants UNDER it -- thos
 It is this stack of highest power plants that is then shuffled.
 */
 	ppv->push_back(step3); //Step 3 card at the end	
+	
+	ppvClone = new vector<PowerPlant>();
+	for (unsigned int i = 0; i < ppv->size(); i++) {
+		ppvClone->push_back((*ppv)[i]);
+	}
 
 	//Used to make random_shuffle random
    //See:https://stackoverflow.com/questions/13459953/random-shuffle-not-really-random
@@ -142,6 +148,7 @@ It is this stack of highest power plants that is then shuffled.
 	random_shuffle(ppv->begin() + 9, ppv->end() - 1);
 	std::cout << std::endl << "==================================================" << std::endl;
 	std::cout << "===========Supply Deck shuffled================" << std::endl << std::endl;;
+	IOFile::savePowerplants(*ppv);
 }
 
 
@@ -154,7 +161,7 @@ void PowerPlantHelper::printPPMarket() {
 	std::cout << std::endl <<"---------------  Actual Market  ------------" << std::endl;
 
 	for (int i = 0; i < 8; i++) { //ppv->size()
-		powerplantCardsShowned->push_back((*ppv)[i]);
+		powerplantCardsShowned->push_back((*ppvClone)[i]);
 		if (i < 4)
 			powerplantActualMarket->push_back((*powerplantCardsShowned)[i]);
 
@@ -162,14 +169,14 @@ void PowerPlantHelper::printPPMarket() {
 			std::cout << std::endl << "---------------  Future Market  ------------" << std::endl;
 
 		(*powerplantCardsShowned)[i].printPowerPlantSummary();
-		//(*ppv)[i].printPowerPlantSummary();
+		
 	}
 }
 
 int PowerPlantHelper::findPowerPlant(int bid) {
 	int index = 0;
 
-	for (PowerPlant pp : *ppv) {
+	for (PowerPlant pp : *ppvClone) {
 		if (pp.getTypeNum() == bid) {
 			return index;
 		}
@@ -202,46 +209,67 @@ bool PowerPlantHelper::isPPActual(int typeNum) {
 
 std::vector<PowerPlant> * PowerPlantHelper::getPPV() {
 
-	return this->ppv;
+	return this->ppvClone;
 }
 
-void PowerPlantHelper::setPPV(std::vector<PowerPlant> * ppv) {
+void PowerPlantHelper::setPPV(std::vector<PowerPlant> * ppvClone) {
 
-	this->ppv = ppv;
+	this->ppvClone = ppvClone;
 }
 
 string PowerPlantHelper::getPlantType(int i) {
 
-	return (*ppv)[i].getType();
+	return (*ppvClone)[i].getType();
 }
 
 int PowerPlantHelper::getPlantResources(int i) {
 
-	return (*ppv)[i].getMinPlantCost();
+	return (*ppvClone)[i].getMinPlantCost();
 }
 
-PowerPlant* PowerPlantHelper::removePowerPlant(int playerBid) {
 
+PowerPlant* PowerPlantHelper::removePowerPlant(int playerBid, Player * p) {
+	int count;
+	bool isFound = false;
 	PowerPlant* powerplantObj = new PowerPlant();
 	int i = 0;
+
 	for (PowerPlant pp : *powerplantActualMarket) {
 		if (playerBid == pp.PowerPlant::getTypeNum()) {
-			powerplantObj = new PowerPlant(pp.PowerPlant::getTypeNum(), pp.getType(), pp.PowerPlant::getMinPlantCost(), pp.PowerPlant::getHouse());
 			break;
 		}
 		i++;
 	}
-	ppv->erase(ppv->begin() + i);
-	//ppv->erase(powerplantCardsShowned->begin() + i);
-	//ppv->erase(powerplantActualMarket->begin() + i);
+	//to view the file
+	for (count = 0; count < ppv->size();count++) {
+		if (playerBid == (*ppv)[count].PowerPlant::getTypeNum()) {
+			
+			std::cout << "Player Bid is : " << playerBid << std::endl;
+			std::cout << "I2 is : " << count << std::endl;
+			powerplantObj = new PowerPlant((*powerplantActualMarket)[count].PowerPlant::getTypeNum(), (*powerplantActualMarket)[count].getType(), (*powerplantActualMarket)[count].PowerPlant::getMinPlantCost(), (*powerplantActualMarket)[count].PowerPlant::getHouse(), (*powerplantActualMarket)[count].PowerPlant::getInDeck(), (*powerplantActualMarket)[count].PowerPlant::getOwner());
+			//powerplant that will be added
+			std::cout << "Count is : " << count << std::endl;
+			break;
+		}
+	}
+	std::cout << "i is : " << i << std::endl;
+	(*ppv)[count].setInDeck(false);
+	(*ppv)[count].setOwner(p->getName());
+	ppvClone->erase(ppvClone->begin() + i);// remove from ppvclone
+	
+	//powerplantObj->setInDeck(false);
+	//powerplantObj->setOwner(p->getName());
+
+	IOFile::savePowerplants(*ppv);
 	
 	//if step3 is found set the step3 card as the highest big
 	if ((*powerplantCardsShowned)[0].getTypeNum() == -1) {
 		cout << "Step 3 card found. shuffle the draw pile" << endl;
 		(*powerplantCardsShowned)[0].setTypeNum(-1); 
-		random_shuffle(ppv->begin() + 8, ppv->end()); //shuffling the draw pile (cards after step3 card)
+		random_shuffle(ppvClone->begin() + 8, ppvClone->end()); //shuffling the draw pile (cards after step3 card)
 		isStep3 = true;
 	}
 	return powerplantObj;
 
 }
+

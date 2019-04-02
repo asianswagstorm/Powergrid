@@ -263,4 +263,38 @@ void IOFile::savePlayerOrder(vector<Player*> player_vector) {
 	output.close();
 
 }
+//powerplantCardsShowned
+//powerplantCardsOwned 
 
+void IOFile::savePowerplants(vector<PowerPlant> ppv) {
+	ofstream output;
+	
+	output.open("powerplants.txt");
+
+	output << "Powerplants:" << endl;
+	
+
+	for (unsigned int i = 0; i < ppv.size(); i++) {
+		output << "TypeNum_Bid=" << ppv[i].getTypeNum() <<
+			" Type=" << ppv[i].getType() <<
+			" Resources_required=" << ppv[i].getMinPlantCost() <<
+			" Cities_powered=" << ppv[i].getHouse() <<
+			" In_Deck=" << ppv[i].getInDeck() <<
+			" Owner=" << ppv[i].getOwner() <<
+			std::endl;
+	}
+	output.close();
+
+}
+
+void IOFile::loadPowerplants(string) {}
+
+void IOFile::savePlayerHouse(vector<House*> house_vector) {}
+
+void IOFile::loadPlayerHouse() {}
+
+void IOFile::saveResourceMarket() {}
+
+void IOFile::loadResourceMarket() {}
+
+void IOFile::updatePlayerResources() {}
