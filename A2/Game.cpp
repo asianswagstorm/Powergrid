@@ -55,8 +55,8 @@ void Game::loadGame(int numPlayers) {
 		std::cout << endl << "===========Here is player" << i + 1 << "'s summary card=============" << std::endl << std::endl;
 		sc->SummaryCardInfo();
 	}
-
 	powerplanthelper = new PowerPlantHelper(); // should show only 8 // Also should keep track of discarded cards or cards already in game. 
+	powerplanthelper->setPPV(IOFile::loadPowerplants());
 }
 
 void Game::setUpGame() {
@@ -136,7 +136,7 @@ void Game::setUpGame() {
 
 		//Powerplant Cards 
 		powerplanthelper = new PowerPlantHelper();
-
+		IOFile::savePowerplants(powerplanthelper->getPPV());
 
 		Area::setGameAreas(areas);
 		//save players 

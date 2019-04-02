@@ -17,8 +17,9 @@ public:
 	
 	//TO DO: 
 
-	static void savePowerplants(vector<PowerPlant> ppv);//1 file with writing in game or not True False
-	static void loadPowerplants(string);
+	static void savePowerplants(vector<PowerPlant> * ppv);//1 file with writing in game or not True False
+	static std::vector<PowerPlant> * loadPowerplants();
+	static int splitString(string variable);
 
 	static void savePlayerHouse(vector<House*> house_vector);
 	static void loadPlayerHouse();

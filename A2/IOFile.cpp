@@ -266,28 +266,89 @@ void IOFile::savePlayerOrder(vector<Player*> player_vector) {
 //powerplantCardsShowned
 //powerplantCardsOwned 
 
-void IOFile::savePowerplants(vector<PowerPlant> ppv) {
+void IOFile::savePowerplants(vector<PowerPlant> * ppv) {
 	ofstream output;
 	
 	output.open("powerplants.txt");
 
-	output << "Powerplants:" << endl;
-	
-
-	for (unsigned int i = 0; i < ppv.size(); i++) {
-		output << "TypeNum_Bid=" << ppv[i].getTypeNum() <<
-			" Type=" << ppv[i].getType() <<
-			" Resources_required=" << ppv[i].getMinPlantCost() <<
-			" Cities_powered=" << ppv[i].getHouse() <<
-			" In_Deck=" << ppv[i].getInDeck() <<
-			" Owner=" << ppv[i].getOwner() <<
+	for (unsigned int i = 0; i < ppv->size(); i++) {
+		output << "TypeNum_Bid=" << (*ppv)[i].getTypeNum() << "," <<
+			" Type=" << (*ppv)[i].getType() << "," <<
+			" Resources_required=" << (*ppv)[i].getMinPlantCost() << "," <<
+			" Cities_powered=" << (*ppv)[i].getHouse() << "," <<
+			" In_Deck=" << (*ppv)[i].getInDeck() << "," <<
+			" Owner=" << (*ppv)[i].getOwner() <<
 			std::endl;
 	}
 	output.close();
 
 }
 
-void IOFile::loadPowerplants(string) {}
+std::vector<PowerPlant> * IOFile::loadPowerplants() {
+	vector<PowerPlant> * ppv = new vector<PowerPlant>(); //all
+	vector<PowerPlant> * ppvClone = new vector<PowerPlant>(); //only the ones not owned
+	Player * playerObj;
+	std::string line, variable1, variable2, variable3, variable4, powerplant_type, player_name;
+	int typeNum, resource_required, cities_powered, inDeck;
+	bool isInDeck;
+	std::vector<Player *> player_vector;
+
+	ifstream powerplantInput("powerplants.txt");
+	if (powerplantInput.is_open())
+	{
+		
+		while (getline(powerplantInput, line) && (line != "") && !line.empty()) {
+			std::stringstream ss(line);
+			
+			getline(ss, variable1, ','); //type num is here (done)
+			typeNum = IOFile::splitString(variable1);//done
+
+			getline(ss, powerplant_type, ','); 
+			powerplant_type = powerplant_type.substr(6, powerplant_type.length()); //done
+
+			getline(ss, variable2, ','); // resource required
+			resource_required = IOFile::splitString(variable2); //done
+
+			getline(ss, variable3, ','); //cities powered (done)
+			cities_powered = IOFile::splitString(variable3); // done 
+			
+			getline(ss, variable4, ',');
+			variable4 = variable4.substr((variable4.size() - 1), variable4.size());
+			inDeck = stoi(variable4); // done
+			if (inDeck == 0) {
+				isInDeck = false;
+			}
+			if (inDeck == 1) {
+				isInDeck = true;
+			}
+
+			getline(ss, player_name, ','); // player_name is here
+			player_name = player_name.substr(7, player_name.length()); //done
+			//std::cout << typeNum << " " << powerplant_type << " " << resource_required << " " << cities_powered << " " << isInDeck << " " << player_name << std::endl;
+			PowerPlant powerplant_Obj = PowerPlant(typeNum, powerplant_type, resource_required, cities_powered, isInDeck, player_name);
+			ppv->push_back(powerplant_Obj);
+			if (isInDeck == true) {
+			ppvClone->push_back(powerplant_Obj);
+			}
+		}
+
+		powerplantInput.close();
+		return ppvClone;
+	}
+	else {
+		std::cout << "Unable to open file" << std::endl;
+		return {};
+	}
+}
+
+int IOFile::splitString(string variable) {
+
+	variable = variable.substr(variable.size() - 2, variable.size());
+	if (variable.substr(0, 1) == "=") {
+		variable = variable.substr(variable.size() - 1, variable.size());
+	}
+	return  stoi(variable); 
+}
 
 void IOFile::savePlayerHouse(vector<House*> house_vector) {}
 

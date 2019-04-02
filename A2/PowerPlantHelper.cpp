@@ -148,7 +148,7 @@ It is this stack of highest power plants that is then shuffled.
 	random_shuffle(ppv->begin() + 9, ppv->end() - 1);
 	std::cout << std::endl << "==================================================" << std::endl;
 	std::cout << "===========Supply Deck shuffled================" << std::endl << std::endl;;
-	IOFile::savePowerplants(*ppv);
+
 }
 
 
@@ -260,7 +260,7 @@ PowerPlant* PowerPlantHelper::removePowerPlant(int playerBid, Player * p) {
 	//powerplantObj->setInDeck(false);
 	//powerplantObj->setOwner(p->getName());
 
-	IOFile::savePowerplants(*ppv);
+	IOFile::savePowerplants(ppv);
 	
 	//if step3 is found set the step3 card as the highest big
 	if ((*powerplantCardsShowned)[0].getTypeNum() == -1) {
