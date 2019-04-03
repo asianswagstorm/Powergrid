@@ -15,14 +15,15 @@ public:
 	static void addEdges();
 	static void savePlayerOrder(vector<Player*> player_vector);
 	
-	//TO DO: 
-
+	
 	static void savePowerplants(vector<PowerPlant> * ppv);//1 file with writing in game or not True False
 	static std::vector<PowerPlant> * loadPowerplants();
 	static int splitString(string variable);
 
 	static void savePlayerHouse(vector<House> house_vector, vector<Player*> player_vector);
-	static void loadPlayerHouse();
+	
+	//TO DO: 
+	static void loadPlayerHouse(vector<Player*> player_vector);
 	
 	static void saveResourceMarket();
 	static void loadResourceMarket();

@@ -1,12 +1,12 @@
 0, "Seattle",Purple, Paul
-1, "Portland",Purple
-2, "Boise",Purple
+1, "Portland",Purple, Paul
+2, "Boise",Purple, Paul
 3, "Billings",Purple
 4, "Cheyenne",Purple
 5, "Denver",Purple
 6, "Omaha",Purple
 7, "San Francisco",Blue, John
-8, "Salt Lake City",Blue
+8, "Salt Lake City",Blue, John
 9, "Las Vegas",Blue
 10, "Los Angeles",Blue
 11, "San Diego",Blue

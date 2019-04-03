@@ -42,10 +42,7 @@ void Game::loadGame(int numPlayers) {
 	string mapFileName;
 	std::cout << "Enter map file name not including .txt" << std::endl;
 	cin >> mapFileName;
-	/*
-	Game loadGame ("powerplant.txt", "numPlayersAndTurn.txt")
-	//turnorder which player goes first (player with less cities)
-	*/
+	
 	map.readMap(mapFileName);
 	player_vector = IOFile::loadPlayer();
 	numPlayers = player_vector.size();
@@ -57,6 +54,7 @@ void Game::loadGame(int numPlayers) {
 	}
 	powerplanthelper = new PowerPlantHelper(); // should show only 8 // Also should keep track of discarded cards or cards already in game. 
 	powerplanthelper->setPPV(IOFile::loadPowerplants());
+	IOFile::loadPlayerHouse(player_vector);//load houses
 }
 
 void Game::setUpGame() {
@@ -190,6 +188,7 @@ void Game::determinePlayerOrder() {
 		break;
 	}
 	}
+	
 }
 
 int Game::getFirstPlayer(std::vector<Player*> player_vector, int i) {
@@ -625,9 +624,6 @@ void::Game::buildHouse() {
 			p->Player::getHouse()->HouseHelper::addHouse(house);
 			p->Player::getHouse()->HouseHelper::setHouse(p->Player::getHouse()->HouseHelper::getHouseVector().size());
 
-			//save house
-			
-
 			std::cout << endl << "Purchase completed" << endl;
 			std::cout << "You now have " << p->getElectro() << " elektro" << endl;
 			std::cout << "You now have " << p->Player::getHouse()->HouseHelper::getHouseVector().size() << " houses" << endl;
@@ -645,6 +641,7 @@ void::Game::buildHouse() {
 				p = getNextPlayer(*p);
 	
 			}
+			//save houses
 			IOFile::savePlayerHouse(house_vector, player_vector);
 	}
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;

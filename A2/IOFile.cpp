@@ -353,15 +353,13 @@ int IOFile::splitString(string variable) {
 
 void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_vector) {
 	
-	//FILE * houseFile;
-	//houseFile = fopen("map.txt", "a"); //append
 	vector<int> index_vector;
 	for (unsigned int i = 0; i < house_vector.size(); i++) {
 		index_vector.push_back(house_vector[i].getIndex());
 	}
 	
 	ofstream output;
-	// Create or open a file
+	// open a file
 	output.open("map.txt");
 	std::cout << "Adding Houses..." << std::endl;
 
@@ -381,13 +379,63 @@ void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_
 			}
 	}
 	
-
-	//IOFile::addEdges();
 	std::cout << "Player Houses saved..." << std::endl;
 	output.close();
 }
 
-void IOFile::loadPlayerHouse() {}
+void IOFile::loadPlayerHouse(vector<Player*> player_vector) {
+	ifstream mapfile("map.txt");
+	int index;
+	string cityName;
+	string area;
+	string line;
+	string indexHolder;
+	string player;
+	
+	std::vector<std::string>  areas;
+	std::vector <int> * initial_file_index = new std::vector<int>();
+	std::vector <std::string> * initial_file_cityName = new std::vector<std::string>();
+	std::vector <std::string> * initial_file_Color = new std::vector<std::string>();
+	std::vector <string> * initial_file_player = new std::vector<string>();
+	std::vector <House>  initial_file_house = std::vector<House>();
+	while (getline(mapfile, line) && (line != "") && !line.empty()) {
+
+		std::stringstream ss(line);
+
+		getline(ss, indexHolder, ',');
+		index = stoi(indexHolder);
+		getline(ss, cityName, ',');
+		getline(ss, area, ',');
+		getline(ss, player, ',');
+
+		if(player != ""){ 
+		player = player.substr(1, player.size()); // trim the whitespace
+		initial_file_player->push_back(player);
+		initial_file_index->push_back(index);
+		initial_file_cityName->push_back(cityName);
+		initial_file_Color->push_back(area);
+		House house = House(index, cityName, area);
+		initial_file_house.push_back(house);
+			for (unsigned int l = 0; l < player_vector.size(); l++) {
+				//std::cout << "player_vector[l] : " << player_vector[l]->getName()<< " player is: " << player<< std::endl;
+				if (player_vector[l]->getName() == player) {
+				//std::cout << "henlo" << std::endl;
+				player_vector[l]->Player::getHouse()->HouseHelper::addHouse(house);
+				player_vector[l]->Player::getHouse()->HouseHelper::setHouse(player_vector[l]->Player::getHouse()->HouseHelper::getHouseVector().size());
+				//std::cout << std::endl << player_vector[l]->getName() << " house size: " << player_vector[l]->getHouse()->getHouseVector().size();
+				}//end if
+			}//end for 
+		}//endif
+		player = "";
+	}//end while
+	//std::cout  << "Total housesize: " << initial_file_house.size();//correct
+	
+	for (unsigned int i = 0; i < player_vector.size(); i++) {	
+	std::cout << std::endl << player_vector[i]->getName() << " housesize: " << player_vector[i]->getHouse()->getHouseVector().size();
+	}
+	std::cout << "Houses loaded" <<  std::endl;
+	IOFile::savePlayer(player_vector);
+}
 
 void IOFile::saveResourceMarket() {}
 

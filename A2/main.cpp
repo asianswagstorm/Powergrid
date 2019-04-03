@@ -39,7 +39,7 @@ int main() {
 	std::cout << endl;
 	//game->Game::buyPowerPlant();
 	// game->Game::buyResources(); //done //still need to save to file
-	game->Game::buildHouse();
+	//game->Game::buildHouse();
 	//game->Game::bureaucracy(); //redo
 
 	system("pause");
