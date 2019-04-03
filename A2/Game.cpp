@@ -576,13 +576,14 @@ void Game::buyResources() {
 void::Game::buildHouse() {
 	//TO DO: REMOVE THE HOUSES ALREADY BOUGHT, SAVE TO FILE AND THEN PUSH TO VECTOR
 	string response;
+	vector<House> house_vector;
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		Player * p = player_vector[i];
 		Map theMap = Map(p->Player::getAreaColor());
 		std::cout << p->getName() << " Would you like to build a house in: " << p->Player::getAreaColor() << " area " << endl;
 		std::cout << "yes or no." << std::endl;
 		std::cin >> response;
-
+		
 		if (response == "yes") {
 
 			int houseCount = p->Player::getHouse()->HouseHelper::getHouse();
@@ -618,11 +619,14 @@ void::Game::buildHouse() {
 			std::cout << "You currently have " << p->getElectro() << " elektro a house costs 10 elektros" << endl;
 
 			House house(index, Map::getCityName(index));
-
+			house_vector.push_back(house);
 			p->removeElectro(10);
 
 			p->Player::getHouse()->HouseHelper::addHouse(house);
 			p->Player::getHouse()->HouseHelper::setHouse(p->Player::getHouse()->HouseHelper::getHouseVector().size());
+
+			//save house
+			
 
 			std::cout << endl << "Purchase completed" << endl;
 			std::cout << "You now have " << p->getElectro() << " elektro" << endl;
@@ -641,6 +645,7 @@ void::Game::buildHouse() {
 				p = getNextPlayer(*p);
 	
 			}
+			IOFile::savePlayerHouse(house_vector, player_vector);
 	}
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
 	IOFile::savePlayer(player_vector); // needs to add the new houses

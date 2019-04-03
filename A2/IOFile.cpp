@@ -140,6 +140,7 @@ void IOFile::saveMap() {
 			output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
 		
 	}
+	
 	IOFile::addEdges();
 	std::cout << "Map saved..." << std::endl;
 	output.close();
@@ -263,8 +264,8 @@ void IOFile::savePlayerOrder(vector<Player*> player_vector) {
 	output.close();
 
 }
-//powerplantCardsShowned
-//powerplantCardsOwned 
+//powerplantCardsShowned ppv
+//powerplantCardsOwned  ppvClone
 
 void IOFile::savePowerplants(vector<PowerPlant> * ppv) {
 	ofstream output;
@@ -350,7 +351,41 @@ int IOFile::splitString(string variable) {
 	return  stoi(variable); 
 }
 
-void IOFile::savePlayerHouse(vector<House*> house_vector) {}
+void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_vector) {
+	
+	//FILE * houseFile;
+	//houseFile = fopen("map.txt", "a"); //append
+	vector<int> index_vector;
+	for (unsigned int i = 0; i < house_vector.size(); i++) {
+		index_vector.push_back(house_vector[i].getIndex());
+	}
+	
+	ofstream output;
+	// Create or open a file
+	output.open("map.txt");
+	std::cout << "Adding Houses..." << std::endl;
+
+	for (int i = 0; i < Map::getMapSize(); i++) {
+		if (Map::getCityName(i) != ""){
+			for (unsigned int j = 0; j < index_vector.size(); j++) {
+				if (Map::getIndexNumber(i) == index_vector[j])
+				{
+					output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[j]->getName() << std::endl;
+					i++;
+				}
+			}
+			if (i < player_vector.size()*7) {
+				output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
+			}
+			
+			}
+	}
+	
+
+	//IOFile::addEdges();
+	std::cout << "Player Houses saved..." << std::endl;
+	output.close();
+}
 
 void IOFile::loadPlayerHouse() {}
 

@@ -229,7 +229,7 @@ int PowerPlantHelper::getPlantResources(int i) {
 
 
 PowerPlant* PowerPlantHelper::removePowerPlant(int playerBid, Player * p) {
-	int count;
+	unsigned int count;
 	bool isFound = false;
 	PowerPlant* powerplantObj = new PowerPlant();
 	int i = 0;

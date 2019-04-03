@@ -1,10 +1,10 @@
 1:
-Name=Paul
+Name=John
 Houses=1
 PowerPlants=0
 
 2:
-Name=Jonh
+Name=Paul
 Houses=1
 PowerPlants=0
 

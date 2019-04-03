@@ -21,7 +21,7 @@ public:
 	static std::vector<PowerPlant> * loadPowerplants();
 	static int splitString(string variable);
 
-	static void savePlayerHouse(vector<House*> house_vector);
+	static void savePlayerHouse(vector<House> house_vector, vector<Player*> player_vector);
 	static void loadPlayerHouse();
 	
 	static void saveResourceMarket();
