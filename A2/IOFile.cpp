@@ -1,6 +1,7 @@
 #include "IOFile.h"
 #include "Map.h"
 #include "Player.h"
+#include "ResourceMarket.h"
 
 #include <iostream>
 #include <fstream>
@@ -153,7 +154,7 @@ void IOFile::savePlayer(vector<Player*> player_vector) {
 	output.open("player.txt");
 
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
-	output << "Player" << i+1 << ":" << endl;
+	output << "Player Order" << i+1 << ":" << endl;
 	output << "Name=" << player_vector[i]->getName() << endl;
 	output << "Electro=" << player_vector[i]->getElectro() << endl;
 	output << "Houses=" << player_vector[i]->getHouseCounter() << endl; //Optional change to vector ex {0,1,2,3} * create vector print function
@@ -428,7 +429,6 @@ void IOFile::loadPlayerHouse(vector<Player*> player_vector) {
 		}//endif
 		player = "";
 	}//end while
-	//std::cout  << "Total housesize: " << initial_file_house.size();//correct
 	
 	for (unsigned int i = 0; i < player_vector.size(); i++) {	
 	std::cout << std::endl << player_vector[i]->getName() << " housesize: " << player_vector[i]->getHouse()->getHouseVector().size();
@@ -437,8 +437,174 @@ void IOFile::loadPlayerHouse(vector<Player*> player_vector) {
 	IOFile::savePlayer(player_vector);
 }
 
-void IOFile::saveResourceMarket() {}
+void IOFile::saveResourceMarket(ResourceMarket * resourceMarket) {
+	ofstream output;
+	// open a file
+	output.open("resourceMarket.txt");
+	std::cout << "Updating Resource Market." << std::endl;
 
-void IOFile::loadResourceMarket() {}
+	for (int i = 0; i <= 11; i++) {
+		
+		output << "Market[" << i << "]: " << std::endl <<
+			"Coal=" << resourceMarket->getMarket(i)->getResourceQuantity("Coal") << std::endl << 
+			"Oil=" << resourceMarket->getMarket(i)->getResourceQuantity("Oil") << std::endl <<
+			"Garbage=" << resourceMarket->getMarket(i)->getResourceQuantity("Garbage") << std::endl <<
+			"Uranium=" << resourceMarket->getMarket(i)->getResourceQuantity("Uranium") << std::endl <<
+			"Price=" << resourceMarket->getMarket(i)->getResourceCost("Uranium") << endl << endl;
 
-void IOFile::updatePlayerResources() {}
+	}
+	output.close();
+
+}
+
+//for now doesn't matter
+ResourceMarket * IOFile::loadResourceMarket() {
+	string line;
+	ifstream playerInput("resourceMarket.txt");
+	if (playerInput.is_open())
+	{
+		while (getline(playerInput, line))
+		{
+			std::stringstream ss(line);
+		}
+	}
+	/*
+
+	Player * playerObj;
+	std::string line, variable, name, color, variable_value,player;
+	int electro, houseCount, powerplantCount, coal,oil,garbage,uranium;
+	std::vector<Player *> player_vector;
+
+	ifstream playerInput("player.txt");
+	if (playerInput.is_open())
+	{
+		while (getline(playerInput, line) )
+		{
+			std::stringstream ss(line);
+
+			getline(ss, variable, '=');
+			getline(ss, variable_value, '=');
+
+			if (variable == "Name") {
+				name = (variable_value);
+			}
+			else if (variable == "Electro") {
+				electro = stoi(variable_value);
+			}
+			else if (variable == "Houses") {
+				houseCount = stoi(variable_value);
+			}
+			else if (variable == "PowerPlants") {
+				powerplantCount = stoi(variable_value);
+			}
+			else if (variable == "Area Color") {
+				color = (variable_value);
+			}
+
+			else if (variable == "Coal") {
+				coal = stoi(variable_value);
+			}
+			else if (variable == "Oil") {
+				oil = stoi(variable_value);
+			}
+			else if (variable == "Garbage") {
+				garbage = stoi(variable_value);
+			}
+			else if (variable == "Uranium") {
+				uranium = stoi(variable_value);
+			}
+
+			if (line == "" && line.empty()) {
+				playerObj = new Player();
+				playerObj->setName(name);
+				playerObj->setElectro(electro);
+				playerObj->getHouse()->setHouse(houseCount);
+				playerObj->setnumOfPowerPlants(powerplantCount);
+				playerObj->setAreaColor(color);
+				playerObj->setResources("Coal",coal);
+				playerObj->setResources("Oil", oil);
+				playerObj->setResources("Garbage", garbage);
+				playerObj->setResources("Uranium", uranium);
+				player_vector.push_back(playerObj);
+			}
+		}
+
+			playerInput.close();
+
+	}
+	else {std::cout << "Unable to open file" << std::endl;
+	return {};
+	}
+
+	std::cout << std::endl<< "Player's Loaded." << std::endl << "Here are your current players : " << std::endl <<std::endl;
+	for (unsigned int i = 0; i < player_vector.size(); i++) {
+		std::cout << "Player " << i + 1 << ":" << std::endl;
+		player_vector[i]->printPlayerInfo();
+	}
+
+	return player_vector;
+
+	market[0] = new ResourceHelper();
+	market[0]->edit("Coal", 3, 1); //edit(type,quantity in market,cost)
+	market[0]->edit("Oil", 3, 1);
+	market[0]->edit("Garbage", 3, 1);
+	market[0]->edit("Uranium", 1, 1);
+	//round2
+	market[1] = new ResourceHelper();
+	market[1]->edit("Coal", 3, 2);
+	market[1]->edit("Oil", 3, 2);
+	market[1]->edit("Garbage", 3, 2);
+	market[1]->edit("Uranium", 1, 2);
+	//round3
+	market[2] = new ResourceHelper();
+	market[2]->edit("Coal", 3, 3);
+	market[2]->edit("Oil", 3, 3);
+	market[2]->edit("Garbage", 3, 3);
+	market[2]->edit("Uranium", 1, 3);
+	//round4
+	market[3] = new ResourceHelper();
+	market[3]->edit("Coal", 3, 4);
+	market[3]->edit("Oil", 3, 4);
+	market[3]->edit("Garbage", 3, 4);
+	market[3]->edit("Uranium", 1, 4);
+	//round5
+	market[4] = new ResourceHelper();
+	market[4]->edit("Coal", 3, 5);
+	market[4]->edit("Oil", 3, 5);
+	market[4]->edit("Garbage", 3, 5);
+	market[4]->edit("Uranium", 1, 5);
+	//round6
+	market[5] = new ResourceHelper();
+	market[5]->edit("Coal", 3, 6);
+	market[5]->edit("Oil", 3, 6);
+	market[5]->edit("Garbage",3, 6);
+	market[5]->edit("Uranium", 1, 6);
+	//round7
+	market[6] = new ResourceHelper();
+	market[6]->edit("Coal", 3, 7);
+	market[6]->edit("Oil", 3, 7);
+	market[6]->edit("Garbage", 3, 7);
+	market[6]->edit("Uranium", 1, 7);
+	//round8
+	market[7] = new ResourceHelper();
+	market[7]->edit("Coal", 3, 8);
+	market[7]->edit("Oil", 3, 8);
+	market[7]->edit("Garbage", 3, 8);
+	market[7]->edit("Uranium", 10, 8);
+	//round9
+	market[8] = new ResourceHelper();
+	market[8]->edit("Uranium", 1, 10);
+	//round10
+	market[9] = new ResourceHelper();
+	market[9]->edit("Uranium", 1, 12);
+	//round11
+	market[10] = new ResourceHelper();
+	market[10]->edit("Uranium", 1, 14);
+	//round12
+	market[11] = new ResourceHelper();
+	market[11]->edit("Uranium", 1, 16);
+
+	*/
+}
+
+

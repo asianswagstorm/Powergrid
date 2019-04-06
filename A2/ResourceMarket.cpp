@@ -7,61 +7,61 @@
 using namespace std;
 
 //the constructor initializes game resources
-ResourceMarket::ResourceMarket() {
+ResourceMarket::ResourceMarket() { // I am changing the game rule for simplicity for strattegy pattern
 	//round1
 	market[0] = new ResourceHelper();
 	market[0]->edit("Coal", 3, 1); //edit(type,quantity in market,cost)
-	market[0]->edit("Oil", 0, 1);
-	market[0]->edit("Garbage", 0, 1);
-	market[0]->edit("Uranium", 0, 1);
+	market[0]->edit("Oil", 3, 1);
+	market[0]->edit("Garbage", 3, 1);
+	market[0]->edit("Uranium", 1, 1);
 	//round2
 	market[1] = new ResourceHelper();
 	market[1]->edit("Coal", 3, 2);
-	market[1]->edit("Oil", 0, 2);
-	market[1]->edit("Garbage", 0, 2);
-	market[1]->edit("Uranium", 0, 2);
+	market[1]->edit("Oil", 3, 2);
+	market[1]->edit("Garbage", 3, 2);
+	market[1]->edit("Uranium", 1, 2);
 	//round3
 	market[2] = new ResourceHelper();
 	market[2]->edit("Coal", 3, 3);
 	market[2]->edit("Oil", 3, 3);
-	market[2]->edit("Garbage", 0, 3);
-	market[2]->edit("Uranium", 0, 3);
+	market[2]->edit("Garbage", 3, 3);
+	market[2]->edit("Uranium", 1, 3);
 	//round4
 	market[3] = new ResourceHelper();
 	market[3]->edit("Coal", 3, 4);
 	market[3]->edit("Oil", 3, 4);
-	market[3]->edit("Garbage", 0, 4);
-	market[3]->edit("Uranium", 0, 4);
+	market[3]->edit("Garbage", 3, 4);
+	market[3]->edit("Uranium", 1, 4);
 	//round5
 	market[4] = new ResourceHelper();
 	market[4]->edit("Coal", 3, 5);
 	market[4]->edit("Oil", 3, 5);
-	market[4]->edit("Garbage", 0, 5);
-	market[4]->edit("Uranium", 0, 5);
+	market[4]->edit("Garbage", 3, 5);
+	market[4]->edit("Uranium", 1, 5);
 	//round6
 	market[5] = new ResourceHelper();
 	market[5]->edit("Coal", 3, 6);
 	market[5]->edit("Oil", 3, 6);
-	market[5]->edit("Garbage",0, 6);
-	market[5]->edit("Uranium", 0, 6);
+	market[5]->edit("Garbage",3, 6);
+	market[5]->edit("Uranium", 1, 6);
 	//round7
 	market[6] = new ResourceHelper();
 	market[6]->edit("Coal", 3, 7);
 	market[6]->edit("Oil", 3, 7);
 	market[6]->edit("Garbage", 3, 7);
-	market[6]->edit("Uranium", 0, 7);
+	market[6]->edit("Uranium", 1, 7);
 	//round8
 	market[7] = new ResourceHelper();
 	market[7]->edit("Coal", 3, 8);
 	market[7]->edit("Oil", 3, 8);
 	market[7]->edit("Garbage", 3, 8);
-	market[7]->edit("Uranium", 0, 8);
+	market[7]->edit("Uranium", 10, 8);
 	//round9
 	market[8] = new ResourceHelper();
-	market[8]->edit("Uranium", 0, 10);
+	market[8]->edit("Uranium", 1, 10);
 	//round10
 	market[9] = new ResourceHelper();
-	market[9]->edit("Uranium", 0, 12);
+	market[9]->edit("Uranium", 1, 12);
 	//round11
 	market[10] = new ResourceHelper();
 	market[10]->edit("Uranium", 1, 14);
@@ -403,4 +403,8 @@ int ResourceMarket::findEmpty(string resource) {
 	}
 
 	return -1;
+}
+
+ResourceHelper * ResourceMarket::getMarket(int index){
+	return this->market[index];
 }

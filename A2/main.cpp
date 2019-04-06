@@ -1,5 +1,4 @@
 #include <cstdlib>
-
 #include <fstream>
 #include <istream>
 #include <sstream>
@@ -10,7 +9,7 @@
 #include <list>
 
 #include "Game.h"
-
+#include "Map.h"
 
 int main() {
 
@@ -28,7 +27,6 @@ int main() {
 	if (response != "new") {
 		game->setRound(2); // temporary
 		game->Game::loadGame(numPlayers);
-		
 	}
 	else {
 		game->Game::setUpGame();
@@ -38,10 +36,10 @@ int main() {
 	game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
 	std::cout << endl;
 	//game->Game::buyPowerPlant();
-	// game->Game::buyResources(); //done //still need to save to file
+	  game->Game::buyResources(); //done //still need to save to file
 	//game->Game::buildHouse();
 	//game->Game::bureaucracy(); //redo
 
 	system("pause");
-	return 0;
+	return EXIT_SUCCESS;
 }

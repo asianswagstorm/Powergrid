@@ -1,33 +1,33 @@
-Player1:
-Name=Paul
-Electro=40
-Houses=3
+Player Order1:
+Name=Jack
+Electro=47
+Houses=1
 PowerPlants=0
-Area Color=purple
-Coal=0
+Area Color=red
+Coal=3
 Oil=0
-Garbage=0
+Garbage=4
 Uranium=0
 
-Player2:
+Player Order2:
 Name=John
-Electro=40
+Electro=49
 Houses=2
 PowerPlants=0
 Area Color=blue
 Coal=0
-Oil=0
+Oil=1
 Garbage=0
 Uranium=0
 
-Player3:
-Name=Jack
-Electro=40
-Houses=1
+Player Order3:
+Name=Paul
+Electro=48
+Houses=3
 PowerPlants=0
-Area Color=red
+Area Color=purple
 Coal=0
-Oil=0
-Garbage=0
+Oil=1
+Garbage=1
 Uranium=0
 

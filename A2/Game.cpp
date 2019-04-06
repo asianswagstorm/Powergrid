@@ -55,6 +55,8 @@ void Game::loadGame(int numPlayers) {
 	powerplanthelper = new PowerPlantHelper(); // should show only 8 // Also should keep track of discarded cards or cards already in game. 
 	powerplanthelper->setPPV(IOFile::loadPowerplants());
 	IOFile::loadPlayerHouse(player_vector);//load houses
+	//this->resourceMarket = IOFile::loadResourceMarket();
+
 }
 
 void Game::setUpGame() {
@@ -531,7 +533,7 @@ void Game::buyResources() {
 			this->resourceMarket->ResourceMarket::showRemaining();
 
 			while (validMaterialChoice == false) {
-				std::cout << std::endl << std::endl << p->getName() << "'s turn, choose what you want to buy: " << endl << "(coal, oil, uranium, or garbage)" << " When you finish please type f  " << endl;
+				std::cout << std::endl << std::endl << p->getName() << "'s turn, choose what you want to buy: " << endl << "(coal, oil, garbage or uranium)" << " When you finish enter f  " << endl;
 				std::cin >> materialChoice; std::cout << endl;
 				materialChoice[0] = toupper(materialChoice[0]); //capitilize the first letter
 
@@ -555,12 +557,14 @@ void Game::buyResources() {
 				//validateResourcePurchase(int cost, int quantity, string type)
 
 				if (p->validateResourcePurchase(resourceMarket->getMarketCost(materialChoice, qty), qty, materialChoice)) {
-
+					//resource added and electro removed in validateResourcePurchase
 					std::cout << "Cost was: " << resourceMarket->getMarketCost(materialChoice, qty) << " elektros." << endl;
 					std::cout << endl << "Here is how much elektros you have after buying " << qty << " " << materialChoice << ": " << p->getElectro() << "$" << endl;
 					std::cout << "You current have " << p->getResourceQuantity(materialChoice) << " " << materialChoice << endl;
 
-					resourceMarket->updateMarket(materialChoice, qty); //error here 
+					resourceMarket->updateMarket(materialChoice, qty); 
+					IOFile::saveResourceMarket(resourceMarket);
+					IOFile::savePlayer(player_vector);
 				}
 				validMaterialChoice = false;
 			}
