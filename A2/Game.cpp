@@ -55,7 +55,7 @@ void Game::loadGame(int numPlayers) {
 	powerplanthelper = new PowerPlantHelper(); // should show only 8 // Also should keep track of discarded cards or cards already in game. 
 	powerplanthelper->setPPV(IOFile::loadPowerplants());
 	IOFile::loadPlayerHouse(player_vector);//load houses
-	//this->resourceMarket = IOFile::loadResourceMarket();
+	this->resourceMarket = IOFile::loadResourceMarket();
 
 }
 
@@ -141,6 +141,8 @@ void Game::setUpGame() {
 		Area::setGameAreas(areas);
 		//save players 
 		IOFile::savePlayer(player_vector);
+		//save fresh resource
+		IOFile::saveResourceMarket(resourceMarket);
 		//create map
 		//Save map to map.txt
 		IOFile::saveMap(); //load map should read the edges too
