@@ -18,6 +18,8 @@ using std::istream;
 using std::string;
 using std::stoi;
 using std::stringstream;
+using std::getline;
+
 
 int size;
 
@@ -361,33 +363,45 @@ void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_
 	
 	ofstream output;
 	// open a file
-	output.open("map.txt");
+	output.open("map1.txt");
 	std::cout << "Adding Houses..." << std::endl;
 
 	for (int i = 0; i < Map::getMapSize(); i++) {
+	
 		if (Map::getCityName(i) != ""){
-
+			
 			for (unsigned int j = 0; j < index_vector.size(); j++) {
 				
 				if (Map::getIndexNumber(i) == index_vector[j])
 				{
-					for (unsigned int k = 0; k < player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) {
-						std::cout << "Map size is: " << player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector().size() << std::endl;
-						if (player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == true) {
-							output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[j]->getName() << ", Powered" << std::endl;
+					std::cout << "j is : " << j << std::endl;
+					for(unsigned int m = 0; m < player_vector.size() ; m++){
+						for (unsigned int k = 0; k < player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) { //player_vector[j] out of range j =3 
+							//something is wrong here else excuted before if. let it be spent too long.
+							if (player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == true && Map::getIndexNumber(i) == player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex()) {
+								output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[m]->getName() << ", Powered" << std::endl;
+							}
+						else if (player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == false && Map::getIndexNumber(i) == player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex()) {
+								output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[m]->getName() << std::endl;
 						}
+							}
 					}
 					i++;
 				}
-				if (Map::getIndexNumber(i) == index_vector[j])
+				
+				/*if (Map::getIndexNumber(i) == index_vector[j])
 				{
+					std::cout << "I am Here 4 " << std::endl;
 					//remove duplicate
 					output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[j]->getName() << std::endl;
 					i++;
 				}
+				*/
 			
 			}
+			std::cout << "I am Here 5 " << std::endl;
 			if (i < player_vector.size()*7) {
+				std::cout << "I am Here 6 " << std::endl;
 				output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
 			}
 			

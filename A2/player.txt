@@ -1,7 +1,18 @@
 Player Order1:
-Name=d
-Electro=40
-Houses=1
+Name=Jill
+Electro=818
+Houses=2
+PowerPlants=0
+Area Color=red
+Coal=0
+Oil=0
+Garbage=0
+Uranium=0
+
+Player Order2:
+Name=Paul
+Electro=942
+Houses=2
 PowerPlants=0
 Area Color=purple
 Coal=0
@@ -9,10 +20,10 @@ Oil=0
 Garbage=0
 Uranium=0
 
-Player Order2:
-Name=a
-Electro=40
-Houses=1
+Player Order3:
+Name=John
+Electro=526
+Houses=2
 PowerPlants=0
 Area Color=blue
 Coal=0

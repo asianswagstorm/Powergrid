@@ -1,10 +1,15 @@
 1:
-Name=d
-Houses=1
+Name=John
+Houses=2
 PowerPlants=0
 
 2:
-Name=a
+Name=Paul
+Houses=1
+PowerPlants=0
+
+3:
+Name=Jill
 Houses=1
 PowerPlants=0
 

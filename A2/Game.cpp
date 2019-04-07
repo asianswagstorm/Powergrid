@@ -739,8 +739,8 @@ void Game::bureaucracy() {
 	//players earn cash, 
 	//re-supply the resource market,
 	//remove a power plant from the power plant market, replacing it with a new one from the stack (done)
-	vector<House> all_house_vector = IOFile::loadPlayerHouse(player_vector);
 	
+	vector<House> house_vector = IOFile::loadPlayerHouse(player_vector);
 	//needs refill
 	int choice, houseIndex;
 
@@ -753,7 +753,7 @@ void Game::bureaucracy() {
 
 	reverse(player_vector.begin(), player_vector.end());
 	for (Player* p : player_vector) {
-		
+		Map theMap = Map(p->Player::getAreaColor()); // important
 		// each player has one
 		//Money received depends on the number of powered houses.
 		//<---->If no house powered ---> the automatically 10 elektro.
@@ -786,16 +786,24 @@ void Game::bureaucracy() {
 				std::cout << "Which house do you want to power?" << std::endl; std::cout << endl;
 				std::cin >> houseIndex;
 				std::cout << endl;
+				int indexindex;
+				for (unsigned int t = 0; t < house_vector.size(); t++) {
+					if (houseIndex == house_vector[t].getIndex()) {
+						indexindex = t;
+					}
+				}
 
 				for (unsigned int j = 0; j < p->Player::getHouse()->HouseHelper::getHouseVector().size(); j++) {
 					if (houseIndex == p->Player::getHouse()->HouseHelper::getHouseVector()[j].getIndex() && p->Player::getHouse()->HouseHelper::getHouseVector()[j].getisPowered()==false) {
-						p->Player::getHouse()->HouseHelper::getHouseVector()[j].setisPowered(true);
-						for (int o = 0; o < all_house_vector.size(); o++) {
-							if (all_house_vector[o].getLocation() == p->Player::getHouse()->HouseHelper::getHouseVector()[j].getLocation()) {
-								all_house_vector[o].setisPowered(true);
-								std::cout << "set " << all_house_vector[o].getLocation() << " powered " << std::endl;
-							}
-						}
+						
+						//p->Player::getHouse()->HouseHelper::getHouseVector()[j].setisPowered(true);
+						House house(houseIndex, Map::getCityName(houseIndex));
+						house.setisPowered(true);
+						house_vector.erase(house_vector.begin() + indexindex);
+						//remove the duplicate before pushing new one in 
+						house_vector.push_back(house);
+						p->Player::getHouse()->HouseHelper::addHouse(house);
+					
 					}
 					
 					if (p->Player::getHouse()->HouseHelper::getHouseVector()[j].getisPowered() == true) {
@@ -823,9 +831,9 @@ void Game::bureaucracy() {
 	//house_vector is empty
 	//check for duplicates add the non duplicates
 	//powered + nonduplicates
-	std::cout << "all_house_vector size: " << all_house_vector.size()<< std::endl; // should be all the houses + powered yes
-		
-	IOFile::savePlayerHouse(all_house_vector, player_vector); //powered_house_vector not all is powered
+	IOFile::savePlayer(player_vector); // needs to add the new houses
+	std::cout << "house_vector size: " << house_vector.size() << std::endl; // should be all the houses + powered yes	
+	IOFile::savePlayerHouse(house_vector, player_vector); //powered_house_vector not all is powered
 }
 
 		/*
