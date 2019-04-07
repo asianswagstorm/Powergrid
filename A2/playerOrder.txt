@@ -1,6 +1,6 @@
 1:
 Name=d
-Houses=2
+Houses=1
 PowerPlants=0
 
 2:

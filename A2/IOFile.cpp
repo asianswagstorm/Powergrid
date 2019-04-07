@@ -368,15 +368,20 @@ void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_
 		if (Map::getCityName(i) != ""){
 
 			for (unsigned int j = 0; j < index_vector.size(); j++) {
-				for (unsigned int k = 0; k < player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) {
-					std::cout << "Map size is: " << player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector().size() <<std::endl;
-					if (player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == true) {
-						output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[j]->getName() << ", Powered" << std::endl;
-						std::cout << "Hello I am here" << std::endl;
+				
+				if (Map::getIndexNumber(i) == index_vector[j])
+				{
+					for (unsigned int k = 0; k < player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) {
+						std::cout << "Map size is: " << player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector().size() << std::endl;
+						if (player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == true) {
+							output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[j]->getName() << ", Powered" << std::endl;
+						}
 					}
+					i++;
 				}
 				if (Map::getIndexNumber(i) == index_vector[j])
 				{
+					//remove duplicate
 					output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[j]->getName() << std::endl;
 					i++;
 				}

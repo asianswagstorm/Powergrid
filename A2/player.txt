@@ -1,7 +1,7 @@
 Player Order1:
 Name=d
-Electro=30
-Houses=2
+Electro=40
+Houses=1
 PowerPlants=0
 Area Color=purple
 Coal=0
@@ -11,7 +11,7 @@ Uranium=0
 
 Player Order2:
 Name=a
-Electro=50
+Electro=40
 Houses=1
 PowerPlants=0
 Area Color=blue

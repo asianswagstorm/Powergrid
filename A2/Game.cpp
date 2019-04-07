@@ -626,7 +626,7 @@ void::Game::buildHouse() {
 			House house(index, Map::getCityName(index));
 			house_vector.push_back(house);
 			p->removeElectro(10);
-
+			//house.setisPowered(true); testing
 			p->Player::getHouse()->HouseHelper::addHouse(house);
 			p->Player::getHouse()->HouseHelper::setHouse(p->Player::getHouse()->HouseHelper::getHouseVector().size());
 
@@ -740,7 +740,7 @@ void Game::bureaucracy() {
 	//re-supply the resource market,
 	//remove a power plant from the power plant market, replacing it with a new one from the stack (done)
 	vector<House> all_house_vector = IOFile::loadPlayerHouse(player_vector);
-	vector<House> powered_house_vector;
+	
 	//needs refill
 	int choice, houseIndex;
 
@@ -749,7 +749,7 @@ void Game::bureaucracy() {
 	std::cout << "*****************************************************************" << std::endl;
 
 	string powerDecision;
-	
+	int numPoweredHouses = 0;
 
 	reverse(player_vector.begin(), player_vector.end());
 	for (Player* p : player_vector) {
@@ -778,6 +778,7 @@ void Game::bureaucracy() {
 			std::cin >> powerDecision; std::cout << endl;
 			//If yes, player will power cities
 			if (powerDecision == "yes") {
+				
 				for (unsigned int k = 0; k < p->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) {
 					if (p->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == false)
 						std::cout << "Here are your nonpowered houses: " << std::endl << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() << " (" << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getLocation() << ") " << ",";
@@ -789,14 +790,22 @@ void Game::bureaucracy() {
 				for (unsigned int j = 0; j < p->Player::getHouse()->HouseHelper::getHouseVector().size(); j++) {
 					if (houseIndex == p->Player::getHouse()->HouseHelper::getHouseVector()[j].getIndex() && p->Player::getHouse()->HouseHelper::getHouseVector()[j].getisPowered()==false) {
 						p->Player::getHouse()->HouseHelper::getHouseVector()[j].setisPowered(true);
-						powered_house_vector.push_back(p->Player::getHouse()->HouseHelper::getHouseVector()[j]); //48???
-						std::cout << "powered_house_vector size: " << powered_house_vector.size() << std::endl;
+						for (int o = 0; o < all_house_vector.size(); o++) {
+							if (all_house_vector[o].getLocation() == p->Player::getHouse()->HouseHelper::getHouseVector()[j].getLocation()) {
+								all_house_vector[o].setisPowered(true);
+								std::cout << "set " << all_house_vector[o].getLocation() << " powered " << std::endl;
+							}
+						}
 					}
 					
+					if (p->Player::getHouse()->HouseHelper::getHouseVector()[j].getisPowered() == true) {
+						numPoweredHouses++;
+						std::cout << "Num Powered Houses: " << numPoweredHouses << std::endl;
+					}
 				}//end for
 
-				std::cout << "Adding " << Game::getPayment(powered_house_vector.size()) << " Elektro to your wallet." << std::endl;
-				p->setElectro(p->getElectro() + Game::getPayment(powered_house_vector.size()));
+				std::cout << "Adding " << Game::getPayment(numPoweredHouses) << " Elektro to your wallet." << std::endl;
+				p->setElectro(p->getElectro() + Game::getPayment(numPoweredHouses));
 				p->printPlayerInfo();
 				
 			}//end yes
@@ -815,19 +824,8 @@ void Game::bureaucracy() {
 	//check for duplicates add the non duplicates
 	//powered + nonduplicates
 	std::cout << "all_house_vector size: " << all_house_vector.size()<< std::endl; // should be all the houses + powered yes
-	std::cout << "powered_house_vector size: " << powered_house_vector.size() << std::endl; // should be all the houses + powered 54???
-	for (unsigned int o = 0; o < all_house_vector.size(); o++) {
-					for (unsigned int q = 0; q < powered_house_vector.size(); q++) {
-						if (all_house_vector[o].getLocation() == powered_house_vector[q].getLocation()){
-							
-						}
-					
-					}//end for powered house vector
-				}//end for house vector
-
-	std::cout << "all_house_vector size: " << all_house_vector.size() << std::endl; // should be all the houses + powered yes
-	std::cout << "powered_house_vector size: " << powered_house_vector.size() << std::endl; // should be all the houses + powered 54???
-	//IOFile::savePlayerHouse(powered_house_vector, player_vector); //powered_house_vector not all is powered
+		
+	IOFile::savePlayerHouse(all_house_vector, player_vector); //powered_house_vector not all is powered
 }
 
 		/*
