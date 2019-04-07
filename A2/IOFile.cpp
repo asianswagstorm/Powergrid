@@ -366,12 +366,21 @@ void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_
 
 	for (int i = 0; i < Map::getMapSize(); i++) {
 		if (Map::getCityName(i) != ""){
+
 			for (unsigned int j = 0; j < index_vector.size(); j++) {
+				for (unsigned int k = 0; k < player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) {
+					std::cout << "Map size is: " << player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector().size() <<std::endl;
+					if (player_vector[j]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == true) {
+						output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[j]->getName() << ", Powered" << std::endl;
+						std::cout << "Hello I am here" << std::endl;
+					}
+				}
 				if (Map::getIndexNumber(i) == index_vector[j])
 				{
 					output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[j]->getName() << std::endl;
 					i++;
 				}
+			
 			}
 			if (i < player_vector.size()*7) {
 				output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
@@ -384,7 +393,8 @@ void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_
 	output.close();
 }
 
-void IOFile::loadPlayerHouse(vector<Player*> player_vector) {
+vector<House> IOFile::loadPlayerHouse(vector<Player*> player_vector) {
+	//individual house vector
 	ifstream mapfile("map.txt");
 	int index;
 	string cityName;
@@ -399,6 +409,7 @@ void IOFile::loadPlayerHouse(vector<Player*> player_vector) {
 	std::vector <std::string> * initial_file_Color = new std::vector<std::string>();
 	std::vector <string> * initial_file_player = new std::vector<string>();
 	std::vector <House>  initial_file_house = std::vector<House>();
+	bool isDuplicate = false;
 	while (getline(mapfile, line) && (line != "") && !line.empty()) {
 
 		std::stringstream ss(line);
@@ -421,8 +432,17 @@ void IOFile::loadPlayerHouse(vector<Player*> player_vector) {
 				//std::cout << "player_vector[l] : " << player_vector[l]->getName()<< " player is: " << player<< std::endl;
 				if (player_vector[l]->getName() == player) {
 				//std::cout << "henlo" << std::endl;
+				
+				//check for duplicates
+					for (unsigned int q = 0; q < player_vector[l]->Player::getHouse()->HouseHelper::getHouseVector().size(); q++) {
+						if (index == player_vector[l]->Player::getHouse()->HouseHelper::getHouseVector()[q].getIndex())
+							isDuplicate = true;
+					}
+					if(isDuplicate == false){
 				player_vector[l]->Player::getHouse()->HouseHelper::addHouse(house);
 				player_vector[l]->Player::getHouse()->HouseHelper::setHouse(player_vector[l]->Player::getHouse()->HouseHelper::getHouseVector().size());
+					}
+					isDuplicate = false; //reset
 				//std::cout << std::endl << player_vector[l]->getName() << " house size: " << player_vector[l]->getHouse()->getHouseVector().size();
 				}//end if
 			}//end for 
@@ -435,6 +455,7 @@ void IOFile::loadPlayerHouse(vector<Player*> player_vector) {
 	}
 	std::cout << "Houses loaded" <<  std::endl;
 	IOFile::savePlayer(player_vector);
+	return initial_file_house;
 }
 
 void IOFile::saveResourceMarket(ResourceMarket * resourceMarket) {

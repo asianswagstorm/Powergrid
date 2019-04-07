@@ -36,7 +36,7 @@ public:
 	int getnumOfPowerPlants() const;
 	void setnumOfPowerPlants(int numOfPowerPlants);
 	
-	void powerACity(int index); // bureaucracy fix
+	void powerPowerPlant(int index); // bureaucracy fix
 	
 	void addPowerPlant(PowerPlant * powerplant); // adds a powerplant to the powerplants vector
 	

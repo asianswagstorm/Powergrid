@@ -225,7 +225,7 @@ bool Player::hasEnoughtElektro(int amount) {
 	return false;
 }
 
-void Player::powerACity(int pNumber) {
+void Player::powerPowerPlant(int pNumber) {
 	PowerPlantHelper * pp = new PowerPlantHelper();
 
 	int index = pp->findPowerPlant(pNumber);

@@ -1,8 +1,8 @@
 Market[0]: 
-Coal=2
-Oil=2
+Coal=3
+Oil=3
 Garbage=3
-Uranium=0
+Uranium=1
 Price=1
 
 Market[1]: 

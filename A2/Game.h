@@ -31,10 +31,12 @@ public:
 	void buyResources();
 	void bureaucracy();
 	void buildHouse();
+	int getPayment(int numPoweredHouse);
 
 private:
 	int round;
 	std::vector<Player*> player_vector;
+	std::vector<House> house_vector;
 	PowerPlantHelper * powerplanthelper;
 	ResourceMarket * resourceMarket;
 	bool isEndGame = false;

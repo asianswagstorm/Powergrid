@@ -28,7 +28,7 @@ public:
 
 	//House
 	static void savePlayerHouse(vector<House> house_vector, vector<Player*> player_vector);
-	static void loadPlayerHouse(vector<Player*> player_vector);
+	static vector<House> loadPlayerHouse(vector<Player*> player_vector);
 	
 	//Resources
 	static void saveResourceMarket(ResourceMarket * resourceMarket);

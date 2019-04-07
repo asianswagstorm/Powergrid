@@ -15,11 +15,14 @@ public:
     void setLocation(string location);
 	string getHouseColor();
 	void setHouseColor(string house_color);
+	bool getisPowered();
+	void setisPowered(bool isPowered);
 
 private:
     int index;
     string location;
 	string house_color;
+	bool isPowered;
 };
 
 
