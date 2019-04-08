@@ -1,0 +1,7 @@
+0, "Seattle", 0
+1, "Portland", 0
+2, "Boise", 0
+3, "Billings", 0
+4, "Cheyenne", 0
+5, "Denver", 0
+6, "Omaha", 0

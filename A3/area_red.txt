@@ -1,0 +1,7 @@
+14, "Kansas City", 2
+15, "Oklahoma City", 2
+16, "Dallas", 2
+17, "Houston", 2
+18, "Memphis", 2
+19, "New Orleans", 2
+20, "Birmingham", 2

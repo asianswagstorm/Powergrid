@@ -1,0 +1,22 @@
+Player Order1:
+Name=s
+Electro=93
+Houses=1
+PowerPlants=0
+Area Color=purple
+Coal=0
+Oil=0
+Garbage=0
+Uranium=0
+
+Player Order2:
+Name=e
+Electro=104
+Houses=2
+PowerPlants=0
+Area Color=blue
+Coal=0
+Oil=0
+Garbage=0
+Uranium=0
+

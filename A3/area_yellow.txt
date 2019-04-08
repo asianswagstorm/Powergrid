@@ -1,0 +1,7 @@
+21, "Fargo", 3
+22, "Duluth", 3
+23, "Minneapolis", 3
+24, "Chicago", 3
+25, "St. Louis", 3
+26, "Cincinnati", 3
+27, "Knoxville", 3

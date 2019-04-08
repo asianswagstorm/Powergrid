@@ -1,0 +1,10 @@
+1:
+Name=e
+Houses=1
+PowerPlants=0
+
+2:
+Name=s
+Houses=1
+PowerPlants=0
+
