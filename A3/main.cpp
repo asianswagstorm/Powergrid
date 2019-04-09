@@ -10,9 +10,16 @@
 
 #include "Game.h"
 #include "Map.h"
+#include "Statistics.h"
+#include "AllView.h"
+#include "ElektroView.h"
+#include "HouseView.h"
+#include "PowerPlantView.h"
+#include "ResourceView.h"
 
 int main() {
-
+	ofstream output;
+	output.open("game_statistics.txt");
 	int numPlayers=0;
 	std::vector<Player*> player_vector;
 	//Map * map = new Map;
@@ -32,15 +39,23 @@ int main() {
 	}
 	else {
 		game->Game::setUpGame();
-		//Map::testMap(map); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
+		//Map::testMap(Map::instance()); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
 	}
+	
+	
 
 	game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
 	std::cout << endl;
 	//game->Game::buyPowerPlant();
 	//game->Game::buyResources(); //done //still need to save to file
-	//game->Game::buildHouse();
-	//game->Game::bureaucracy(); 
+	game->Game::buildHouse();
+	game->Game::bureaucracy(); 
+
+	Statistics * stats = new AllView(game);
+	stats = new ElektroView(stats);
+	stats = new ResourceView(stats);
+	stats = new PowerPlantView(stats);
+	stats = new HouseView(stats);
 
 	system("pause");
 	return EXIT_SUCCESS;

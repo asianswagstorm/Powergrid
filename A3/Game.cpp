@@ -592,37 +592,43 @@ void::Game::buildHouse() {
 	output.open("game_statistics.txt", ios::out | ios::app);
 	output << "------------Phase 4------------" << endl;
 	notify(); //Subject notify
-	
+	bool buyhouseloop = false;
 	//TO DO: REMOVE THE HOUSES ALREADY BOUGHT, AND ONLY SHOW AVAILABLE ONES
 	string response;
 	vector<House> house_vector;
+	vector<int> house_index = IOFile::getMapIndexs();
+	
+	std::cout << "houseSize: " << house_index.size() << std::endl; //7
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		Player * p = player_vector[i];
 		//Map theMap = Map(p->Player::getAreaColor());
 		Map::instance()->createMap(p->Player::getAreaColor());
+		
 		std::cout << p->getName() << " Would you like to build a house in: " << p->Player::getAreaColor() << " area " << endl;
 		std::cout << "yes or no." << std::endl;
 		std::cin >> response;
 		
 		if (response == "yes") {
-
+			buyhouseloop = true;
+			while (buyhouseloop == true){
 			int houseCount = p->Player::getHouse()->HouseHelper::getHouse();
 
 			//if player does not have enough electro to purchase 1 house of 10 elektro
 			if (!p->hasEnoughtElektro(10)) {
 				std::cout << p->getName() << " Does not have enough elektro to build a house, less than 10 elektro" << endl;
+				buyhouseloop = false;
 				break;
 			}
 
 			//if player has no houses yet
 
 			std::cout << "You can build in these Cities:" << endl;
-			//check if already owned
-			for (unsigned int k = 0; k < (player_vector.size()*7); k++) {
-				if (Map::getCityName(k) == "")
+		
+			for (unsigned int k = 0; k < house_index.size(); k++) { // should shoe all 
+				if (Map::getCityName(house_index[k]) == "")
 					std::cout << "" ;
 				else
-				std::cout << "Map Index: "  << Map::getIndexNumber(k) << ", City Name: "<< Map::getCityName(k) <<endl;
+				std::cout << "Map Index: "  << Map::getIndexNumber(house_index[k]) << ", City Name: "<< Map::getCityName(house_index[k]) <<endl;
 			}
 
 			unsigned int index;
@@ -630,9 +636,9 @@ void::Game::buildHouse() {
 			std::cout << "Map Index: ";
 
 			std::cin >> index;
-
-			while (index < 0 || index > (player_vector.size()*7)) {
-				std::cout << "Invaid Input enter a valid one" << std::endl;
+			
+			while (!std::count(house_index.begin(), house_index.end(), index)) { //bool function is in 
+				std::cout << "Invalid Input enter a valid one" << std::endl;
 				std::cin >> index;
 			}
 
@@ -654,15 +660,15 @@ void::Game::buildHouse() {
 			std::cout << "yes or no." << endl;
 			std::cin >> response;
 
-		}
-			if (response == "yes") {
-			continue;
+			if (response == "no") {
+				buyhouseloop = false;
+				p = getNextPlayer(*p);
 			}
 
-			if (response == "no") {
-				p = getNextPlayer(*p);
-	
-			}
+			} // while true
+		}
+			
+
 			
 	}
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
@@ -801,7 +807,7 @@ void Game::bureaucracy() {
 				
 				for (unsigned int k = 0; k < p->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) {
 					if (p->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == false)
-						std::cout << "Here are your nonpowered houses: " << std::endl << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() << " (" << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getLocation() << ") " << ",";
+						std::cout << std::endl << "Here are your nonpowered houses: " << std::endl << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() << " (" << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getLocation() << ") " << ",";
 				}
 				std::cout << "Which house do you want to power?" << std::endl; std::cout << endl;
 				std::cin >> houseIndex;

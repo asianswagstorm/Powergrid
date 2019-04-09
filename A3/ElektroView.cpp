@@ -9,8 +9,10 @@ ElektroView::ElektroView() {}
 ElektroView::~ElektroView() {
 	
 }
-ElektroView::ElektroView(ViewType * type) {
-
+ElektroView::ElektroView(Statistics * stats) {
+	subject = stats->subject;
+	subject->removeObserver(stats);
+	subject->registerObserver(this);
 	setType("Elektro");
 }
 

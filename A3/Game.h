@@ -40,6 +40,11 @@ public:
 	void buildHouse();
 	int getPayment(int numPoweredHouse);
 
+	friend class ElektroView;
+	friend class HouseView;
+	friend class PowerPlantView;
+	friend class ResourceView;
+
 private:
 	
 	int round;

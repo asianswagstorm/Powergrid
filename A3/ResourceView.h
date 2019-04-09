@@ -1,10 +1,10 @@
 #pragma once
-#include "Observer.h"
-class ResourceView : public Observer {
+#include "Statistics.h"
+class ResourceView : public Statistics {
 public:
 	ResourceView();
 	~ResourceView();
-
+	ResourceView(Statistics * stats);
 	void Update();
 	void printInfo();
 

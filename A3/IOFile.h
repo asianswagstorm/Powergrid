@@ -15,7 +15,7 @@ public:
 	static void saveMap();
 	static void readMapInput(string areaColor);
 	static void addEdges();
-	
+	static std::vector<int> getMapIndexs();
 	//Player
 	static void savePlayer(vector<Player*> player_vector);
 	static std::vector<Player *> loadPlayer();

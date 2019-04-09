@@ -1,6 +1,6 @@
-TypeNum_Bid=3, Type=Oil, Resources_required=2, Cities_powered=1, In_Deck=1, Owner=Peter
-TypeNum_Bid=4, Type=Coal, Resources_required=2, Cities_powered=1, In_Deck=1, Owner=Jackie
-TypeNum_Bid=5, Type=Hybrid, Resources_required=2, Cities_powered=1, In_Deck=1, Owner=Peter
+TypeNum_Bid=3, Type=Oil, Resources_required=2, Cities_powered=1, In_Deck=1, Owner=
+TypeNum_Bid=4, Type=Coal, Resources_required=2, Cities_powered=1, In_Deck=1, Owner=
+TypeNum_Bid=5, Type=Hybrid, Resources_required=2, Cities_powered=1, In_Deck=1, Owner=
 TypeNum_Bid=6, Type=Garbage, Resources_required=1, Cities_powered=1, In_Deck=1, Owner=
 TypeNum_Bid=7, Type=Oil, Resources_required=3, Cities_powered=2, In_Deck=1, Owner=
 TypeNum_Bid=8, Type=Coal, Resources_required=3, Cities_powered=2, In_Deck=1, Owner=

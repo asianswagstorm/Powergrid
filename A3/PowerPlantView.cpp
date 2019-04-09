@@ -6,7 +6,12 @@ using namespace std;
 
 PowerPlantView::PowerPlantView() {}
 PowerPlantView::~PowerPlantView() {}
-
+PowerPlantView::PowerPlantView(Statistics * stats) {
+	subject = stats->subject;
+	subject->removeObserver(stats);
+	subject->registerObserver(this);
+	setType("PowerPlant");
+}
 void PowerPlantView::Update() {
 	ofstream output;
 	output.open("game_statistics.txt", ios::out | ios::app);

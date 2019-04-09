@@ -31,7 +31,7 @@ tuple<int, string, int> * Map::index_cityName_area = new tuple<int, string, int>
 adjacency_list_t * Map::map = new adjacency_list_t(Map::getMapSize());
 
 void Map::createMap(string areaColor) {
-	IOFile::readMapInput(areaColor);
+	IOFile::readMapInput(areaColor); 
 }
 
 int Map::getMapSize() {

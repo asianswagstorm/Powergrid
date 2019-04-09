@@ -5,6 +5,12 @@
 using namespace std;
 HouseView::HouseView() {}
 HouseView::~HouseView() {}
+HouseView::HouseView(Statistics * stats) {
+	subject = stats->subject;
+	subject->removeObserver(stats);
+	subject->registerObserver(this);
+	setType("House");
+}
 
 void HouseView::Update() {
 	ofstream output;

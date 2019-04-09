@@ -1,10 +1,10 @@
 #pragma once
-#include "ViewType.h"
-class ElektroView : public ViewType {
+#include "Statistics.h"
+class ElektroView : public Statistics {
 public:
 	ElektroView();
 	~ElektroView();
-	ElektroView(ViewType * type);
+	ElektroView(Statistics * stats);
 
 	void Update();
 	void printInfo();

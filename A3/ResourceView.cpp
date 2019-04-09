@@ -7,6 +7,12 @@ ResourceView::ResourceView() {}
 
 ResourceView::~ResourceView() {}
 
+ResourceView::ResourceView(Statistics * stats) {
+	subject = stats->subject;
+	subject->removeObserver(stats);
+	subject->registerObserver(this);
+	setType("Resource");
+}
 void ResourceView::Update() {
 	ofstream output;
 	output.open("game_statistics.txt", ios::out | ios::app);

@@ -88,7 +88,25 @@ void IOFile::readMapInput(string areaColor) {
 	}
 	
 	mapInputs.close();
+	
+}
 
+std::vector<int> IOFile::getMapIndexs() {
+	std::vector <int> initial_file_index;
+	int index;  std::string index1, line;
+	ifstream mapIndex;
+
+	mapIndex.open("map.txt");
+	while (getline(mapIndex, line) && line != "" && !line.empty()) {
+		std::stringstream ss(line);
+		//mapInputs >> index >> cityName >> area;
+		getline(ss, index1, ',');
+		index = stoi(index1);
+		
+		initial_file_index.push_back(index);
+	}
+	mapIndex.close();
+	return initial_file_index;
 }
 
 //need to filter only the active edges
@@ -362,48 +380,56 @@ int IOFile::splitString(string variable) {
 }
 
 void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_vector) {
-	
-	vector<int> index_vector;
-	for (unsigned int i = 0; i < house_vector.size(); i++) {
+	vector<int> index_vector = IOFile::getMapIndexs();
+	//vector<int> index_vector;
+	/*for (unsigned int i = 0; i < house_vector.size(); i++) {
 		index_vector.push_back(house_vector[i].getIndex());
-	}
+	}*/
 	
 	ofstream output;
 	// open a file
-	output.open("map1.txt");
+	output.open("map.txt");
 	std::cout << "Adding Houses..." << std::endl;
 
 	for (int i = 0; i < Map::getMapSize(); i++) {
 	
-		if (Map::getCityName(i) != ""){
-			
+		if (Map::getCityName(i) != "") {
+
 			for (unsigned int j = 0; j < index_vector.size(); j++) {
-				
+
 				if (Map::getIndexNumber(i) == index_vector[j])
 				{
-					std::cout << "j is : " << j << std::endl;
-					for(unsigned int m = 0; m < player_vector.size() ; m++){
+
+					for (unsigned int m = 0; m < player_vector.size(); m++) {
 						for (unsigned int k = 0; k < player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) { //player_vector[j] out of range j =3 
-							//something is wrong here else excuted before if. let it be spent too long.
-							if (player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == true && Map::getIndexNumber(i) == player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex()) {
+						//Order is messed up
+							//2
+							if (player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == true && Map::getIndexNumber(i) == player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() && Map::getCityName(i) != "") {
 								output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[m]->getName() << ", Powered" << std::endl;
+								i++;
 							}
-						else if (player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == false && Map::getIndexNumber(i) == player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex()) {
+							//1
+							else if (player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == false && Map::getIndexNumber(i) == player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() && Map::getCityName(i) != "") {
 								output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[m]->getName() << std::endl;
-						}
+								//i++;
 							}
+						}
 					}
-					i++;
+					if (Map::getCityName(index_vector[j]) == "" || Map::getCityName(i) == "") {
+						continue;
+					}
+					else
+						//3
+					{
+						output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
+						i++;
+					}
 				}
+
 				
+					
 			}
-			std::cout << "I am Here 5 " << std::endl;
-			if ((unsigned) i < player_vector.size()*7) {
-				std::cout << "I am Here 6 " << std::endl;
-				output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
-			}
-			
-			}
+		}
 	}
 	
 	std::cout << "Player Houses saved..." << std::endl;
