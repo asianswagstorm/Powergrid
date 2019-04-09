@@ -9,13 +9,14 @@ ElektroView::ElektroView() {}
 ElektroView::~ElektroView() {
 	
 }
-ElektroView::ElektroView(View * decoratedView) : ViewDecorator(decoratedView){
-	subject = decoratedView->subject;
-	subject->removeObserver(decoratedView);
+ElektroView::ElektroView(View * view){
+	subject = view->subject;
+	subject->removeObserver(view);
 	subject->registerObserver(this);
-	setType(decoratedView->getType() + "-Elektro-"); //title to be printed
+	setType(view->getType() + "-Elektro-"); //title to be printed
 }
 
+ElektroView::ElektroView(Game * game) : View(game) {}
 
 void ElektroView::Update(){
 	ofstream output;
@@ -29,9 +30,7 @@ void ElektroView::printInfo() {
 	output.open("game_statistics.txt", ios::out | ios::app);
 
 	vector<Player*> players = subject->player_vector;
-		//IOFile::loadPlayer();
-	decoratedView->printInfo();
-	
+
 	for (unsigned int  i = 0; i < players.size(); i++) {
 		std::cout << players[i]->getName() << " has " << players[i]->getElectro() << " elektros." << std::endl; //print to console
 		output << players[i]->getName() << " has " << players[i]->getElectro() << " elektros." << std::endl; // print to game_stats

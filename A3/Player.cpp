@@ -137,7 +137,7 @@ void Player::setnumOfPowerPlants(int numOfPowerPlants)
 void Player::addPowerPlant(PowerPlant powerplant)
 {
 	//During the game each player can have only 3 power plants at any time. (from game rule) , // if powerplant vector is full
-	if (this->powerplants->size() == 3) {
+	/*if (this->powerplants->size() == 3) {
 		std::cout << std::endl << "ERROR YOU ALREADY HAVE MAXIMUM POWERPLANT" << std::endl;
 		std::cout << "You must replace one of your powerplants before adding a new one." << std::endl;
 		for (int i = 0; i < 3; i++) { 
@@ -158,10 +158,10 @@ void Player::addPowerPlant(PowerPlant powerplant)
 		this->powerplants->erase(this->powerplants->begin() + (ppToBeRemoved-1));
 		this->powerplants->push_back(powerplant);	
 	}
-	else{
+	else{*/
 		this->powerplants->push_back(powerplant);
 		Player::setnumOfPowerPlants(Player::getnumOfPowerPlants());
-	}
+	//}
 }
 
 void Player::setResources(string resource_type, int quantity)  { //Adds resource to player's possessions

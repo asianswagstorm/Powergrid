@@ -34,7 +34,6 @@ public:
 	void buildHouse();
 	int getPayment(int numPoweredHouse);
 
-	friend class BasicView;
 	friend class ElektroView;
 	friend class HouseView;
 	friend class PowerPlantView;

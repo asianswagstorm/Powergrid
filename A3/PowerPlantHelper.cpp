@@ -206,7 +206,6 @@ bool PowerPlantHelper::isPPActual(int typeNum) {
 	else return true;
 }
 
-
 std::vector<PowerPlant> * PowerPlantHelper::getPPV() {
 
 	return this->ppvClone;
@@ -245,10 +244,10 @@ PowerPlant PowerPlantHelper::removePowerPlant(int playerBid, Player * p) {
 		if (playerBid == (*ppv)[count].PowerPlant::getTypeNum()) {
 			
 			std::cout << "Player Bid is : " << playerBid << std::endl;
-			std::cout << "I2 is : " << count << std::endl;
+			
 			powerplantObj = PowerPlant((*powerplantActualMarket)[count].PowerPlant::getTypeNum(), (*powerplantActualMarket)[count].getType(), (*powerplantActualMarket)[count].PowerPlant::getMinPlantCost(), (*powerplantActualMarket)[count].PowerPlant::getHouse(), (*powerplantActualMarket)[count].PowerPlant::getInDeck(), (*powerplantActualMarket)[count].PowerPlant::getOwner());
 			//powerplant that will be added
-			std::cout << "Count is : " << count << std::endl;
+			
 			break;
 		}
 	}

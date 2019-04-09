@@ -7,11 +7,11 @@ ResourceView::ResourceView() {}
 
 ResourceView::~ResourceView() {}
 
-ResourceView::ResourceView(View * decoratedView) : ViewDecorator(decoratedView) {
-	subject = decoratedView->subject;
-	subject->removeObserver(decoratedView);
+ResourceView::ResourceView(View * view)  {
+	subject = view->subject;
+	subject->removeObserver(view);
 	subject->registerObserver(this);
-	setType(decoratedView->getType() + "-Resource-");
+	setType(view->getType() + "-Resource-");
 }
 void ResourceView::Update() {
 	ofstream output;
@@ -26,10 +26,7 @@ void ResourceView::printInfo() {
 
 	vector<Player*> players = subject->player_vector;;
 		//IOFile::loadPlayer();
-	ResourceMarket * resourceMarket = subject->resourceMarket;
-		//IOFile::loadResourceMarket();
-
-	decoratedView->printInfo();
+	ResourceMarket * resourceMarket = IOFile::loadResourceMarket();
 
 	for (unsigned int i = 0; i < players.size(); i++) {
 		std::cout << players[i]->getName() << " has " << players[i]->getResourceQuantity("Coal") << " Coal." << std::endl; //print to console

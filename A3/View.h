@@ -13,6 +13,9 @@ public:
 	virtual string getType();
 	virtual void setType(string type);
 	Game * subject;
+
+protected:
+	View * view;
 private:
 	string type;
 	

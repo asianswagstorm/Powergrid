@@ -5,11 +5,11 @@
 using namespace std;
 HouseView::HouseView() {}
 HouseView::~HouseView() {}
-HouseView::HouseView(View * decoratedView) : ViewDecorator(decoratedView) {
-	subject = decoratedView->subject;
-	subject->removeObserver(decoratedView);
+HouseView::HouseView(View * view)  {
+	subject = view->subject;
+	subject->removeObserver(view);
 	subject->registerObserver(this);
-	setType(decoratedView->getType() + "-House-");
+	setType(view->getType() + "-House-");
 }
 
 void HouseView::Update() {
@@ -20,10 +20,9 @@ void HouseView::Update() {
 }
 void HouseView::printInfo() {
 	vector<Player*> player_vector = subject->player_vector;
-		//IOFile::loadPlayer();
+	
 	vector<House> house_vector = subject->house_vector;
 		//IOFile::loadPlayerHouse(player_vector);
-	decoratedView->printInfo();
 
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		//Map theMap = Map(player_vector[i]->Player::getAreaColor());

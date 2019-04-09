@@ -1,10 +1,10 @@
 #pragma once
-#include "ViewDecorator.h"
-class HouseView : public ViewDecorator {
+#include "View.h"
+class HouseView : public View {
 public:
 	HouseView();
 	~HouseView();
-	HouseView(View * decoratedView);
+	HouseView(View * view);
 	void Update();
 	void printInfo();
 

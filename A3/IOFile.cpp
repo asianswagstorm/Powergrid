@@ -426,8 +426,6 @@ void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_
 					}
 				}
 
-				
-					
 			}
 		}
 	}

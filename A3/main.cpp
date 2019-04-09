@@ -11,7 +11,6 @@
 #include "Game.h"
 #include "Map.h"
 #include "View.h"
-#include "BasicView.h"
 #include "ElektroView.h"
 #include "HouseView.h"
 #include "PowerPlantView.h"
@@ -46,12 +45,13 @@ int main() {
 	std::cout << std::endl << "stats" << std::endl << std::endl;
 	//nothing
 	
-	View * aView = new BasicView(game);
-	aView = new ElektroView(aView);
+	View * aView = new ElektroView(game);
+	aView->printInfo();
 	aView = new ResourceView(aView);
+	aView->printInfo();
 	aView = new PowerPlantView(aView);
+	aView->printInfo();
 	aView = new HouseView(aView);
-
 	aView->printInfo();
 
 	/*
