@@ -160,8 +160,14 @@ void Player::addPowerPlant(PowerPlant powerplant)
 		this->powerplants->push_back(powerplant);	
 	}
 	else{*/
-		this->powerplants->push_back(powerplant);
-		Player::setnumOfPowerPlants(Player::getnumOfPowerPlants());
+		
+	//for (unsigned int i = 0; i < powerplants->size(); i++) {
+		//if ((*powerplants)[i].getTypeNum() != powerplant.getTypeNum()) { //prevent duplicates
+			this->powerplants->push_back(powerplant);
+			Player::setnumOfPowerPlants(Player::getnumOfPowerPlants());
+		//}
+		//}
+		
 	//}
 }
 

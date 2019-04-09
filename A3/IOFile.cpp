@@ -354,7 +354,6 @@ std::vector<PowerPlant> * IOFile::loadPowerplants(std::vector<Player *> player_v
 				}
 			}
 
-			//std::cout << typeNum << " " << powerplant_type << " " << resource_required << " " << cities_powered << " " << isInDeck << " " << player_name << std::endl;
 			ppv->push_back(powerplant_Obj);
 			if (isInDeck == true) {
 			ppvClone->push_back(powerplant_Obj);

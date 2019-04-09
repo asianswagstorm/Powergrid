@@ -41,15 +41,15 @@ Game::~Game() { //destructor
 
 Game * Game::loadGame(int numPlayers) {
 	player_vector = IOFile::loadPlayer();
-	
+
 	//Load map
 	mapreader map;
 	string mapFileName;
 	std::cout << "Enter map file name not including .txt" << std::endl;
 	cin >> mapFileName;
-	
+
 	map.readMap(mapFileName);
-	
+
 	numPlayers = player_vector.size();
 
 	for (int i = 0; i < numPlayers; i++) {
@@ -57,12 +57,12 @@ Game * Game::loadGame(int numPlayers) {
 		std::cout << endl << "===========Here is player" << i + 1 << "'s summary card=============" << std::endl << std::endl;
 		sc->SummaryCardInfo();
 	}
-	powerplanthelper = new PowerPlantHelper(); // should show only 8 // Also should keep track of discarded cards or cards already in game. 
-	powerplanthelper->PowerPlantHelper::setPPV(IOFile::loadPowerplants(player_vector));
-	this->house_vector=IOFile::loadPlayerHouse(player_vector);//load all houses
+	this->powerplanthelper = new PowerPlantHelper(); // should show only 8 // Also should keep track of discarded cards or cards already in game. 
+	this->powerplanthelper->PowerPlantHelper::setPPV(IOFile::loadPowerplants(player_vector));
+	this->house_vector = IOFile::loadPlayerHouse(player_vector);//load all houses
 	this->resourceMarket = IOFile::loadResourceMarket();
-	Game * game = new Game(player_vector, Map::instance());
-	return game;
+	
+	return this;
 }
 
 Game * Game::setUpGame() {
@@ -141,7 +141,7 @@ Game * Game::setUpGame() {
 	}
 
 	else {
-		
+
 		//Powerplant Cards 
 		powerplanthelper = new PowerPlantHelper();
 		IOFile::savePowerplants(powerplanthelper->getPPV());
@@ -156,8 +156,7 @@ Game * Game::setUpGame() {
 		IOFile::saveMap(); //load map should read the edges too
 
 	}
-	Game * game = new Game(player_vector, Map::instance());
-	return game;
+	return this;
 }
 
 void Game::setRound(int round) {
@@ -207,7 +206,7 @@ void Game::determinePlayerOrder() {
 		break;
 	}
 	}
-	
+
 }
 
 int Game::getFirstPlayer(std::vector<Player*> player_vector, int i) {
@@ -329,7 +328,7 @@ void Game::buyPowerPlant() {
 	string response; //response= would you like to but a plant? //used to reset the response when a player responds
 	string bid_response = ""; // do you want to join the auction war for a powerplant
 	std::vector<Player*> player_with_Auction_vector;
-	
+
 	int numPlayers = this->player_vector.size();
 	//reset the auction status
 	for (int j = 0; j < numPlayers; j++) {
@@ -361,20 +360,20 @@ void Game::buyPowerPlant() {
 		std::cout << std::endl << "PHASE 2 POWERPLANT AUCTIONING" << std::endl;
 		powerplanthelper->PowerPlantHelper::printPPMarket();
 
-		if(p->getPass() == false){
-		if (i == 0)
-			std::cout << std::endl << p->getName() << " is the first person to start the bid according to the player order rules. " << std::endl << std::endl;
+		if (p->getPass() == false) {
+			if (i == 0)
+				std::cout << std::endl << p->getName() << " is the first person to start the bid according to the player order rules. " << std::endl << std::endl;
 
-		else {
-			//check if previous player has passed on bid
-			if (player_vector[i - 1]->getPass() == true) { //passed up on starting a bid. 
-				player_index--; //skip the player
+			else {
+				//check if previous player has passed on bid
+				if (player_vector[i - 1]->getPass() == true) { //passed up on starting a bid. 
+					player_index--; //skip the player
+				}
+				std::cout << std::endl << p->getName() << "'s turn. " << std::endl;
+				std::cout << "To start the bid " << std::endl;
 			}
-			std::cout << std::endl << p->getName() << "'s turn. " << std::endl;
-			std::cout << "To start the bid " << std::endl;
 		}
-		}
-		
+
 		if (p->getPass() == true && p == player_vector[numPlayers - 1]) {
 			break;
 		}
@@ -426,7 +425,7 @@ void Game::buyPowerPlant() {
 			//cout << " players with auction: " << player_with_Auction_vector.size() << endl << endl; //2 ?
 			//cout << " player index: " << player_index << endl;
 			int playersWithAuction = player_with_Auction_vector.size();
-			
+
 
 			//determine the winner
 			if (player_index == numPlayers - 1 || numPlayers - playersWithAuction == 1) { // if last player or last player has no auction
@@ -444,11 +443,11 @@ void Game::buyPowerPlant() {
 			}
 
 			std::cout << std::endl << "------------ Starting Auction -----------" << std::endl << std::endl;
-			
+
 			//cout << " Pass is " << p->getPass() << endl;
-			
+
 			if (p->getPass() == false) { //should always get next unless pass = true
-				
+
 				p = getNextPlayer(*p);
 			}
 
@@ -499,7 +498,7 @@ void Game::buyPowerPlant() {
 					player_with_Auction_vector.push_back(p);
 					player_index++;
 				}
-				
+
 			}//end yes bid_response
 
 			if (bid_response == "no") { //Don't want to join the bidding war, should go to next.
@@ -519,13 +518,13 @@ void Game::buyPowerPlant() {
 		}
 		std::cout << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << temp << std::endl << std::endl;
 		//player_vector[AuctionWinner]->setAuction(false);
-		
+
 		player_vector[AuctionWinner]->setPass(true);
 		player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(temp, player_vector[AuctionWinner]));
 		player_vector[AuctionWinner]->setnumOfPowerPlants(player_vector[AuctionWinner]->getnumOfPowerPlants());
 		player_vector[AuctionWinner]->removeElectro(temp);
 		temp = 0;
-		
+
 
 	}//main for loop done
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
@@ -537,7 +536,7 @@ void Game::buyPowerPlant() {
 
 //Step 3 - Buy resources from the resource market. 
 void Game::buyResources() {
-	
+
 	ofstream output;
 	output.open("game_statistics.txt", ios::out | ios::app);
 	output << "------------Phase 3------------" << endl;
@@ -547,8 +546,8 @@ void Game::buyResources() {
 	std::cout << "BUYING RESOURCES" << endl;
 	std::cout << endl;
 
-	string materialChoice="";
-	
+	string materialChoice = "";
+
 	int qty;
 	reverse(player_vector.begin(), player_vector.end()); //from <algorithm>
 	bool validMaterialChoice = false;
@@ -587,7 +586,7 @@ void Game::buyResources() {
 					std::cout << endl << "Here is how much elektros you have after buying " << qty << " " << materialChoice << ": " << p->getElectro() << "$" << endl;
 					std::cout << "You current have " << p->getResourceQuantity(materialChoice) << " " << materialChoice << endl;
 
-					resourceMarket->updateMarket(materialChoice, qty); 
+					resourceMarket->updateMarket(materialChoice, qty);
 					IOFile::saveResourceMarket(resourceMarket);
 					IOFile::savePlayer(player_vector);
 				}
@@ -611,79 +610,79 @@ void::Game::buildHouse() {
 	string response;
 	vector<House> house_vector;
 	vector<int> house_index = IOFile::getMapIndexs();
-	
+
 	std::cout << "houseSize: " << house_index.size() << std::endl; //7
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		Player * p = player_vector[i];
 		//Map theMap = Map(p->Player::getAreaColor());
 		Map::instance()->createMap(p->Player::getAreaColor());
-		
+
 		std::cout << p->getName() << " Would you like to build a house in: " << p->Player::getAreaColor() << " area " << endl;
 		std::cout << "yes or no." << std::endl;
 		std::cin >> response;
-		
+
 		if (response == "yes") {
 			buyhouseloop = true;
-			while (buyhouseloop == true){
-			int houseCount = p->Player::getHouse()->HouseHelper::getHouse();
+			while (buyhouseloop == true) {
+				int houseCount = p->Player::getHouse()->HouseHelper::getHouse();
 
-			//if player does not have enough electro to purchase 1 house of 10 elektro
-			if (!p->hasEnoughtElektro(10)) {
-				std::cout << p->getName() << " Does not have enough elektro to build a house, less than 10 elektro" << endl;
-				buyhouseloop = false;
-				break;
-			}
+				//if player does not have enough electro to purchase 1 house of 10 elektro
+				if (!p->hasEnoughtElektro(10)) {
+					std::cout << p->getName() << " Does not have enough elektro to build a house, less than 10 elektro" << endl;
+					buyhouseloop = false;
+					break;
+				}
 
-			//if player has no houses yet
+				//if player has no houses yet
 
-			std::cout << "You can build in these Cities:" << endl;
-		
-			for (unsigned int k = 0; k < house_index.size(); k++) { // should shoe all 
-				if (Map::getCityName(house_index[k]) == "")
-					std::cout << "" ;
-				else
-				std::cout << "Map Index: "  << Map::getIndexNumber(house_index[k]) << ", City Name: "<< Map::getCityName(house_index[k]) <<endl;
-			}
+				std::cout << "You can build in these Cities:" << endl;
 
-			unsigned int index;
-			std::cout << std::endl << "Please choose an Map Index you want to build a house in, refer to map file" << endl;
-			std::cout << "Map Index: ";
+				for (unsigned int k = 0; k < house_index.size(); k++) { // should shoe all 
+					if (Map::getCityName(house_index[k]) == "")
+						std::cout << "";
+					else
+						std::cout << "Map Index: " << Map::getIndexNumber(house_index[k]) << ", City Name: " << Map::getCityName(house_index[k]) << endl;
+				}
 
-			std::cin >> index;
-			
-			while (!std::count(house_index.begin(), house_index.end(), index)) { //bool function is in 
-				std::cout << "Invalid Input enter a valid one" << std::endl;
+				unsigned int index;
+				std::cout << std::endl << "Please choose an Map Index you want to build a house in, refer to map file" << endl;
+				std::cout << "Map Index: ";
+
 				std::cin >> index;
-			}
 
-			std::cout << "You currently have " << p->getElectro() << " elektro a house costs 10 elektros" << endl;
+				while (!std::count(house_index.begin(), house_index.end(), index)) { //bool function is in 
+					std::cout << "Invalid Input enter a valid one" << std::endl;
+					std::cin >> index;
+				}
 
-			House house(index, Map::getCityName(index));
-			house_vector.push_back(house);
-			p->removeElectro(10);
-			//house.setisPowered(true); testing
-			p->Player::getHouse()->HouseHelper::addHouse(house);
-			p->Player::getHouse()->HouseHelper::setHouse(p->Player::getHouse()->HouseHelper::getHouseVector().size());
+				std::cout << "You currently have " << p->getElectro() << " elektro a house costs 10 elektros" << endl;
+
+				House house(index, Map::getCityName(index));
+				house_vector.push_back(house);
+				p->removeElectro(10);
+				//house.setisPowered(true); testing
+				p->Player::getHouse()->HouseHelper::addHouse(house);
+				p->Player::getHouse()->HouseHelper::setHouse(p->Player::getHouse()->HouseHelper::getHouseVector().size());
 
 
-			std::cout << endl << "Purchase completed" << endl;
-			std::cout << "You now have " << p->getElectro() << " elektro" << endl;
-			std::cout << "You now have " << p->Player::getHouse()->HouseHelper::getHouseVector().size() << " houses" << endl;
-			
-			std::cout << p->getName() << " would you like to build another house?." << endl;
-			std::cout << "yes or no." << endl;
-			std::cin >> response;
+				std::cout << endl << "Purchase completed" << endl;
+				std::cout << "You now have " << p->getElectro() << " elektro" << endl;
+				std::cout << "You now have " << p->Player::getHouse()->HouseHelper::getHouseVector().size() << " houses" << endl;
 
-			if (response == "no") {
-				buyhouseloop = false;
-				p = getNextPlayer(*p);
-			}
+				std::cout << p->getName() << " would you like to build another house?." << endl;
+				std::cout << "yes or no." << endl;
+				std::cin >> response;
+
+				if (response == "no") {
+					buyhouseloop = false;
+					p = getNextPlayer(*p);
+				}
 
 			} // while true
 		}
-			
 
-			
+
+
 	}
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
 	IOFile::savePlayer(player_vector); // needs to add the new houses
@@ -696,7 +695,7 @@ void::Game::buildHouse() {
 
 int Game::getPayment(int numPoweredHouse) {
 
-	switch (numPoweredHouse) 
+	switch (numPoweredHouse)
 	{
 	case 0:
 		return 10;
@@ -769,7 +768,7 @@ int Game::getPayment(int numPoweredHouse) {
 }
 
 void Game::bureaucracy() {
-	
+
 	ofstream output;
 	output.open("game_statistics.txt", ios::out | ios::app);
 	output << "------------Phase 5------------" << endl;
@@ -778,7 +777,7 @@ void Game::bureaucracy() {
 	//players earn cash, 
 	//re-supply the resource market,
 	//remove a power plant from the power plant market, replacing it with a new one from the stack (done)
-	
+
 	vector<House> house_vector = IOFile::loadPlayerHouse(player_vector);
 	//needs refill
 	int houseIndex;
@@ -800,15 +799,15 @@ void Game::bureaucracy() {
 		//- Giving them the ability to decide how many houses they want to power based on their resources.
 		std::cout << "**********************************************************************************************************************" << std::endl;
 		std::cout << p->getName() << " has " << p->Player::getHouse()->HouseHelper::getHouse() << " houses. " << std::endl;
-		
-		if (p->Player::getHouse()->HouseHelper::getHouse() > 0){
+
+		if (p->Player::getHouse()->HouseHelper::getHouse() > 0) {
 			std::cout << "Here are all of " << p->getName() << " houses: " << std::endl << std::endl;
 			for (unsigned int i = 0; i < p->Player::getHouse()->HouseHelper::getHouseVector().size(); i++) {
 				std::cout << p->Player::getHouse()->HouseHelper::getHouseVector()[i].getIndex() << " (" << p->Player::getHouse()->HouseHelper::getHouseVector()[i].getLocation() << ") " << ",";
-					/*if(p->Player::getHouse()->HouseHelper::getHouseVector()[i].getisPowered() == true)
-					{
-						powered_house_vector.push_back(p->Player::getHouse()->HouseHelper::getHouseVector()[i]);
-					}*/
+				/*if(p->Player::getHouse()->HouseHelper::getHouseVector()[i].getisPowered() == true)
+				{
+					powered_house_vector.push_back(p->Player::getHouse()->HouseHelper::getHouseVector()[i]);
+				}*/
 			}//end for
 
 			std::cout << std::endl << "Attention: You can only power cities that you own." << endl;
@@ -818,7 +817,7 @@ void Game::bureaucracy() {
 			std::cin >> powerDecision; std::cout << endl;
 			//If yes, player will power cities
 			if (powerDecision == "yes") {
-				
+
 				for (unsigned int k = 0; k < p->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) {
 					if (p->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == false)
 						std::cout << std::endl << "Here are your nonpowered houses: " << std::endl << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() << " (" << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getLocation() << ") " << ",";
@@ -834,8 +833,8 @@ void Game::bureaucracy() {
 				}
 
 				for (unsigned int j = 0; j < p->Player::getHouse()->HouseHelper::getHouseVector().size(); j++) {
-					if (houseIndex == p->Player::getHouse()->HouseHelper::getHouseVector()[j].getIndex() && p->Player::getHouse()->HouseHelper::getHouseVector()[j].getisPowered()==false) {
-						
+					if (houseIndex == p->Player::getHouse()->HouseHelper::getHouseVector()[j].getIndex() && p->Player::getHouse()->HouseHelper::getHouseVector()[j].getisPowered() == false) {
+
 						//p->Player::getHouse()->HouseHelper::getHouseVector()[j].setisPowered(true);
 						House house(houseIndex, Map::getCityName(houseIndex));
 						house.setisPowered(true);
@@ -843,9 +842,9 @@ void Game::bureaucracy() {
 						//remove the duplicate before pushing new one in 
 						house_vector.push_back(house);
 						p->Player::getHouse()->HouseHelper::addHouse(house);
-					
+
 					}
-					
+
 					if (p->Player::getHouse()->HouseHelper::getHouseVector()[j].getisPowered() == true) {
 						numPoweredHouses++;
 						std::cout << "Num Powered Houses: " << numPoweredHouses << std::endl;
@@ -855,21 +854,21 @@ void Game::bureaucracy() {
 				std::cout << "Adding " << Game::getPayment(numPoweredHouses) << " Elektro to your wallet." << std::endl;
 				p->setElectro(p->getElectro() + Game::getPayment(numPoweredHouses));
 				p->printPlayerInfo();
-				
+
 			}//end yes
 			else if (powerDecision == "no") {
 				p->addElectro(0);
 			}//end no
 
 		}//end if house > 0
-		else if(p->Player::getHouse()->HouseHelper::getHouse() <= 0 && powerDecision != "no" && powerDecision != "yes"){
+		else if (p->Player::getHouse()->HouseHelper::getHouse() <= 0 && powerDecision != "no" && powerDecision != "yes") {
 			std::cout << "You have no houses to power!" << std::endl;
 			std::cout << "You are offered 10 Elektros" << std::endl;
 
 			p->setElectro(p->getElectro() + Game::getPayment(0));
 			p->printPlayerInfo();
-			}//end else 
-		
+		}//end else 
+
 	}//end for
 
 	//house_vector is empty

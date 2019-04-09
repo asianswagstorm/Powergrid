@@ -21,11 +21,8 @@ int main() {
 	output.open("game_statistics.txt");
 	int numPlayers=0;
 	std::vector<Player*> player_vector;
-	//Map * map = new Map;
-	
 	string response;
-	//Map::instance() singleton map object
-	Game *game = new Game();
+	Game *game = new Game(player_vector, Map::instance());
 	
 	//NEW (new) OR LOAD GAME. 
 	std::cout << "Write \"new\" for a NEW GAME." << std::endl << std::endl; 
@@ -34,8 +31,7 @@ int main() {
 
 	if (response != "new") {
 		game = game->Game::loadGame(numPlayers);
-		//game->setRound(2); // temporary
-		//game->Game::loadGame(numPlayers);
+		game->setRound(2); // temporary
 	}
 	else {
 		//game->Game::setUpGame();
@@ -58,7 +54,7 @@ int main() {
 	int maxRound = 4;
 	int startRound =1;
 	while(startRound < maxRound){
-		//game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
+				game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
 			std::cout << endl;
 		//game->Game::buyPowerPlant();
 		//game->Game::buyResources(); //done //still need to save to file

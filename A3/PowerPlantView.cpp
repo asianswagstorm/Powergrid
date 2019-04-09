@@ -23,9 +23,11 @@ void PowerPlantView::printInfo() {
 	output.open("game_statistics.txt", ios::out | ios::app);
 
 	vector<Player*> players = subject->player_vector;//IOFile::loadPlayer();
-	vector<PowerPlant> * powerplants = IOFile::loadPowerplants(players); //all powerplants
+	vector<PowerPlant> * powerplants = IOFile::loadPowerplants(players); 
+	
 	vector<PowerPlant> * powerplantCardsShowned = new vector<PowerPlant>();
 	vector<PowerPlant> * powerplantActualMarket = new vector<PowerPlant>();
+
 
 	std::cout << "---------------PowerPlant View-----------------" << std::endl << std::endl;
 	output << "---------------PowerPlant View-----------------" << std::endl << std::endl;

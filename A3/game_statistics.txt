@@ -1,24 +1,12 @@
 ---------------Elektro View-----------------
 
-Tom has 55 elektros.
-Bob has 85 elektros.
+Bob has 50 elektros.
+Tom has 50 elektros.
 
 ---------------Resource View-----------------
 
-Tom has 1 Coal.
-The Market only has 22 Coal.
-
-Tom has 0 Oil.
-The Market only has 24 Oil.
-
-Tom has 0 Garbage.
-The Market only has 24 Garbage.
-
-Tom has 0 Uranium.
-The Market only has 21 Uranium.
-
 Bob has 1 Coal.
-The Market only has 22 Coal.
+The Market only has 24 Coal.
 
 Bob has 0 Oil.
 The Market only has 24 Oil.
@@ -29,21 +17,33 @@ The Market only has 24 Garbage.
 Bob has 0 Uranium.
 The Market only has 21 Uranium.
 
+Tom has 1 Coal.
+The Market only has 24 Coal.
+
+Tom has 0 Oil.
+The Market only has 24 Oil.
+
+Tom has 0 Garbage.
+The Market only has 24 Garbage.
+
+Tom has 0 Uranium.
+The Market only has 21 Uranium.
+
 
 ---------------PowerPlant View-----------------
 
-Tom has 4 powerplants 
-Bob has 4 powerplants 
+Bob has 2 powerplants 
+Tom has 2 powerplants 
 
 
 ---------------  Actual Market  ------------
-7 , 8 , 9 , 10 , 
+5 , 6 , 7 , 8 , 
 ---------------  Future Market  ------------
-13 , 12 , 35 , 14 , 
+9 , 10 , 13 , 11 , 
 
 ---------------House View-----------------
 
-Tom's houses: 
-0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
 Bob's houses: 
-9 ( "Las Vegas") POWERED,13 ( "Santa Fe") POWERED,
+0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
+Tom's houses: 
+15 ( "Oklahoma City") POWERED,

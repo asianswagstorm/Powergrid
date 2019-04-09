@@ -1,5 +1,5 @@
 Market[0]: 
-Coal=1
+Coal=3
 Oil=3
 Garbage=3
 Uranium=1
