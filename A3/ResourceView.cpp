@@ -28,6 +28,10 @@ void ResourceView::printInfo() {
 		//IOFile::loadPlayer();
 	ResourceMarket * resourceMarket = IOFile::loadResourceMarket();
 
+
+	std::cout << "---------------Resource View-----------------" << std::endl << std::endl;
+	output << "---------------Resource View-----------------" << std::endl << std::endl;
+
 	for (unsigned int i = 0; i < players.size(); i++) {
 		std::cout << players[i]->getName() << " has " << players[i]->getResourceQuantity("Coal") << " Coal." << std::endl; //print to console
 		std::cout << "The Market only has " << resourceMarket->getMarketQuantity("Coal") << " Coal." << std::endl <<std::endl;//print to console

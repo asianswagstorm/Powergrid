@@ -136,6 +136,7 @@ void Player::setnumOfPowerPlants(int numOfPowerPlants)
 
 void Player::addPowerPlant(PowerPlant powerplant)
 {
+	//this is giving me bugs
 	//During the game each player can have only 3 power plants at any time. (from game rule) , // if powerplant vector is full
 	/*if (this->powerplants->size() == 3) {
 		std::cout << std::endl << "ERROR YOU ALREADY HAVE MAXIMUM POWERPLANT" << std::endl;

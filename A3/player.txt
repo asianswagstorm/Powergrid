@@ -2,7 +2,7 @@ Player Order1:
 Name=Tom
 Electro=55
 Houses=2
-PowerPlants=2
+PowerPlants=4
 Area Color=purple
 Coal=1
 Oil=0
@@ -13,7 +13,7 @@ Player Order2:
 Name=Bob
 Electro=85
 Houses=2
-PowerPlants=2
+PowerPlants=4
 Area Color=blue
 Coal=1
 Oil=0

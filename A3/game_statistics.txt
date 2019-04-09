@@ -1,5 +1,9 @@
+---------------Elektro View-----------------
+
 Tom has 55 elektros.
 Bob has 85 elektros.
+
+---------------Resource View-----------------
 
 Tom has 1 Coal.
 The Market only has 22 Coal.
@@ -26,8 +30,20 @@ Bob has 0 Uranium.
 The Market only has 21 Uranium.
 
 
-Tom has 4 powerplants 
+---------------PowerPlant View-----------------
 
+Tom has 4 powerplants 
 Bob has 4 powerplants 
 
 
+---------------  Actual Market  ------------
+7 , 8 , 9 , 10 , 
+---------------  Future Market  ------------
+13 , 12 , 35 , 14 , 
+
+---------------House View-----------------
+
+Tom's houses: 
+0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
+Bob's houses: 
+9 ( "Las Vegas") POWERED,13 ( "Santa Fe") POWERED,
