@@ -9,13 +9,12 @@ ViewType::ViewType(Game * game) {
 	//to a Game
 	subject = game;
 	subject->registerObserver(this);
+	this->type = "";
 }
 
 ViewType::~ViewType() {
 	subject->removeObserver(this);
 }
-
-
 
 string ViewType::getType() {
 	return this->type;

@@ -7,7 +7,7 @@
 #include <list>
 
 #include <limits> // for numeric_limits
-
+#include <cstdlib>
 #include <set>
 #include <utility> // for pair
 #include <algorithm>
@@ -17,21 +17,9 @@
 using std::get;
 
 //Initialize values of the Map
-Map::Map() {
-	
-}
-
-Map::Map(string areaColor)
-{  
-	//Create Map, read inputs from file to reduce code redundancy
-	IOFile::readMapInput(areaColor);
-	
-}
-
-Map::~Map()
-{
-
-}
+/*Map::Map() {
+	//private singleton
+}*/
 
 typedef std::vector<std::vector<neighbor> > adjacency_list_t;
 
@@ -41,6 +29,10 @@ tuple<int, string, int> * Map::index_cityName_area = new tuple<int, string, int>
 
 //Connected graph of map
 adjacency_list_t * Map::map = new adjacency_list_t(Map::getMapSize());
+
+void Map::createMap(string areaColor) {
+	IOFile::readMapInput(areaColor);
+}
 
 int Map::getMapSize() {
 	return mapSize;

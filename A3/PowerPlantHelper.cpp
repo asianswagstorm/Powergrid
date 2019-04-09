@@ -1,7 +1,7 @@
-#include "PowerPlantHelper.h";
-#include "PowerPlant.h";
-#include "Player.h";
-#include "IOFile.h";
+#include "PowerPlantHelper.h"
+#include "PowerPlant.h"
+#include "Player.h"
+#include "IOFile.h"
 #include <vector>
 #include <algorithm> 
 #include <ctime> 

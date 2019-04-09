@@ -19,12 +19,6 @@
 
 using namespace std;
 
-Game::Game() {
-	this->resourceMarket = new ResourceMarket();
-	this->powerplanthelper = new PowerPlantHelper();// this would create new ppv every time update the cards
-
-	round = 0; //default contructor, no game so no round 
-}
 //need to save the round number for load
 Game::Game(std::vector<Player*> player_vector, Map *map) {
 	this->round = 1; //player's first game round , set round as 2 to test load game
@@ -89,14 +83,16 @@ void Game::setUpGame() {
 							std::cout << "Area already chosen , Please pick another location:" << std::endl;
 						}
 						else {
-							Map theMap = Map(color);
+							//Map theMap = Map(color);
+							Map::instance()->createMap(color);
 							isValidColorInput = true;
 							break;
 						}
 					}
 				}
 				else {
-					Map theMap = Map(color);
+					//Map theMap = Map(color);
+					Map::instance()->createMap(color);
 					isValidColorInput = true;
 					break;
 				}
@@ -602,7 +598,8 @@ void::Game::buildHouse() {
 	vector<House> house_vector;
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		Player * p = player_vector[i];
-		Map theMap = Map(p->Player::getAreaColor());
+		//Map theMap = Map(p->Player::getAreaColor());
+		Map::instance()->createMap(p->Player::getAreaColor());
 		std::cout << p->getName() << " Would you like to build a house in: " << p->Player::getAreaColor() << " area " << endl;
 		std::cout << "yes or no." << std::endl;
 		std::cin >> response;
@@ -764,7 +761,7 @@ void Game::bureaucracy() {
 	
 	vector<House> house_vector = IOFile::loadPlayerHouse(player_vector);
 	//needs refill
-	int choice, houseIndex;
+	int houseIndex;
 
 	std::cout << "*****************************************************************" << std::endl;
 	std::cout << " PART 5: BUREAUCRACY" << endl;
@@ -775,7 +772,8 @@ void Game::bureaucracy() {
 
 	reverse(player_vector.begin(), player_vector.end());
 	for (Player* p : player_vector) {
-		Map theMap = Map(p->Player::getAreaColor()); // important
+		//Map theMap = Map(p->Player::getAreaColor()); // important
+		Map::instance()->createMap(p->Player::getAreaColor());
 		// each player has one
 		//Money received depends on the number of powered houses.
 		//<---->If no house powered ---> the automatically 10 elektro.

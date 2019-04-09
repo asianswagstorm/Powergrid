@@ -17,7 +17,8 @@ void HouseView::printInfo() {
 	vector<House> house_vector = IOFile::loadPlayerHouse(player_vector);
 
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
-		Map theMap = Map(player_vector[i]->Player::getAreaColor());
+		//Map theMap = Map(player_vector[i]->Player::getAreaColor());
+		Map::instance()->createMap(player_vector[i]->Player::getAreaColor());
 		for (unsigned int j = 0; j < player_vector[i]->Player::getHouse()->HouseHelper::getHouseVector().size(); j++) {
 			std::cout << player_vector[i]->Player::getHouse()->HouseHelper::getHouseVector()[j].getIndex() << " (" << player_vector[i]->Player::getHouse()->HouseHelper::getHouseVector()[j].getLocation() << ") " << ",";
 			

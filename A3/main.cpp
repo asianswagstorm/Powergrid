@@ -15,9 +15,11 @@ int main() {
 
 	int numPlayers=0;
 	std::vector<Player*> player_vector;
-	Map * map = new Map;
+	//Map * map = new Map;
+	
 	string response;
-	Game * game = new Game(player_vector, map);
+	//Map::instance() singleton map object
+	Game * game = new Game(player_vector, Map::instance());
 	
 	//NEW (new) OR LOAD GAME. 
 	std::cout << "Write \"new\" for a NEW GAME." << std::endl << std::endl; 

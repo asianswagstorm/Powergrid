@@ -373,7 +373,7 @@ void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_
 	output.open("map1.txt");
 	std::cout << "Adding Houses..." << std::endl;
 
-	for (unsigned int i = 0; i < Map::getMapSize(); i++) {
+	for (int i = 0; i < Map::getMapSize(); i++) {
 	
 		if (Map::getCityName(i) != ""){
 			
@@ -398,7 +398,7 @@ void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_
 				
 			}
 			std::cout << "I am Here 5 " << std::endl;
-			if (i < player_vector.size()*7) {
+			if ((unsigned) i < player_vector.size()*7) {
 				std::cout << "I am Here 6 " << std::endl;
 				output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << std::endl;
 			}
@@ -470,7 +470,7 @@ vector<House> IOFile::loadPlayerHouse(vector<Player*> player_vector) {
 	for (unsigned int i = 0; i < player_vector.size(); i++) {	
 	std::cout << std::endl << player_vector[i]->getName() << " housesize: " << player_vector[i]->getHouse()->getHouseVector().size();
 	}
-	std::cout << "Houses loaded" <<  std::endl;
+	std::cout <<std::endl << "Houses loaded" <<  std::endl;
 	IOFile::savePlayer(player_vector);
 	return initial_file_house;
 }

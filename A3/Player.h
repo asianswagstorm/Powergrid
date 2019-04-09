@@ -5,11 +5,20 @@
 #include "PowerPlant.h"
 #include "HouseHelper.h"
 #include "ResourceHelper.h"
-
+#include "Strategy.h"
 using std::string;
+
+class Strategy;
+
 class Player
 {
 public:
+	//Strategy
+	Player(Strategy *strat);
+	Player(string name, string area_color, Strategy *strat);
+	void setStrategy(Strategy *strat);
+	void executeStrategy();
+
 	Player();
 	Player(string name, string area_color, HouseHelper* househelper);
 	Player(string name, string area_color, int elektro, HouseHelper * househelper, vector<PowerPlant> * powerplants, ResourceHelper * resourcehelper);
@@ -58,6 +67,7 @@ public:
 	bool validateResourcePurchase(int cost, int quantity, string type);
 
 private:
+	Strategy *strat;
 	std::string name;
 	std::string area_color;
 	int electro;

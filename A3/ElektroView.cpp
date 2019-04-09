@@ -6,7 +6,14 @@
 #include <fstream>
 
 ElektroView::ElektroView() {}
-ElektroView::~ElektroView() {}
+ElektroView::~ElektroView() {
+	
+}
+ElektroView::ElektroView(ViewType * type) {
+
+	setType("Elektro");
+}
+
 
 void ElektroView::Update(){
 	ofstream output;

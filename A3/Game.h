@@ -14,10 +14,16 @@
 using namespace std;
 class Game : public Subject {
 public:
-	Game();
+	
+	Game() {
+		this->player_vector = std::vector<Player*>();;
+		this->house_vector = std::vector<House>();
+		this->powerplanthelper = new PowerPlantHelper();
+		this->resourceMarket = new ResourceMarket();
+		this->isEndGame = false;
+	}
 	Game(std::vector<Player*> player_vector, Map *map);
 	~Game();
-
 
 	void loadGame(int);
 	void setUpGame();
@@ -35,6 +41,7 @@ public:
 	int getPayment(int numPoweredHouse);
 
 private:
+	
 	int round;
 	std::vector<Player*> player_vector;
 	std::vector<House> house_vector;
@@ -43,3 +50,4 @@ private:
 	bool isEndGame = false;
 
 };
+

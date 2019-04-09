@@ -1,6 +1,5 @@
 #pragma once
 #include "Observable.h"
-#include <list>
 #include <string>
 
 using namespace std;
@@ -14,6 +13,6 @@ public:
 	void notify();
 
 private:
-	list<Observer *> * observers;
+	std::list<Observer *> * observers;
 	
 };

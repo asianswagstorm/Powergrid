@@ -31,14 +31,21 @@ typedef std::vector<std::vector<neighbor> > adjacency_list_t;
 class Map
 {
 public:
-	Map();
-	Map(string areaColor);
-	~Map();
+	
+	//Map(string areaColor);
 
 	//City index, cityName, Area ; Indices are found in "PowerGridUsMap_nums.jpg"
 	static tuple<int, string, int> * index_cityName_area;
 
 	//Connected graph of map
+	void createMap(string areaColor);
+
+	//singleton done
+	static Map *instance() {
+		static Map * singleton_instance = new Map();
+		return singleton_instance;
+	}
+
 	static adjacency_list_t * map;
 	static void testMap(Map *test);
 	static int getIndexNumber(int index);
@@ -55,8 +62,18 @@ public:
 
 	void DijkstraComputePaths(vertex_t source,const adjacency_list_t &adjacency_list,std::vector<weight_t> &min_distance,std::vector<vertex_t> &previous);
 
+protected:
+	virtual ~Map() {};
+
 private:
 	static const int mapSize = 42;
+	
+	static const Map *singleton_instance;
+	
+	Map()
+	{
+		
+	}
 };
 
 

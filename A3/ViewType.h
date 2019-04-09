@@ -15,6 +15,5 @@ public:
 
 private:
 	string type;
-	Game *subject; 
-
+	Game * subject; 
 };

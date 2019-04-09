@@ -1,10 +1,10 @@
 #pragma once
 #include "Strategy.h"
-#include "Player.h"
+
 class AggressiveStrategy : public Strategy {
 public:
 	AggressiveStrategy();
-	AggressiveStrategy(Player *p1);
+	AggressiveStrategy(Player *p);
 	~AggressiveStrategy();
 	void execute(Player*);
 };

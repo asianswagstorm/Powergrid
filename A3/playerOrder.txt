@@ -1,10 +1,10 @@
 1:
-Name=e
+Name=Peter
 Houses=1
-PowerPlants=0
+PowerPlants=2
 
 2:
-Name=s
+Name=Jackie
 Houses=1
-PowerPlants=0
+PowerPlants=1
 
