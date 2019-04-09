@@ -1,21 +1,14 @@
-0, "Seattle",Purple, Bob
-0, "Seattle",Purple, Bob
-0, "Seattle",Purple
-1, "Portland",Purple, Bob
-1, "Portland",Purple
-2, "Boise",Purple, Bob
+0, "Seattle",Purple, Tom, Powered
+1, "Portland",Purple, Tom, Powered
 2, "Boise",Purple
 3, "Billings",Purple
 4, "Cheyenne",Purple
 5, "Denver",Purple
 6, "Omaha",Purple
-14, "Kansas City",Red
-15, "Oklahoma City",Red
-16, "Dallas",Red
-17, "Houston",Red
-18, "Memphis",Red
-19, "New Orleans",Red, Chuck
-19, "New Orleans",Red
-20, "Birmingham",Red, Chuck
-20, "Birmingham",Red, Chuck
-20, "Birmingham",Red
+7, "San Francisco",Blue
+8, "Salt Lake City",Blue
+9, "Las Vegas",Blue, Bob, Powered
+10, "Los Angeles",Blue
+11, "San Diego",Blue
+12, "Phoenix",Blue
+13, "Santa Fe",Blue, Bob, Powered

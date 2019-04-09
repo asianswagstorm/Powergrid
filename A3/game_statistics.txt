@@ -1,3 +1,35 @@
-------------Phase 1------------
-------------Phase 4------------
-------------Phase 5------------
+hi
+
+Tom has 55 elektros.
+Bob has 85 elektros.
+
+Tom has 1 Coal.
+The Market only has 24 Coal.
+
+Tom has 0 Oil.
+The Market only has 24 Oil.
+
+Tom has 0 Garbage.
+The Market only has 24 Garbage.
+
+Tom has 0 Uranium.
+The Market only has 21 Uranium.
+
+Bob has 1 Coal.
+The Market only has 24 Coal.
+
+Bob has 0 Oil.
+The Market only has 24 Oil.
+
+Bob has 0 Garbage.
+The Market only has 24 Garbage.
+
+Bob has 0 Uranium.
+The Market only has 21 Uranium.
+
+
+Tom has 2 powerplants 
+
+Bob has 2 powerplants 
+
+

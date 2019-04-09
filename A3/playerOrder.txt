@@ -1,10 +1,10 @@
 1:
 Name=Bob
-Houses=1
-PowerPlants=0
+Houses=2
+PowerPlants=2
 
 2:
-Name=Chuck
-Houses=1
-PowerPlants=0
+Name=Tom
+Houses=2
+PowerPlants=2
 

@@ -1,10 +1,10 @@
 #pragma once
-#include "Statistics.h"
-class ResourceView : public Statistics {
+#include "ViewDecorator.h"
+class ResourceView : public ViewDecorator {
 public:
 	ResourceView();
 	~ResourceView();
-	ResourceView(Statistics * stats);
+	ResourceView(View * decoratedView);
 	void Update();
 	void printInfo();
 

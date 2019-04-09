@@ -10,8 +10,8 @@
 
 #include "Game.h"
 #include "Map.h"
-#include "Statistics.h"
-#include "AllView.h"
+#include "View.h"
+#include "BasicView.h"
 #include "ElektroView.h"
 #include "HouseView.h"
 #include "PowerPlantView.h"
@@ -26,7 +26,7 @@ int main() {
 	
 	string response;
 	//Map::instance() singleton map object
-	Game * game = new Game(player_vector, Map::instance());
+	Game *game = new Game();
 	
 	//NEW (new) OR LOAD GAME. 
 	std::cout << "Write \"new\" for a NEW GAME." << std::endl << std::endl; 
@@ -34,29 +34,40 @@ int main() {
 	cin >> response;
 
 	if (response != "new") {
-		game->setRound(2); // temporary
-		game->Game::loadGame(numPlayers);
+		game = game->Game::loadGame(numPlayers);
+		//game->setRound(2); // temporary
+		//game->Game::loadGame(numPlayers);
 	}
 	else {
-		game->Game::setUpGame();
+		//game->Game::setUpGame();
+		game = game->Game::setUpGame();
 		//Map::testMap(Map::instance()); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
 	}
+	std::cout << std::endl << "stats" << std::endl << std::endl;
+	//nothing
 	
+	View * aView = new BasicView(game);
+	aView = new ElektroView(aView);
+	aView = new ResourceView(aView);
+	aView = new PowerPlantView(aView);
+	aView = new HouseView(aView);
+
+	aView->printInfo();
+
+	/*
+	int maxRound = 4;
+	int startRound =1;
+	while(startRound < maxRound){
+		//game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
+			std::cout << endl;
+		//game->Game::buyPowerPlant();
+		//game->Game::buyResources(); //done //still need to save to file
+		//game->Game::buildHouse();
+		//game->Game::bureaucracy(); 
+		
+		startRound++;
+	}*/
 	
-
-	game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
-	std::cout << endl;
-	//game->Game::buyPowerPlant();
-	//game->Game::buyResources(); //done //still need to save to file
-	game->Game::buildHouse();
-	game->Game::bureaucracy(); 
-
-	Statistics * stats = new AllView(game);
-	stats = new ElektroView(stats);
-	stats = new ResourceView(stats);
-	stats = new PowerPlantView(stats);
-	stats = new HouseView(stats);
-
 	system("pause");
 	return EXIT_SUCCESS;
 }

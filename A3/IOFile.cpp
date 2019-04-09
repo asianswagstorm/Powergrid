@@ -405,12 +405,12 @@ void IOFile::savePlayerHouse(vector<House> house_vector, vector<Player*> player_
 						//Order is messed up
 							//2
 							if (player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == true && Map::getIndexNumber(i) == player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() && Map::getCityName(i) != "") {
-								output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[m]->getName() << ", Powered" << std::endl;
+								output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[m]->getName() << ", Powered" << std::endl;
 								i++;
 							}
 							//1
 							else if (player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == false && Map::getIndexNumber(i) == player_vector[m]->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() && Map::getCityName(i) != "") {
-								output << index_vector[j] << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[m]->getName() << std::endl;
+								output << Map::getIndexNumber(i) << "," << Map::getCityName(i) << "," << Map::getAreaColor(i) << ", " << player_vector[m]->getName() << std::endl;
 								//i++;
 							}
 						}
@@ -445,6 +445,7 @@ vector<House> IOFile::loadPlayerHouse(vector<Player*> player_vector) {
 	string line;
 	string indexHolder;
 	string player;
+	string powered;
 	
 	std::vector<std::string>  areas;
 	std::vector <int> * initial_file_index = new std::vector<int>();
@@ -462,19 +463,23 @@ vector<House> IOFile::loadPlayerHouse(vector<Player*> player_vector) {
 		getline(ss, cityName, ',');
 		getline(ss, area, ',');
 		getline(ss, player, ',');
+		getline(ss, powered, ',');
 
-		if(player != ""){ 
+		if(player != ""){
 		player = player.substr(1, player.size()); // trim the whitespace
 		initial_file_player->push_back(player);
 		initial_file_index->push_back(index);
 		initial_file_cityName->push_back(cityName);
 		initial_file_Color->push_back(area);
 		House house = House(index, cityName, area);
+		if (powered != "") {
+			house.setisPowered(true);
+		}
+
 		initial_file_house.push_back(house);
 			for (unsigned int l = 0; l < player_vector.size(); l++) {
-				//std::cout << "player_vector[l] : " << player_vector[l]->getName()<< " player is: " << player<< std::endl;
-				if (player_vector[l]->getName() == player) {
-				//std::cout << "henlo" << std::endl;
+				
+				if (player_vector[l]->getName() == player) {	
 				
 				//check for duplicates
 					for (unsigned int q = 0; q < player_vector[l]->Player::getHouse()->HouseHelper::getHouseVector().size(); q++) {
@@ -486,7 +491,7 @@ vector<House> IOFile::loadPlayerHouse(vector<Player*> player_vector) {
 				player_vector[l]->Player::getHouse()->HouseHelper::setHouse(player_vector[l]->Player::getHouse()->HouseHelper::getHouseVector().size());
 					}
 					isDuplicate = false; //reset
-				//std::cout << std::endl << player_vector[l]->getName() << " house size: " << player_vector[l]->getHouse()->getHouseVector().size();
+				
 				}//end if
 			}//end for 
 		}//endif

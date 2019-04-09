@@ -1,21 +1,21 @@
 Player Order1:
-Name=Chuck
-Electro=53
-Houses=3
-PowerPlants=0
-Area Color=red
-Coal=0
+Name=Tom
+Electro=55
+Houses=2
+PowerPlants=2
+Area Color=purple
+Coal=1
 Oil=0
 Garbage=0
 Uranium=0
 
 Player Order2:
 Name=Bob
-Electro=32
-Houses=4
-PowerPlants=0
-Area Color=purple
-Coal=0
+Electro=85
+Houses=2
+PowerPlants=2
+Area Color=blue
+Coal=1
 Oil=0
 Garbage=0
 Uranium=0

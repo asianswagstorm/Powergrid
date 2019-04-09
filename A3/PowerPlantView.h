@@ -1,10 +1,10 @@
 #pragma once
-#include "Statistics.h"
-class PowerPlantView : public Statistics {
+#include "ViewDecorator.h"
+class PowerPlantView : public ViewDecorator {
 public:
 	PowerPlantView();
 	~PowerPlantView();
-	PowerPlantView(Statistics * stats);
+	PowerPlantView(View * decoratedView);
 	void Update();
 	void printInfo();
 

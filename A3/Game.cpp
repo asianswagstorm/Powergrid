@@ -19,6 +19,14 @@
 
 using namespace std;
 
+Game::Game() {
+	this->player_vector = std::vector<Player*>();;
+	this->house_vector = std::vector<House>();
+	this->powerplanthelper = new PowerPlantHelper();
+	this->resourceMarket = new ResourceMarket();
+	this->isEndGame = false;
+}
+
 //need to save the round number for load
 Game::Game(std::vector<Player*> player_vector, Map *map) {
 	this->round = 1; //player's first game round , set round as 2 to test load game
@@ -26,11 +34,14 @@ Game::Game(std::vector<Player*> player_vector, Map *map) {
 	this->resourceMarket = new ResourceMarket();
 	this->powerplanthelper = new PowerPlantHelper();
 	this->house_vector;
+	this->isEndGame = false;
 }
 Game::~Game() { //destructor
 }
 
-void Game::loadGame(int numPlayers) {
+Game * Game::loadGame(int numPlayers) {
+	player_vector = IOFile::loadPlayer();
+	
 	//Load map
 	mapreader map;
 	string mapFileName;
@@ -38,7 +49,7 @@ void Game::loadGame(int numPlayers) {
 	cin >> mapFileName;
 	
 	map.readMap(mapFileName);
-	player_vector = IOFile::loadPlayer();
+	
 	numPlayers = player_vector.size();
 
 	for (int i = 0; i < numPlayers; i++) {
@@ -50,10 +61,11 @@ void Game::loadGame(int numPlayers) {
 	powerplanthelper->PowerPlantHelper::setPPV(IOFile::loadPowerplants(player_vector));
 	this->house_vector=IOFile::loadPlayerHouse(player_vector);//load all houses
 	this->resourceMarket = IOFile::loadResourceMarket();
-
+	Game * game = new Game(player_vector, Map::instance());
+	return game;
 }
 
-void Game::setUpGame() {
+Game * Game::setUpGame() {
 	int numPlayers = 0;
 	string player_name, color;
 	std::vector<SummaryCard*> summary_card_vector;
@@ -129,7 +141,7 @@ void Game::setUpGame() {
 	}
 
 	else {
-
+		
 		//Powerplant Cards 
 		powerplanthelper = new PowerPlantHelper();
 		IOFile::savePowerplants(powerplanthelper->getPPV());
@@ -144,6 +156,8 @@ void Game::setUpGame() {
 		IOFile::saveMap(); //load map should read the edges too
 
 	}
+	Game * game = new Game(player_vector, Map::instance());
+	return game;
 }
 
 void Game::setRound(int round) {

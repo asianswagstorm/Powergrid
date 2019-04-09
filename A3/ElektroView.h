@@ -1,12 +1,12 @@
 #pragma once
-#include "Statistics.h"
-class ElektroView : public Statistics {
+#include "ViewDecorator.h"
+class ElektroView : public ViewDecorator {
 public:
 	ElektroView();
 	~ElektroView();
-	ElektroView(Statistics * stats);
+	ElektroView(View * decoratedView);
 
-	void Update();
-	void printInfo();
+	void Update(); //abstract Update
+	void printInfo(); //abstract print
 
 };
