@@ -47,7 +47,40 @@ Bob's houses:
 0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
 Tom's houses: 
 15 ( "Oklahoma City") POWERED,
+
+------------Phase 1------------
+
+------------------PLAYER ORDER ----------------
+Bob, 2 Houses, 2 PowerPlants. 
+Tom, 1 Houses, 0 PowerPlants. 
+
+--------END  Phase 1------------
+
+---------------House View-----------------
+
+Bob's houses: 
+0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
+Tom's houses: 
+15 ( "Oklahoma City") POWERED,
+
 ------------Phase 2------------
+
+Bob, do you want to auction on a powerplant (yes/no): 
+
+Bob is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
+
+
+Aggressive Player Cannot afford the bid for powerplant 6
+
+Tom, do you want to auction on a powerplant (yes/no): 
+
+
+Tom is a Passive Player this player has passed on the auction
+
+Tom has passed on auctioning a power plant.
+
+-------------END PHASE 2 PowerPlants Updated------------------
+
 ---------------House View-----------------
 
 Bob's houses: 
@@ -55,6 +88,61 @@ Bob's houses:
 Tom's houses: 
 15 ( "Oklahoma City") POWERED,
 ------------Phase 3------------
+
+
+Tom's turn, choose what you want to buy: 
+(coal, oil, garbage or uranium)
+
+Tom is a passive player, they will not be buying any materials 
+
+
+Tom is done their turn.
+
+
+Bob's turn, choose what you want to buy: 
+(coal, oil, garbage or uranium)
+
+Bob is done their turn.
+
+--------------------- END Phase 3 ----------
+
+---------------House View-----------------
+
+Tom's houses: 
+15 ( "Oklahoma City") POWERED,
+Bob's houses: 
+0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
+
+------------Phase 4------------
+
+
+Tom is a passive player, they will not be buying any Houses 
+
+Tom has chosen not to buy a house
+Bob has chosen not to buy a house
+
+------------END Phase 4------------
+
+---------------House View-----------------
+
+Tom's houses: 
+15 ( "Oklahoma City") POWERED,
+Bob's houses: 
+0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
+
+------------Phase 5------------
+
+Bob has 2 houses. 
+Here are all of Bob houses: 
+
+0 ( "Seattle") ,1 ( "Portland") ,Tom has 1 houses. 
+Here are all of Tom houses: 
+
+15 ( "Oklahoma City") ,
+Tom is a passive player, they will not be buying any Houses 
+
+------------END Phase 5------------
+
 ---------------House View-----------------
 
 Bob's houses: 

@@ -39,7 +39,40 @@ Game::Game(std::vector<Player*> player_vector, Map *map) {
 	this->house_vector;
 	this->isEndGame = false;
 }
+
 Game::~Game() { //destructor
+}
+//should save passive player in game 
+		//[0,1] ---reverse --- [1,0] even
+		//[0,1,2] ---reverse --- [2,1,0] odd
+		//[0,1,2,3] ---reverse --- [3,2,1,0] even 
+		//[0,1,2,3,4] ---reverse --- [4,3,2,1,0] odd
+		//[0,1,2,3,4,5] ---reverse --- [5,4,3,2,1,0] even 
+
+
+
+Player * Game::getPassivePlayer() {
+	return this->passivePlayer;
+}
+
+void Game::setPassivePlayer(Player * passivePlayer) {
+	this->passivePlayer = passivePlayer;
+}
+
+Player * Game::getAggressivePlayer() {
+	return this->aggresivePlayer;
+
+}
+void Game::setAggressivePlayer(Player * aggresivePlayer) {
+	this->aggresivePlayer = aggresivePlayer;
+}
+
+Player * Game::getModeratePlayer() {
+	return this->moderatePlayer;
+
+}
+void Game::setModeratePlayer(Player * moderatePlayer) {
+	this->moderatePlayer = moderatePlayer;
 }
 
 Game * Game::loadGame(int numPlayers) {
@@ -169,18 +202,12 @@ int Game::getRound() const {
 	return round;
 }
 
-//TODO::: READ PLAYER FILE, check HOUSES. if tie, check Powerplant
-
-/*During this phase, the new player order is determined.The first player is the player with the most cities in his network(first house on the scoring track).If two or more players
-are tied for the most cities, the first player is the player among them with the largest - numbered power plant.Place this player‘s house in the first position in the player order
-area.Determine the remaining player positions using the same rules.*/
 void Game::determinePlayerOrder() {
 
 	ofstream output;
 	output.open("game_statistics.txt", ios::out | ios::app);
-	output << "------------Phase 1------------" << endl;
-	notify(); //Subject notify
-
+	output << std::endl <<"------------Phase 1------------" << std::endl;
+	
 	switch (Game::getRound()) {
 	case(1): {//if the first round every player have 0 houses, so game order is random. //Problem with LOAD
 		std::cout << endl << "This is the first round, all players have equal amount of houses and powerplants, Order is Random" << endl;
@@ -201,15 +228,17 @@ void Game::determinePlayerOrder() {
 		}
 		IOFile::savePlayerOrder(player_vector);
 		std::cout << endl << "------------------PLAYER ORDER ----------------" << endl;
-
+		output << endl << "------------------PLAYER ORDER ----------------" << endl;
 		for (Player* player : this->player_vector) {
 			std::cout << player->getName() << ", " << player->getHouseCounter() << " Houses, " << player->getnumOfPowerPlants() << " PowerPlants. " << std::endl;
+			output << player->getName() << ", " << player->getHouseCounter() << " Houses, " << player->getnumOfPowerPlants() << " PowerPlants. " << std::endl;
 		}
 
 		break;
 	}
 	}
-
+	output << std::endl << "--------END  Phase 1------------" << std::endl << std::endl;
+	notify(); //Subject notify
 }
 
 int Game::getFirstPlayer(std::vector<Player*> player_vector, int i) {
@@ -323,22 +352,19 @@ Player * Game::getNextPlayer(Player & p) {
 void Game::buyPowerPlant() {
 	ofstream output;
 	output.open("game_statistics.txt", ios::out | ios::app);
-	output << "------------Phase 2------------" << endl;
-	notify(); //Subject notify
-
+	output << std::endl<< "------------Phase 2------------" << std::endl << std::endl;
+	
 	//TO DO: SAVE THE RESOURCE POWERPLANTS WON TO FILE WITH THE PLAYER WHO OWNS IT.
 	int AuctionWinner =-1, player_index = -1, auction_bid = -2, temp = 0;
 	string response; //response= would you like to but a plant? //used to reset the response when a player responds
 	string bid_response = ""; // do you want to join the auction war for a powerplant
 	std::vector<Player*> player_with_Auction_vector;
 
-	Player * aggresivePlayer = new Player(player_vector[0], new AggressiveStrategy(player_vector[0]));
-	player_vector[0] = aggresivePlayer;
-	int aggresiveBid = aggresivePlayer->executeStrategy();
+	this->setAggressivePlayer(new Player(player_vector[0], new AggressiveStrategy(player_vector[0])));
+	int aggresiveBid = this->getAggressivePlayer()->executeStrategy();
 
-	Player * passivePlayer = new Player(player_vector[1], new AggressiveStrategy(player_vector[1]));
-	player_vector[1] = passivePlayer;
-	int passiveResponse = passivePlayer->executeStrategy();
+	this->setPassivePlayer(new Player(player_vector[1], new AggressiveStrategy(player_vector[1])));
+	int passiveResponse = this->getPassivePlayer()->executeStrategy();
 	
 	int numPlayers = this->player_vector.size();
 	//reset the auction status
@@ -398,11 +424,13 @@ void Game::buyPowerPlant() {
 		if (Game::getRound() >= 1) { // first round player must buy powerplant , I set round = 2 for testing in main. 
 			while (response != "yes" && response != "no") {
 				std::cout << p->getName() << ", do you want to auction on a powerplant (yes/no): ";
-				
+				output << p->getName() << ", do you want to auction on a powerplant (yes/no): " <<std::endl;
+
 				if (i == 0) { response = "yes"; } //aggressive Player
 				
 				else if (i == 1 || passiveResponse == -1) { 
-					std::cout << std::endl << p->getName() << " is a Passive Player this player has passed on the auction" << std::endl;
+					std::cout << std::endl  << std::endl << p->getName() << " is a Passive Player this player has passed on the auction" << std::endl;
+					output << std::endl  << std::endl << p->getName() << " is a Passive Player this player has passed on the auction" << std::endl;
 					response = "no"; } //passive Player
 				else{
 				cin >> response; std::cout << endl;
@@ -411,6 +439,7 @@ void Game::buyPowerPlant() {
 
 			if (response == "no") {
 				std::cout << std::endl<<  player_vector[i]->getName() << " has passed on auctioning a power plant." << std::endl;
+				output<< std::endl << player_vector[i]->getName() << " has passed on auctioning a power plant." << std::endl;
 				p->pass(); //passing the oppurtunity to buy a powerplant
 				p->setAuction(false);
 				continue;
@@ -426,7 +455,8 @@ void Game::buyPowerPlant() {
 				std::cout << std::endl <<  "Enter a bid less than equal to max powerplant card number in actual market." << std::endl << "(This is the minimum bid in Electros to purchase the powerplant) : " << std::endl << std::endl;
 
 				if(i == 0){
-				std::cout << std::endl << player_vector[i]->getName() << " is an Aggressive Player this player always chooses to bid on highest powerplant in Actual" << std::endl << std::endl;
+				std::cout << std::endl << this->getAggressivePlayer()->getName() << " is an Aggressive Player this player always chooses to bid on highest powerplant in Actual" << std::endl << std::endl;
+				output << std::endl << this->getAggressivePlayer()->getName() << " is an Aggressive Player this player always chooses to bid on highest powerplant in Actual" << std::endl << std::endl;
 				init_playerBid = aggresiveBid;
 				}
 
@@ -447,6 +477,7 @@ void Game::buyPowerPlant() {
 					//aggressive player will always try to bid highest to get out of cant afford do this
 					if (i == 0) {
 						std::cout << std::endl << "Aggressive Player Cannot afford the bid for powerplant " << init_playerBid << std::endl << std::endl;
+						output<< std::endl << "Aggressive Player Cannot afford the bid for powerplant " << init_playerBid << std::endl << std::endl;
 						p->setAuction(false);
 						player_index++;
 						break;
@@ -485,7 +516,7 @@ void Game::buyPowerPlant() {
 			}
 
 			std::cout << std::endl << "------------ Starting Auction -----------" << std::endl << std::endl;
-
+			output << std::endl << "------------ Starting Auction -----------" << std::endl << std::endl;
 			if (p->getElectro() < init_playerBid) { 
 				std::cout << p->getName() << "Insufficient funds to bid" << std::endl;
 				player_index++;
@@ -503,6 +534,7 @@ void Game::buyPowerPlant() {
 			}
 
 			std::cout << "The Current Bid for powerplant : #" << temp << " is " << init_playerBid << " Elektros" << endl;
+			output << "The Current Bid for powerplant : #" << temp << " is " << init_playerBid << " Elektros" << endl;
 			std::cout << p->getName() << " Would you wish to bid on this powerplant? Type yes or no " << endl;
 			
 			if (p->getName() == player_vector[1]->getName() ) { 
@@ -520,6 +552,7 @@ void Game::buyPowerPlant() {
 
 				if (lowBid) { //can no longer bid
 					std::cout << std::endl << "This bid is too low, you lose the chance to buy a powerplant this round." << std::endl;
+					output << std::endl << "This bid is too low, you lose the chance to buy a powerplant this round." << std::endl;
 					//p->setAuction(false); // set auction to be false
 					p->setAuction(false);
 					player_with_Auction_vector.push_back(p);
@@ -528,6 +561,7 @@ void Game::buyPowerPlant() {
 				}
 				else if (cantAfford) { //can no longer bid
 					std::cout << std::endl << "You do not have enough electro to buy this powerplant." << std::endl;
+					output << std::endl << "You do not have enough electro to buy this powerplant." << std::endl;
 					//p->setAuction(false); // set auction to be true
 					p->setAuction(false);
 					player_with_Auction_vector.push_back(p);
@@ -549,7 +583,8 @@ void Game::buyPowerPlant() {
 
 			if (bid_response == "no") { //Don't want to join the bidding war, should go to next.
 				temp = temp;
-				std::cout << p->getName() << " has passed on joining the auction for powerplant:" << temp << std::endl;
+				std::cout << std::endl << std::endl << p->getName() << " has passed on joining the auction for powerplant:" << temp << std::endl;
+				output<< std::endl << std::endl << p->getName() << " has passed on joining the auction for powerplant:" << temp << std::endl;
 				p->setAuction(false); // set auction to be true
 				player_with_Auction_vector.push_back(p);
 				player_index++;
@@ -566,6 +601,7 @@ void Game::buyPowerPlant() {
 			continue;
 
 		std::cout << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << temp << std::endl << std::endl;
+		output << player_vector[AuctionWinner]->getName() << " won the auction for powerplant: " << temp << std::endl << std::endl;
 		//player_vector[AuctionWinner]->setAuction(false);
 
 		player_vector[AuctionWinner]->setPass(true);
@@ -577,10 +613,12 @@ void Game::buyPowerPlant() {
 
 	}//main for loop done
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
+	output << std::endl << "-------------END PHASE 2 PowerPlants Updated------------------" << std::endl << std::endl;
 	IOFile::savePlayer(player_vector);
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		player_vector[i]->printPlayerInfo();
 	}
+	notify(); //Subject notify
 }
 
 //Step 3 - Buy resources from the resource market. 
@@ -588,30 +626,21 @@ void Game::buyResources() {
 
 	ofstream output;
 	output.open("game_statistics.txt", ios::out | ios::app);
-	output << "------------Phase 3------------" << endl;
-	notify(); //Subject notify
-
-	std::cout << endl;
-	std::cout << "BUYING RESOURCES" << endl;
-	std::cout << endl;
+	output << "------------Phase 3------------" << std::endl;
+	
+	std::cout << std::endl;
+	std::cout << "BUYING RESOURCES" << std::endl;
+	std::cout << std::endl;
 
 	string materialChoice = "";
 
 	int qty;
 
-	
-	Player * temporary = player_vector[1]; //will reverse player Im trying to get the same player to be passive
-
 	reverse(player_vector.begin(), player_vector.end()); //from <algorithm>
 
-	Player * passivePlayer = new Player(temporary, new AggressiveStrategy(temporary));
-	for (unsigned int k = 0; k < player_vector.size(); k++) {
-		if(player_vector[k]->getName() == temporary->getName())
-			player_vector[k] = passivePlayer;
-	}
-	std::cout << std::endl <<  "Passive Player: " << passivePlayer->getName() << std::endl << std::endl;
+	//std::cout << std::endl <<  "Passive Player: " << passivePlayer->getName() << std::endl << std::endl;
 
-	int passiveResponse = passivePlayer->executeStrategy();
+	int passiveResponse = this->getPassivePlayer()->executeStrategy();
 
 	bool validMaterialChoice = false;
 	for (Player* p : player_vector) {
@@ -621,21 +650,35 @@ void Game::buyResources() {
 
 			while (validMaterialChoice == false) {
 				std::cout << std::endl << std::endl << p->getName() << "'s turn, choose what you want to buy: " << endl << "(coal, oil, garbage or uranium)" << " When you finish enter f  " << endl;
+				output << std::endl << std::endl << p->getName() << "'s turn, choose what you want to buy: " << endl << "(coal, oil, garbage or uranium)" << endl;
+				
+				if (p->getName() == this->getPassivePlayer()->getName()) {
+					std::cout << std::endl << p->getName() << " is a passive player, they will not be buying any materials " << std::endl << std::endl;
+					output << std::endl << p->getName() << " is a passive player, they will not be buying any materials " << std::endl << std::endl;
+					materialChoice = "f";
+				}
+				else
 				std::cin >> materialChoice; std::cout << endl;
+				
 				materialChoice[0] = toupper(materialChoice[0]); //capitilize the first letter
 
-
 				if (materialChoice == "Coal" || materialChoice == "Oil" || materialChoice == "Uranium" || materialChoice == "Garbage" || materialChoice == "Uranium" || materialChoice == "F")
+					if (materialChoice == "F") {
+						std::cout << std::endl << p->getName() << " is done their turn." << std::endl;
+						output << std::endl << p->getName() << " is done their turn." << std::endl;
+					}
 					validMaterialChoice = true;
 			}
 			//check invalid materialChoice
 
 			if (materialChoice != "F") {
 				std::cout << std::endl << "How many " << materialChoice << " do you want to buy: ";
+				output << std::endl << "How many " << materialChoice << " do you want to buy: ";
 				std::cin >> qty;
 
 				if (resourceMarket->getMarketCost(materialChoice, qty) == -1) {
 					std::cout << "Player Cannot Afford to buy the resource" << endl;
+					output << "Player Cannot Afford to buy the resource" << endl;
 					system("pause");
 					continue;
 				}
@@ -645,9 +688,13 @@ void Game::buyResources() {
 
 				if (p->validateResourcePurchase(resourceMarket->getMarketCost(materialChoice, qty), qty, materialChoice)) {
 					//resource added and electro removed in validateResourcePurchase
-					std::cout << "Cost was: " << resourceMarket->getMarketCost(materialChoice, qty) << " elektros." << endl;
-					std::cout << endl << "Here is how much elektros you have after buying " << qty << " " << materialChoice << ": " << p->getElectro() << "$" << endl;
-					std::cout << "You current have " << p->getResourceQuantity(materialChoice) << " " << materialChoice << endl;
+					std::cout << "Cost was: " << resourceMarket->getMarketCost(materialChoice, qty) << " elektros." << std::endl;
+					std::cout << std::endl << "Here is how much elektros you have after buying " << qty << " " << materialChoice << ": " << p->getElectro() << "$" << std::endl;
+					std::cout << "You current have " << p->getResourceQuantity(materialChoice) << " " << materialChoice << std::endl;
+
+					output << "Cost was: " << resourceMarket->getMarketCost(materialChoice, qty) << " elektros." << std::endl;
+					output << std::endl << "Here is how much elektros you have after buying " << qty << " " << materialChoice << ": " << p->getElectro() << "$" << std::endl;
+					output << "You current have " << p->getResourceQuantity(materialChoice) << " " << materialChoice << std::endl;
 
 					resourceMarket->updateMarket(materialChoice, qty);
 					IOFile::saveResourceMarket(resourceMarket);
@@ -661,13 +708,15 @@ void Game::buyResources() {
 			}
 		}//end while true
 	}//end for
+	output << std::endl <<"--------------------- END Phase 3 ----------" << std::endl  << std::endl;
+	notify(); //Subject notify
 }
 
 void::Game::buildHouse() {
 	ofstream output;
 	output.open("game_statistics.txt", ios::out | ios::app);
-	output << "------------Phase 4------------" << endl;
-	notify(); //Subject notify
+	output << std::endl << "------------Phase 4------------" << std::endl << std::endl ;
+	
 	bool buyhouseloop = false;
 	//TO DO: REMOVE THE HOUSES ALREADY BOUGHT, AND ONLY SHOW AVAILABLE ONES
 	string response;
@@ -675,11 +724,9 @@ void::Game::buildHouse() {
 	vector<int> house_index = IOFile::getMapIndexs();
 
 	//Passive Player
-	Player * passivePlayer = new Player(player_vector[1], new AggressiveStrategy(player_vector[1]));
-	int passiveResponse = passivePlayer->executeStrategy();
+	int passiveResponse = this->getPassivePlayer()->executeStrategy();
 	
-	
-	std::cout << "houseSize: " << house_index.size() << std::endl; //7
+	//std::cout << "houseSize: " << house_index.size() << std::endl; //7
 	for (unsigned int i = 0; i < player_vector.size(); i++) {
 		Player * p = player_vector[i];
 		//Map theMap = Map(p->Player::getAreaColor());
@@ -688,11 +735,19 @@ void::Game::buildHouse() {
 		std::cout << p->getName() << " Would you like to build a house in: " << p->Player::getAreaColor() << " area " << endl;
 		std::cout << "yes or no." << std::endl;
 		//passive
-		if (i == 1 && passiveResponse == -1) {
+		
+		if (passiveResponse == -1 || p->getName() == this->getPassivePlayer()->getName()) {
+			std::cout << std::endl << p->getName() << " is a passive player, they will not be buying any Houses " << std::endl << std::endl;
+			output << std::endl << p->getName() << " is a passive player, they will not be buying any Houses " << std::endl << std::endl;
 			response = "no";
 		}
 		else
 		std::cin >> response;
+
+		if (response == "no") {
+			std::cout << p->getName() << " has chosen not to buy a house" << endl;
+			output << p->getName() << " has chosen not to buy a house" << endl;
+		}
 
 		if (response == "yes") {
 			buyhouseloop = true;
@@ -737,7 +792,6 @@ void::Game::buildHouse() {
 				p->Player::getHouse()->HouseHelper::addHouse(house);
 				p->Player::getHouse()->HouseHelper::setHouse(p->Player::getHouse()->HouseHelper::getHouseVector().size());
 
-
 				std::cout << endl << "Purchase completed" << endl;
 				std::cout << "You now have " << p->getElectro() << " elektro" << endl;
 				std::cout << "You now have " << p->Player::getHouse()->HouseHelper::getHouseVector().size() << " houses" << endl;
@@ -747,15 +801,12 @@ void::Game::buildHouse() {
 				std::cin >> response;
 
 				if (response == "no") {
+					std::cout << p->getName() << " has chosen not to buy another house" << endl;
 					buyhouseloop = false;
 					p = getNextPlayer(*p);
 				}
-
 			} // while true
 		}
-
-
-
 	}
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
 	IOFile::savePlayer(player_vector); // needs to add the new houses
@@ -764,6 +815,8 @@ void::Game::buildHouse() {
 	}
 	//save houses
 	IOFile::savePlayerHouse(house_vector, player_vector);
+	output << std::endl << "------------END Phase 4------------"  << std::endl << std::endl;
+	notify(); //Subject notify
 }
 
 int Game::getPayment(int numPoweredHouse) {
@@ -844,12 +897,11 @@ void Game::bureaucracy() {
 
 	ofstream output;
 	output.open("game_statistics.txt", ios::out | ios::app);
-	output << "------------Phase 5------------" << endl;
-	notify(); //Subject notify
-
-	//players earn cash, 
-	//re-supply the resource market,
-	//remove a power plant from the power plant market, replacing it with a new one from the stack (done)
+	output << std::endl << "------------Phase 5------------" << std::endl << std::endl;
+	
+	//players earn cash(done)
+	//re-supply the resource market, // did not do
+	//remove a power plant from the power plant market, replacing it with a new one from the stack (done) 
 
 	vector<House> house_vector = IOFile::loadPlayerHouse(player_vector);
 	//needs refill
@@ -861,7 +913,8 @@ void Game::bureaucracy() {
 
 	string powerDecision;
 	int numPoweredHouses = 0;
-
+	//Passive Player
+	int passiveResponse = this->getPassivePlayer()->executeStrategy();
 	reverse(player_vector.begin(), player_vector.end());
 	for (Player* p : player_vector) {
 		//Map theMap = Map(p->Player::getAreaColor()); // important
@@ -872,11 +925,16 @@ void Game::bureaucracy() {
 		//- Giving them the ability to decide how many houses they want to power based on their resources.
 		std::cout << "**********************************************************************************************************************" << std::endl;
 		std::cout << p->getName() << " has " << p->Player::getHouse()->HouseHelper::getHouse() << " houses. " << std::endl;
+		output << p->getName() << " has " << p->Player::getHouse()->HouseHelper::getHouse() << " houses. " << std::endl;
 
 		if (p->Player::getHouse()->HouseHelper::getHouse() > 0) {
 			std::cout << "Here are all of " << p->getName() << " houses: " << std::endl << std::endl;
+			output << "Here are all of " << p->getName() << " houses: " << std::endl << std::endl;
+
 			for (unsigned int i = 0; i < p->Player::getHouse()->HouseHelper::getHouseVector().size(); i++) {
 				std::cout << p->Player::getHouse()->HouseHelper::getHouseVector()[i].getIndex() << " (" << p->Player::getHouse()->HouseHelper::getHouseVector()[i].getLocation() << ") " << ",";
+				output << p->Player::getHouse()->HouseHelper::getHouseVector()[i].getIndex() << " (" << p->Player::getHouse()->HouseHelper::getHouseVector()[i].getLocation() << ") " << ",";
+				
 				/*if(p->Player::getHouse()->HouseHelper::getHouseVector()[i].getisPowered() == true)
 				{
 					powered_house_vector.push_back(p->Player::getHouse()->HouseHelper::getHouseVector()[i]);
@@ -887,13 +945,23 @@ void Game::bureaucracy() {
 			std::cout << "**********************************************************************************************************************" << endl;
 			std::cout << "Do you want to power any Cities?";
 			std::cout << "(yes or no)";
+		
+			//passive player refusing to power a house 
+			if (passiveResponse == -1 || p->getName() == this->getPassivePlayer()->getName()) {
+				std::cout << std::endl << p->getName() << " is a passive player, they will not be buying any Houses " << std::endl << std::endl;
+				output << std::endl << p->getName() << " is a passive player, they will not be buying any Houses " << std::endl << std::endl;
+				powerDecision = "no";
+			}
+			else
 			std::cin >> powerDecision; std::cout << endl;
+			
 			//If yes, player will power cities
 			if (powerDecision == "yes") {
 
 				for (unsigned int k = 0; k < p->Player::getHouse()->HouseHelper::getHouseVector().size(); k++) {
 					if (p->Player::getHouse()->HouseHelper::getHouseVector()[k].getisPowered() == false)
 						std::cout << std::endl << "Here are your nonpowered houses: " << std::endl << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() << " (" << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getLocation() << ") " << ",";
+						output << std::endl << "Here are your nonpowered houses: " << std::endl << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getIndex() << " (" << p->Player::getHouse()->HouseHelper::getHouseVector()[k].getLocation() << ") " << ",";
 				}
 				std::cout << "Which house do you want to power?" << std::endl; std::cout << endl;
 				std::cin >> houseIndex;
@@ -925,6 +993,8 @@ void Game::bureaucracy() {
 				}//end for
 
 				std::cout << "Adding " << Game::getPayment(numPoweredHouses) << " Elektro to your wallet." << std::endl;
+				output << "Adding " << Game::getPayment(numPoweredHouses) << " Elektro to your wallet." << std::endl;
+				
 				p->setElectro(p->getElectro() + Game::getPayment(numPoweredHouses));
 				p->printPlayerInfo();
 
@@ -934,9 +1004,14 @@ void Game::bureaucracy() {
 			}//end no
 
 		}//end if house > 0
+		
+		//passive player should be here unless we gave them a house, since a passive player does nothing but refuse everything
 		else if (p->Player::getHouse()->HouseHelper::getHouse() <= 0 && powerDecision != "no" && powerDecision != "yes") {
 			std::cout << "You have no houses to power!" << std::endl;
-			std::cout << "You are offered 10 Elektros" << std::endl;
+			std::cout << "You are offered 10 Elektros" << std::endl  << std::endl;
+
+			output << p->Player::getName() <<"You have no houses to power!" << std::endl;
+			output << "You are offered 10 Elektros" << std::endl << std::endl;
 
 			p->setElectro(p->getElectro() + Game::getPayment(0));
 			p->printPlayerInfo();
@@ -950,4 +1025,7 @@ void Game::bureaucracy() {
 	IOFile::savePlayer(player_vector); // needs to add the new houses
 	std::cout << "house_vector size: " << house_vector.size() << std::endl; // should be all the houses + powered yes	
 	IOFile::savePlayerHouse(house_vector, player_vector); //powered_house_vector not all is powered
+	
+	output << "------------END Phase 5------------" << std::endl << std::endl;
+	notify(); //Subject notify
 }

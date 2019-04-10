@@ -5,6 +5,6 @@ PowerPlants=2
 
 2:
 Name=Tom
-Houses=2
-PowerPlants=2
+Houses=1
+PowerPlants=0
 

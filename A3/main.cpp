@@ -50,23 +50,18 @@ int main() {
 	aView = new HouseView(aView);
 	aView->printInfo();
 
-	game->Game::buyPowerPlant();
-	game->Game::buyResources();
-	//game->Game::buildHouse();
-	/*
-	int maxRound = 4;
-	int startRound =1;
-	while(startRound < maxRound){
-				game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
-			std::cout << endl;
-		//game->Game::buyPowerPlant();
-		//game->Game::buyResources(); //done 
-		//game->Game::buildHouse();
-		//game->Game::bureaucracy(); 
+	//int maxRound = 4;
+	//int startRound =1;
+	//while(startRound < maxRound){
+		 game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
+		 std::cout << endl;
+		 game->Game::buyPowerPlant();
+		 game->Game::buyResources(); //done 
+		 game->Game::buildHouse();
+	     game->Game::bureaucracy(); 
 		
-		startRound++;
-	}*/
-	
+		//startRound++;
+	//}
 	system("pause");
 	return EXIT_SUCCESS;
 }
