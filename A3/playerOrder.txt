@@ -1,7 +1,7 @@
 1:
 Name=Bob
 Houses=2
-PowerPlants=2
+PowerPlants=3
 
 2:
 Name=Tom

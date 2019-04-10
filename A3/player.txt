@@ -1,8 +1,8 @@
 Player Order1:
 Name=Bob
-Electro=0
+Electro=472
 Houses=2
-PowerPlants=2
+PowerPlants=4
 Area Color=purple
 Coal=1
 Oil=0

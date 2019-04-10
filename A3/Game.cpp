@@ -482,12 +482,10 @@ void Game::buyPowerPlant() {
 						player_index++;
 						break;
 						
-
 					}
 				}
 
 				std::cout << "Correct Input, card " << init_playerBid << " is in actual market." << std::endl << std::endl;
-
 
 			}//end while
 		}//end response yes
@@ -606,7 +604,7 @@ void Game::buyPowerPlant() {
 
 		player_vector[AuctionWinner]->setPass(true);
 		player_vector[AuctionWinner]->addPowerPlant(powerplanthelper->removePowerPlant(temp, player_vector[AuctionWinner]));
-		player_vector[AuctionWinner]->setnumOfPowerPlants(player_vector[AuctionWinner]->getnumOfPowerPlants());
+		player_vector[AuctionWinner]->setnumOfPowerPlants(player_vector[AuctionWinner]->getnumOfPowerPlants());//not working
 		player_vector[AuctionWinner]->removeElectro(temp);
 		temp = 0;
 
@@ -1019,9 +1017,6 @@ void Game::bureaucracy() {
 
 	}//end for
 
-	//house_vector is empty
-	//check for duplicates add the non duplicates
-	//powered + nonduplicates
 	IOFile::savePlayer(player_vector); // needs to add the new houses
 	std::cout << "house_vector size: " << house_vector.size() << std::endl; // should be all the houses + powered yes	
 	IOFile::savePlayerHouse(house_vector, player_vector); //powered_house_vector not all is powered

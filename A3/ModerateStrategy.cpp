@@ -6,6 +6,9 @@ ModerateStrategy::ModerateStrategy(Player *p) {
 }
 ModerateStrategy::~ModerateStrategy() {}
 
-
-int ModerateStrategy::execute(Player*) { return -1; }
+//always perform an action
+int ModerateStrategy::execute(Player*) {
+	
+	
+	return -1; }
 

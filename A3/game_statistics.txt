@@ -1,67 +1,12 @@
----------------Elektro View-----------------
-
-Bob has 0 elektros.
-Tom has 100 elektros.
-
----------------Resource View-----------------
-
-Bob has 1 Coal.
-The Market only has 24 Coal.
-
-Bob has 0 Oil.
-The Market only has 24 Oil.
-
-Bob has 0 Garbage.
-The Market only has 24 Garbage.
-
-Bob has 0 Uranium.
-The Market only has 21 Uranium.
-
-Tom has 1 Coal.
-The Market only has 24 Coal.
-
-Tom has 0 Oil.
-The Market only has 24 Oil.
-
-Tom has 0 Garbage.
-The Market only has 24 Garbage.
-
-Tom has 0 Uranium.
-The Market only has 21 Uranium.
-
-
----------------PowerPlant View-----------------
-
-Bob has 2 powerplants 
-Tom has 0 powerplants 
-
-
----------------  Actual Market  ------------
-3 , 4 , 5 , 6 , 
----------------  Future Market  ------------
-8 , 9 , 10 , 13 , 
-
----------------House View-----------------
-
-Bob's houses: 
-0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
-Tom's houses: 
-15 ( "Oklahoma City") POWERED,
 
 ------------Phase 1------------
 
 ------------------PLAYER ORDER ----------------
-Bob, 2 Houses, 2 PowerPlants. 
+Bob, 2 Houses, 0 PowerPlants. 
 Tom, 1 Houses, 0 PowerPlants. 
 
 --------END  Phase 1------------
 
----------------House View-----------------
-
-Bob's houses: 
-0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
-Tom's houses: 
-15 ( "Oklahoma City") POWERED,
 
 ------------Phase 2------------
 
@@ -70,7 +15,13 @@ Bob, do you want to auction on a powerplant (yes/no):
 Bob is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
 
 
-Aggressive Player Cannot afford the bid for powerplant 6
+------------ Starting Auction -----------
+
+The Current Bid for powerplant : #6 is 6 Elektros
+
+
+Tom has passed on joining the auction for powerplant:6
+Bob won the auction for powerplant: 6
 
 Tom, do you want to auction on a powerplant (yes/no): 
 
@@ -81,71 +32,105 @@ Tom has passed on auctioning a power plant.
 
 -------------END PHASE 2 PowerPlants Updated------------------
 
----------------House View-----------------
 
-Bob's houses: 
-0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
-Tom's houses: 
-15 ( "Oklahoma City") POWERED,
-------------Phase 3------------
+------------Phase 1------------
 
+------------------PLAYER ORDER ----------------
+Bob, 2 Houses, 1 PowerPlants. 
+Tom, 1 Houses, 0 PowerPlants. 
 
-Tom's turn, choose what you want to buy: 
-(coal, oil, garbage or uranium)
-
-Tom is a passive player, they will not be buying any materials 
+--------END  Phase 1------------
 
 
-Tom is done their turn.
+------------Phase 2------------
+
+Bob, do you want to auction on a powerplant (yes/no): 
+
+Bob is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
 
 
-Bob's turn, choose what you want to buy: 
-(coal, oil, garbage or uranium)
+------------ Starting Auction -----------
 
-Bob is done their turn.
-
---------------------- END Phase 3 ----------
-
----------------House View-----------------
-
-Tom's houses: 
-15 ( "Oklahoma City") POWERED,
-Bob's houses: 
-0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
-
-------------Phase 4------------
+The Current Bid for powerplant : #7 is 7 Elektros
 
 
-Tom is a passive player, they will not be buying any Houses 
+Tom has passed on joining the auction for powerplant:7
+Bob won the auction for powerplant: 7
 
-Tom has chosen not to buy a house
-Bob has chosen not to buy a house
+Tom, do you want to auction on a powerplant (yes/no): 
 
-------------END Phase 4------------
 
----------------House View-----------------
+Tom is a Passive Player this player has passed on the auction
 
-Tom's houses: 
-15 ( "Oklahoma City") POWERED,
-Bob's houses: 
-0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
+Tom has passed on auctioning a power plant.
 
-------------Phase 5------------
+-------------END PHASE 2 PowerPlants Updated------------------
 
-Bob has 2 houses. 
-Here are all of Bob houses: 
 
-0 ( "Seattle") ,1 ( "Portland") ,Tom has 1 houses. 
-Here are all of Tom houses: 
+------------Phase 1------------
 
-15 ( "Oklahoma City") ,
-Tom is a passive player, they will not be buying any Houses 
+------------------PLAYER ORDER ----------------
+Bob, 2 Houses, 2 PowerPlants. 
+Tom, 1 Houses, 0 PowerPlants. 
 
-------------END Phase 5------------
+--------END  Phase 1------------
 
----------------House View-----------------
 
-Bob's houses: 
-0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
-Tom's houses: 
-15 ( "Oklahoma City") POWERED,
+------------Phase 2------------
+
+Bob, do you want to auction on a powerplant (yes/no): 
+
+Bob is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
+
+
+------------ Starting Auction -----------
+
+The Current Bid for powerplant : #8 is 8 Elektros
+
+
+Tom has passed on joining the auction for powerplant:8
+Bob won the auction for powerplant: 8
+
+Tom, do you want to auction on a powerplant (yes/no): 
+
+
+Tom is a Passive Player this player has passed on the auction
+
+Tom has passed on auctioning a power plant.
+
+-------------END PHASE 2 PowerPlants Updated------------------
+
+
+------------Phase 1------------
+
+------------------PLAYER ORDER ----------------
+Bob, 2 Houses, 3 PowerPlants. 
+Tom, 1 Houses, 0 PowerPlants. 
+
+--------END  Phase 1------------
+
+
+------------Phase 2------------
+
+Bob, do you want to auction on a powerplant (yes/no): 
+
+Bob is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
+
+
+------------ Starting Auction -----------
+
+The Current Bid for powerplant : #9 is 9 Elektros
+
+
+Tom has passed on joining the auction for powerplant:9
+Bob won the auction for powerplant: 9
+
+Tom, do you want to auction on a powerplant (yes/no): 
+
+
+Tom is a Passive Player this player has passed on the auction
+
+Tom has passed on auctioning a power plant.
+
+-------------END PHASE 2 PowerPlants Updated------------------
+

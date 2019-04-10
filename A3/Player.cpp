@@ -134,41 +134,59 @@ void Player::setnumOfPowerPlants(int numOfPowerPlants)
 	this->numOfPowerPlants = numOfPowerPlants;
 }
 
-void Player::addPowerPlant(PowerPlant powerplant)
+void Player::addPowerPlant(PowerPlant powerplantObject)
 {
+	bool isRemoved = false;
+	bool validIndex = false;
+	bool isDuplicate = false;
+	for (int j = 0; j < powerplants->size(); j++) {
+		if (powerplantObject.getTypeNum() == (*powerplants)[j].getTypeNum() || powerplantObject.getType() == (*powerplants)[j].getType())
+		{
+			if (powerplants->size() >= 3)
+			{//will get stuck in since remove vector does not set Owner null.
+				std::cout << "Aggressive Player is stuck in a loop" <<"Because they will always pick highest but we have duplicate error" << std::endl;
+				break;
+			}
+			std::cout << "A Duplicate was found." << std::endl;
+			std::cout << "Will not add to my vector." << std::endl;
+			isDuplicate = true;
+			//system("PAUSE");
+		}
+	}
+
+	//std::cout << (*powerplants)[j].getTypeNum() << " Compare With " << powerplantObject.getTypeNum() << std::endl;
 	//this is giving me bugs
 	//During the game each player can have only 3 power plants at any time. (from game rule) , // if powerplant vector is full
-	/*if (this->powerplants->size() == 3) {
+	if (powerplants->size() == 3) { //this is buggy with aggresive but it still works. 
+
+		int powerPlantIndex;
 		std::cout << std::endl << "ERROR YOU ALREADY HAVE MAXIMUM POWERPLANT" << std::endl;
 		std::cout << "You must replace one of your powerplants before adding a new one." << std::endl;
 		for (int i = 0; i < 3; i++) { 
-			std::cout << i + 1 << ": ";
+			std::cout << i <<". ";
 			(*powerplants)[i].printPowerPlantSummary(); 
 			std::cout << std::endl;
 		}
-		int ppToBeRemoved = -1;
-		std::cout << std::endl << "Enter the powerplant number you wish to remove:" << std::endl;
 		
-		while (ppToBeRemoved < 1 && ppToBeRemoved > 3) {
-			cin >> ppToBeRemoved;
-			if (ppToBeRemoved < 1 || ppToBeRemoved > 3)
-				std::cout << "Invalid Input (must be between 1 - 3): " << std::endl;
-			else
-				break;
+		std::cout << std::endl << "Attempting to replace a powerplant with Powerplant: " << powerplantObject.getTypeNum()  << std::endl;
+		std::cout << std::endl << "Enter the powerplant card index you wish to remove:" << std::endl;
+		while (validIndex == false) {
+			cin >> powerPlantIndex;
+			if (powerPlantIndex >= 0 && powerPlantIndex <= 2)
+				validIndex = true;
 		}
-		this->powerplants->erase(this->powerplants->begin() + (ppToBeRemoved-1));
-		this->powerplants->push_back(powerplant);	
+		
+		powerplants->erase(powerplants->begin() + powerPlantIndex);
+		
+		isRemoved = true;
 	}
-	else{*/
+	
+	else if (isDuplicate == false && isRemoved == false) {
 		
-	//for (unsigned int i = 0; i < powerplants->size(); i++) {
-		//if ((*powerplants)[i].getTypeNum() != powerplant.getTypeNum()) { //prevent duplicates
-			this->powerplants->push_back(powerplant);
-			Player::setnumOfPowerPlants(Player::getnumOfPowerPlants());
-		//}
-		//}
-		
-	//}
+			powerplants->push_back(powerplantObject);
+			std::cout << "Added Successfully " << std::endl;
+		}
+	
 }
 
 void Player::setResources(string resource_type, int quantity)  { //Adds resource to player's possessions
