@@ -6,6 +6,7 @@ PassiveStrategy::PassiveStrategy(Player *p) {
 }
 PassiveStrategy::~PassiveStrategy() {}
 
-
-void PassiveStrategy::execute(Player*) {}
+// the passive player will always say no to everything
+int PassiveStrategy::execute(Player*p) {
+	return -1; }
 

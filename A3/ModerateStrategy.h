@@ -6,5 +6,5 @@ public:
 	ModerateStrategy();
 	ModerateStrategy(Player *p);
 	~ModerateStrategy();
-	void execute(Player*);
+	int execute(Player*);
 };

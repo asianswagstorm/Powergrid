@@ -15,9 +15,9 @@ class Player
 public:
 	//Strategy
 	Player(Strategy *strat);
-	Player(string name, string area_color, Strategy *strat);
+	Player(Player *p, Strategy *strat); //copy contructor
 	void setStrategy(Strategy *strat);
-	void executeStrategy();
+	int executeStrategy();
 
 	Player();
 	Player(string name, string area_color, HouseHelper* househelper);

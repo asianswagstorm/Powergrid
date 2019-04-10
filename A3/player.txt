@@ -1,6 +1,6 @@
 Player Order1:
 Name=Bob
-Electro=50
+Electro=0
 Houses=2
 PowerPlants=2
 Area Color=purple
@@ -11,9 +11,9 @@ Uranium=0
 
 Player Order2:
 Name=Tom
-Electro=50
+Electro=100
 Houses=1
-PowerPlants=2
+PowerPlants=0
 Area Color=red
 Coal=1
 Oil=0

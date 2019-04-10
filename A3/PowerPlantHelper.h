@@ -26,14 +26,15 @@ public:
 
 	string getPlantType(int i);
 
+	vector<PowerPlant> *getPPVActualMarket();
 	int getPlantResources(int i);
 	
-	PowerPlant removePowerPlant(int playerBid,Player * p);
+	PowerPlant removePowerPlant(int playerBid, Player * p);
 
 	bool isStep3 = false;
 private:
 	vector<PowerPlant> * ppv;
 	vector<PowerPlant> * ppvClone;
-	vector<PowerPlant> *powerplantCardsShowned;
-	vector<PowerPlant> *powerplantActualMarket;
+	vector<PowerPlant> * powerplantCardsShowned;
+	vector<PowerPlant> * powerplantActualMarket;
 };

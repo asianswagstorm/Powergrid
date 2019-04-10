@@ -7,5 +7,5 @@ ModerateStrategy::ModerateStrategy(Player *p) {
 ModerateStrategy::~ModerateStrategy() {}
 
 
-void ModerateStrategy::execute(Player*) {}
+int ModerateStrategy::execute(Player*) { return -1; }
 

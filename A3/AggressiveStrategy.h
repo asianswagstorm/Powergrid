@@ -6,5 +6,5 @@ public:
 	AggressiveStrategy();
 	AggressiveStrategy(Player *p);
 	~AggressiveStrategy();
-	void execute(Player*);
+	int execute(Player *p);
 };

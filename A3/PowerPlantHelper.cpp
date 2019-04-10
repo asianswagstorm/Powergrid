@@ -173,6 +173,18 @@ void PowerPlantHelper::printPPMarket() {
 	}
 }
 
+vector<PowerPlant> * PowerPlantHelper::getPPVActualMarket() {
+	powerplantCardsShowned = new vector<PowerPlant>();
+	powerplantActualMarket = new vector<PowerPlant>();
+
+	for (int i = 0; i < 4; i++) { //ppv->size()
+		powerplantCardsShowned->push_back((*ppvClone)[i]);
+		powerplantActualMarket->push_back((*powerplantCardsShowned)[i]);
+	}
+	return powerplantActualMarket;
+}
+
+
 int PowerPlantHelper::findPowerPlant(int bid) {
 	int index = 0;
 
@@ -240,31 +252,31 @@ PowerPlant PowerPlantHelper::removePowerPlant(int playerBid, Player * p) {
 		i++;
 	}
 	//to view the file
-	for (count = 0; count < ppv->size();count++) {
+	for (count = 0; count < ppv->size(); count++) {
 		if (playerBid == (*ppv)[count].PowerPlant::getTypeNum()) {
-			
-			std::cout << "Player Bid is : " << playerBid << std::endl;
-			
-			powerplantObj = PowerPlant((*powerplantActualMarket)[count].PowerPlant::getTypeNum(), (*powerplantActualMarket)[count].getType(), (*powerplantActualMarket)[count].PowerPlant::getMinPlantCost(), (*powerplantActualMarket)[count].PowerPlant::getHouse(), (*powerplantActualMarket)[count].PowerPlant::getInDeck(), (*powerplantActualMarket)[count].PowerPlant::getOwner());
+
+			//std::cout << "Player Bid is : " << playerBid << std::endl;
+			//std::cout << "I2 is : " << count-1 << std::endl;
+			powerplantObj = PowerPlant((*powerplantActualMarket)[i].PowerPlant::getTypeNum(), (*powerplantActualMarket)[i].getType(), (*powerplantActualMarket)[i].PowerPlant::getMinPlantCost(), (*powerplantActualMarket)[i].PowerPlant::getHouse(), (*powerplantActualMarket)[i].PowerPlant::getInDeck(), (*powerplantActualMarket)[i].PowerPlant::getOwner());
 			//powerplant that will be added
-			
+			//std::cout << "Count is : " << count << std::endl;
 			break;
 		}
 	}
-	std::cout << "i is : " << i << std::endl;
+	//std::cout << "i is : " << i << std::endl;
 	(*ppv)[count].setInDeck(false);
 	(*ppv)[count].setOwner(p->getName());
 	ppvClone->erase(ppvClone->begin() + i);// remove from ppvclone
-	
+
 	//powerplantObj->setInDeck(false);
 	//powerplantObj->setOwner(p->getName());
 
 	IOFile::savePowerplants(ppv);
-	
+
 	//if step3 is found set the step3 card as the highest big
 	if ((*powerplantCardsShowned)[0].getTypeNum() == -1) {
 		cout << "Step 3 card found. shuffle the draw pile" << endl;
-		(*powerplantCardsShowned)[0].setTypeNum(-1); 
+		(*powerplantCardsShowned)[0].setTypeNum(-1);
 		random_shuffle(ppvClone->begin() + 8, ppvClone->end()); //shuffling the draw pile (cards after step3 card)
 		isStep3 = true;
 	}

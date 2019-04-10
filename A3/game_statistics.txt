@@ -1,7 +1,7 @@
 ---------------Elektro View-----------------
 
-Bob has 50 elektros.
-Tom has 50 elektros.
+Bob has 0 elektros.
+Tom has 100 elektros.
 
 ---------------Resource View-----------------
 
@@ -33,14 +33,28 @@ The Market only has 21 Uranium.
 ---------------PowerPlant View-----------------
 
 Bob has 2 powerplants 
-Tom has 2 powerplants 
+Tom has 0 powerplants 
 
 
 ---------------  Actual Market  ------------
-5 , 6 , 7 , 8 , 
+3 , 4 , 5 , 6 , 
 ---------------  Future Market  ------------
-9 , 10 , 13 , 11 , 
+8 , 9 , 10 , 13 , 
 
+---------------House View-----------------
+
+Bob's houses: 
+0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
+Tom's houses: 
+15 ( "Oklahoma City") POWERED,
+------------Phase 2------------
+---------------House View-----------------
+
+Bob's houses: 
+0 ( "Seattle") POWERED,1 ( "Portland") POWERED,
+Tom's houses: 
+15 ( "Oklahoma City") POWERED,
+------------Phase 3------------
 ---------------House View-----------------
 
 Bob's houses: 

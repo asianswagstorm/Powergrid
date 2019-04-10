@@ -7,5 +7,5 @@ class Strategy {
 public:
 	Strategy();
 	~Strategy();
-	virtual void execute(Player *p) {};
+	virtual int execute(Player *p) { return -1; };
 };

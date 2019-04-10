@@ -11,7 +11,7 @@
 using std::cout;
 using std::endl;
 
-Player::Player(Strategy *strat) {
+Player::Player(Strategy *strat) { //default
 	this->strat = strat;
 	this->name = "";
 	this->area_color = "";
@@ -22,21 +22,21 @@ Player::Player(Strategy *strat) {
 	this->resourcehelper = new ResourceHelper();
 
 }
-Player::Player(string name, string area_color, Strategy *strat) {
+Player::Player(Player *p, Strategy *strat) {
 	this->strat = strat;
-	this->name = name;
-	this->area_color = area_color;
-	this->electro = 50;
-	powerplants = new vector<PowerPlant>();
-	numOfPowerPlants = powerplants->size();
-	this->househelper = new HouseHelper();
-	this->resourcehelper = new ResourceHelper();
+	this->name = p->name;
+	this->area_color = p->area_color;
+	this->electro = p->electro;
+	powerplants = p->powerplants;
+	numOfPowerPlants = p->numOfPowerPlants;
+	this->househelper = p->househelper;
+	this->resourcehelper = p->resourcehelper;
 }
 void Player::setStrategy(Strategy *strat) {
 	this->strat = strat;
 }
-void Player::executeStrategy() {
-	this->strat->execute(this);
+int Player::executeStrategy() {
+	return this->strat->execute(this);
 }
 
 Player::Player() {

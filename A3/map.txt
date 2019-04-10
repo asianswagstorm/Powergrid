@@ -1,12 +1,12 @@
 0, "Seattle",Purple, Bob, Powered
-1, "Portland",Purple, Bob
+1, "Portland",Purple, Bob, Powered
 2, "Boise",Purple
 3, "Billings",Purple
 4, "Cheyenne",Purple
 5, "Denver",Purple
 6, "Omaha",Purple
 14, "Kansas City",Red
-15, "Oklahoma City",Red, Tom
+15, "Oklahoma City",Red, Tom, Powered
 16, "Dallas",Red
 17, "Houston",Red
 18, "Memphis",Red

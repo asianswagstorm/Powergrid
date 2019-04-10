@@ -50,6 +50,9 @@ int main() {
 	aView = new HouseView(aView);
 	aView->printInfo();
 
+	game->Game::buyPowerPlant();
+	game->Game::buyResources();
+	//game->Game::buildHouse();
 	/*
 	int maxRound = 4;
 	int startRound =1;
@@ -57,7 +60,7 @@ int main() {
 				game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
 			std::cout << endl;
 		//game->Game::buyPowerPlant();
-		//game->Game::buyResources(); //done //still need to save to file
+		//game->Game::buyResources(); //done 
 		//game->Game::buildHouse();
 		//game->Game::bureaucracy(); 
 		

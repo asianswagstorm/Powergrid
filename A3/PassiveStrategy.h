@@ -6,5 +6,5 @@ public:
 	PassiveStrategy();
 	PassiveStrategy(Player *p);
 	~PassiveStrategy();
-	void execute(Player*);
+	int execute(Player*);
 };
