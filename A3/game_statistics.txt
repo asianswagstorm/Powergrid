@@ -1,18 +1,92 @@
+---------------Elektro View-----------------
+
+Paul has 100 elektros.
+John has 69 elektros.
+Jack has 1113 elektros.
+
+---------------Resource View-----------------
+
+Paul has 1 Coal.
+The Market only has 21 Coal.
+
+Paul has 1 Oil.
+The Market only has 20 Oil.
+
+Paul has 0 Garbage.
+The Market only has 24 Garbage.
+
+Paul has 0 Uranium.
+The Market only has 21 Uranium.
+
+John has 0 Coal.
+The Market only has 21 Coal.
+
+John has 0 Oil.
+The Market only has 20 Oil.
+
+John has 0 Garbage.
+The Market only has 24 Garbage.
+
+John has 0 Uranium.
+The Market only has 21 Uranium.
+
+Jack has 2 Coal.
+The Market only has 21 Coal.
+
+Jack has 3 Oil.
+The Market only has 20 Oil.
+
+Jack has 0 Garbage.
+The Market only has 24 Garbage.
+
+Jack has 0 Uranium.
+The Market only has 21 Uranium.
+
+
+---------------PowerPlant View-----------------
+
+Paul has 0 powerplants 
+John has 0 powerplants 
+Jack has 0 powerplants 
+
+
+---------------  Actual Market  ------------
+3 , 4 , 5 , 6 , 
+---------------  Future Market  ------------
+7 , 8 , 9 , 10 , 
+
+---------------House View-----------------
+
+Paul's houses: 
+0 ( "Seattle") ,
+John's houses: 
+7 ( "San Francisco") POWERED,
+Jack's houses: 
+
 
 ------------Phase 1------------
 
 ------------------PLAYER ORDER ----------------
-Bob, 2 Houses, 0 PowerPlants. 
-Tom, 1 Houses, 0 PowerPlants. 
+Paul, 1 Houses, 0 PowerPlants. 
+John, 1 Houses, 0 PowerPlants. 
+Jack, 0 Houses, 0 PowerPlants. 
 
 --------END  Phase 1------------
+
+---------------House View-----------------
+
+Paul's houses: 
+0 ( "Seattle") ,
+John's houses: 
+7 ( "San Francisco") POWERED,
+Jack's houses: 
 
 
 ------------Phase 2------------
 
-Bob, do you want to auction on a powerplant (yes/no): 
+Paul, do you want to auction on a powerplant (yes/no): 
 
-Bob is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
+Paul is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
 
 
 ------------ Starting Auction -----------
@@ -20,117 +94,152 @@ Bob is an Aggressive Player this player always chooses to bid on highest powerpl
 The Current Bid for powerplant : #6 is 6 Elektros
 
 
-Tom has passed on joining the auction for powerplant:6
-Bob won the auction for powerplant: 6
 
-Tom, do you want to auction on a powerplant (yes/no): 
+John is a Passive Player this player has passed on the bid
 
 
-Tom is a Passive Player this player has passed on the auction
 
-Tom has passed on auctioning a power plant.
-
--------------END PHASE 2 PowerPlants Updated------------------
-
-
-------------Phase 1------------
-
-------------------PLAYER ORDER ----------------
-Bob, 2 Houses, 1 PowerPlants. 
-Tom, 1 Houses, 0 PowerPlants. 
-
---------END  Phase 1------------
-
-
-------------Phase 2------------
-
-Bob, do you want to auction on a powerplant (yes/no): 
-
-Bob is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
-
+John has passed on joining the auction for powerplant:6
 
 ------------ Starting Auction -----------
 
-The Current Bid for powerplant : #7 is 7 Elektros
+The Current Bid for powerplant : #6 is 6 Elektros
 
 
-Tom has passed on joining the auction for powerplant:7
-Bob won the auction for powerplant: 7
 
-Tom, do you want to auction on a powerplant (yes/no): 
+Jack is a Random Player this player will always join an auction
 
 
-Tom is a Passive Player this player has passed on the auction
+Jack chose 3
 
-Tom has passed on auctioning a power plant.
+This bid is too low, you lose the chance to buy a powerplant this round.
+Paul won the auction for powerplant: 6
+
+John, do you want to auction on a powerplant (yes/no): 
+
+
+John is a Passive Player this player has passed on the auction
+
+John has passed on auctioning a power plant.
+Jack, do you want to auction on a powerplant (yes/no): 
+
+
+Jack is a Random Player this player will choose a random bid in Actual Market
+
+Jack is a Random Player this player always chooses to bid on a random powerplant in Actual
+
+
+Jack has chosen to bid for powerplant 7
+
+Jack won the auction for powerplant: 7
+
 
 -------------END PHASE 2 PowerPlants Updated------------------
 
+---------------House View-----------------
 
-------------Phase 1------------
+Paul's houses: 
+0 ( "Seattle") ,
+John's houses: 
+7 ( "San Francisco") POWERED,
+Jack's houses: 
 
-------------------PLAYER ORDER ----------------
-Bob, 2 Houses, 2 PowerPlants. 
-Tom, 1 Houses, 0 PowerPlants. 
-
---------END  Phase 1------------
-
-
-------------Phase 2------------
-
-Bob, do you want to auction on a powerplant (yes/no): 
-
-Bob is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
+------------Phase 3------------
 
 
------------- Starting Auction -----------
+Jack's turn, choose what you want to buy: 
+(coal, oil, garbage or uranium)
 
-The Current Bid for powerplant : #8 is 8 Elektros
+How many Coal do you want to buy: Cost was: 4 elektros.
 
-
-Tom has passed on joining the auction for powerplant:8
-Bob won the auction for powerplant: 8
-
-Tom, do you want to auction on a powerplant (yes/no): 
+Here is how much elektros you have after buying 2 Coal: 1102$
+You current have 4 Coal
 
 
-Tom is a Passive Player this player has passed on the auction
+Jack's turn, choose what you want to buy: 
+(coal, oil, garbage or uranium)
 
-Tom has passed on auctioning a power plant.
-
--------------END PHASE 2 PowerPlants Updated------------------
-
-
-------------Phase 1------------
-
-------------------PLAYER ORDER ----------------
-Bob, 2 Houses, 3 PowerPlants. 
-Tom, 1 Houses, 0 PowerPlants. 
-
---------END  Phase 1------------
+Jack is done their turn.
 
 
-------------Phase 2------------
+John's turn, choose what you want to buy: 
+(coal, oil, garbage or uranium)
 
-Bob, do you want to auction on a powerplant (yes/no): 
-
-Bob is an Aggressive Player this player always chooses to bid on highest powerplant in Actual
-
-
------------- Starting Auction -----------
-
-The Current Bid for powerplant : #9 is 9 Elektros
+John is a passive player, they will not be buying any materials 
 
 
-Tom has passed on joining the auction for powerplant:9
-Bob won the auction for powerplant: 9
-
-Tom, do you want to auction on a powerplant (yes/no): 
+John is done their turn.
 
 
-Tom is a Passive Player this player has passed on the auction
+Paul's turn, choose what you want to buy: 
+(coal, oil, garbage or uranium)
 
-Tom has passed on auctioning a power plant.
+How many Oil do you want to buy: Cost was: 21 elektros.
 
--------------END PHASE 2 PowerPlants Updated------------------
+Here is how much elektros you have after buying 7 Oil: 73$
+You current have 8 Oil
 
+
+Paul's turn, choose what you want to buy: 
+(coal, oil, garbage or uranium)
+
+Paul is done their turn.
+
+--------------------- END Phase 3 ----------
+
+---------------House View-----------------
+
+Jack's houses: 
+
+John's houses: 
+7 ( "San Francisco") POWERED,
+Paul's houses: 
+0 ( "Seattle") ,
+
+------------Phase 4------------
+
+
+John is a passive player, they will not be buying any Houses 
+
+John has chosen not to buy a house
+
+------------END Phase 4------------
+
+---------------House View-----------------
+
+Jack's houses: 
+20 ( "Birmingham") ,
+John's houses: 
+7 ( "San Francisco") POWERED,
+Paul's houses: 
+0 ( "Seattle") ,4 ( "Cheyenne") ,
+
+------------Phase 5------------
+
+Paul has 2 houses. 
+Here are all of Paul houses: 
+
+0 ( "Seattle") ,4 ( "Cheyenne") ,
+Here are your nonpowered houses: 
+0 ( "Seattle") ,
+Here are your nonpowered houses: 
+4 ( "Cheyenne") ,Adding 22 Elektro to your wallet.
+John has 1 houses. 
+Here are all of John houses: 
+
+7 ( "San Francisco") ,
+John is a passive player, they will not be buying any Houses 
+
+Jack has 1 houses. 
+Here are all of Jack houses: 
+
+20 ( "Birmingham") ,------------END Phase 5------------
+
+---------------House View-----------------
+
+Paul's houses: 
+0 ( "Seattle") ,4 ( "Cheyenne") ,0 ( "Seattle") POWERED,
+John's houses: 
+7 ( "San Francisco") POWERED,
+Jack's houses: 
+20 ( "Birmingham") ,

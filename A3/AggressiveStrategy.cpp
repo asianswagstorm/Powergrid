@@ -43,14 +43,7 @@ int AggressiveStrategy::execute(Player *p) {
 			max = (*powerplantActualMarket)[j].getTypeNum();
 		}
 	}
-	std::cout << "Max is: " << max <<std::endl;
+	//std::cout << "Max is: " << max <<std::endl;
 	
-	//automatically add the highest powerplant. No because other players wont be able to bid 
-	//p->setPass(true);
-	//p->addPowerPlant(powerplanthelper->removePowerPlant(max, p)); //buggy
-	//p->setnumOfPowerPlants(p->getnumOfPowerPlants()+1);
-	//p->removeElectro(max);
-	
-	IOFile::savePlayer(players);
 	return max;
 }

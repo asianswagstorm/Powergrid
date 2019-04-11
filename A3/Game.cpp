@@ -17,7 +17,7 @@
 #include "player.h"
 #include "resource.h"
 #include "AggressiveStrategy.h"
-#include "ModerateStrategy.h"
+#include "RandomStrategy.h"
 #include "PassiveStrategy.h"
 
 using namespace std;
@@ -50,7 +50,6 @@ Game::~Game() { //destructor
 		//[0,1,2,3,4,5] ---reverse --- [5,4,3,2,1,0] even 
 
 
-
 Player * Game::getPassivePlayer() {
 	return this->passivePlayer;
 }
@@ -67,12 +66,12 @@ void Game::setAggressivePlayer(Player * aggresivePlayer) {
 	this->aggresivePlayer = aggresivePlayer;
 }
 
-Player * Game::getModeratePlayer() {
-	return this->moderatePlayer;
+Player * Game::getRandomPlayer() {
+	return this->randomPlayer;
 
 }
-void Game::setModeratePlayer(Player * moderatePlayer) {
-	this->moderatePlayer = moderatePlayer;
+void Game::setRandomPlayer(Player * randomPlayer) {
+	this->randomPlayer = randomPlayer;
 }
 
 Game * Game::loadGame(int numPlayers) {
@@ -359,14 +358,19 @@ void Game::buyPowerPlant() {
 	string response; //response= would you like to but a plant? //used to reset the response when a player responds
 	string bid_response = ""; // do you want to join the auction war for a powerplant
 	std::vector<Player*> player_with_Auction_vector;
-
+	int numPlayers = this->player_vector.size();
+	
 	this->setAggressivePlayer(new Player(player_vector[0], new AggressiveStrategy(player_vector[0])));
 	int aggresiveBid = this->getAggressivePlayer()->executeStrategy();
 
 	this->setPassivePlayer(new Player(player_vector[1], new AggressiveStrategy(player_vector[1])));
 	int passiveResponse = this->getPassivePlayer()->executeStrategy();
 	
-	int numPlayers = this->player_vector.size();
+	if (numPlayers >= 3) //set 3rd player as random strategy
+	{
+		this->setRandomPlayer(new Player(player_vector[2], new RandomStrategy(player_vector[2])));
+	}
+
 	//reset the auction status
 	for (int j = 0; j < numPlayers; j++) {
 		//player_vector[j]->resetAuction();
@@ -426,12 +430,19 @@ void Game::buyPowerPlant() {
 				std::cout << p->getName() << ", do you want to auction on a powerplant (yes/no): ";
 				output << p->getName() << ", do you want to auction on a powerplant (yes/no): " <<std::endl;
 
-				if (i == 0) { response = "yes"; } //aggressive Player
+				if (p->getName() == this->getAggressivePlayer()->getName()) { response = "yes"; } //aggressive Player
 				
-				else if (i == 1 || passiveResponse == -1) { 
+				else if (p->getName() == this->getPassivePlayer()->getName() || passiveResponse == -1) {
 					std::cout << std::endl  << std::endl << p->getName() << " is a Passive Player this player has passed on the auction" << std::endl;
 					output << std::endl  << std::endl << p->getName() << " is a Passive Player this player has passed on the auction" << std::endl;
 					response = "no"; } //passive Player
+			
+				else if (p->getName() == this->getRandomPlayer()->getName()){//random Player
+					std::cout << std::endl << std::endl << p->getName() << " is a Random Player this player will choose a random bid in Actual Market" << std::endl;
+					output << std::endl << std::endl << p->getName() << " is a Random Player this player will choose a random bid in Actual Market" << std::endl;
+					response = "yes";
+				} 
+				
 				else{
 				cin >> response; std::cout << endl;
 				}
@@ -454,10 +465,21 @@ void Game::buyPowerPlant() {
 				std::cout << player_vector[i]->getName() << " currently has " << p->getElectro() << " elektros " << std::endl << std::endl;;
 				std::cout << std::endl <<  "Enter a bid less than equal to max powerplant card number in actual market." << std::endl << "(This is the minimum bid in Electros to purchase the powerplant) : " << std::endl << std::endl;
 
-				if(i == 0){
+				//Aggressive Strategy
+				if(p->getName() == this->getAggressivePlayer()->getName()){
 				std::cout << std::endl << this->getAggressivePlayer()->getName() << " is an Aggressive Player this player always chooses to bid on highest powerplant in Actual" << std::endl << std::endl;
 				output << std::endl << this->getAggressivePlayer()->getName() << " is an Aggressive Player this player always chooses to bid on highest powerplant in Actual" << std::endl << std::endl;
 				init_playerBid = aggresiveBid;
+				}
+
+				//Random Strategy
+				else if (p->getName() == this->getRandomPlayer()->getName()) {
+					std::cout << std::endl << this->getRandomPlayer()->getName() << " is a Random Player this player always chooses to bid on a random powerplant in Actual" << std::endl << std::endl;
+					output << std::endl << this->getRandomPlayer()->getName() << " is a Random Player this player always chooses to bid on a random powerplant in Actual"  << std::endl << std::endl;
+					init_playerBid = this->getRandomPlayer()->executeStrategy();
+
+					std::cout << std::endl << this->getRandomPlayer()->getName() << " has chosen to bid for powerplant " << init_playerBid << std::endl << std::endl;
+					output << std::endl << this->getRandomPlayer()->getName() << " has chosen to bid for powerplant " << init_playerBid << std::endl << std::endl;
 				}
 
 				else{
@@ -481,12 +503,9 @@ void Game::buyPowerPlant() {
 						p->setAuction(false);
 						player_index++;
 						break;
-						
 					}
 				}
-
 				std::cout << "Correct Input, card " << init_playerBid << " is in actual market." << std::endl << std::endl;
-
 			}//end while
 		}//end response yes
 	//auction while  
@@ -496,7 +515,6 @@ void Game::buyPowerPlant() {
 			//cout << " players with auction: " << player_with_Auction_vector.size() << endl << endl; //2 ?
 			//cout << " player index: " << player_index << endl;
 			int playersWithAuction = player_with_Auction_vector.size();
-
 
 			//determine the winner
 			if (player_index == numPlayers - 1 || numPlayers - playersWithAuction == 1) { // if last player or last player has no auction
@@ -535,14 +553,29 @@ void Game::buyPowerPlant() {
 			output << "The Current Bid for powerplant : #" << temp << " is " << init_playerBid << " Elektros" << endl;
 			std::cout << p->getName() << " Would you wish to bid on this powerplant? Type yes or no " << endl;
 			
-			if (p->getName() == player_vector[1]->getName() ) { 
+			if (p->getName() == this->getPassivePlayer()->getName() ) { 
 				std::cout << std::endl  << std::endl << std::endl << p->getName() << " is a Passive Player this player has passed on the bid" << std::endl << std::endl;
+				output << std::endl << std::endl << std::endl << p->getName() << " is a Passive Player this player has passed on the bid" << std::endl << std::endl;
 				bid_response = "no"; } //passive Player
-			else
+			
+			if (p->getName() == this->getRandomPlayer()->getName()) {
+				std::cout << std::endl << std::endl << std::endl << p->getName() << " is a Random Player this player will always join an auction" << std::endl << std::endl;
+				output << std::endl << std::endl << std::endl << p->getName() << " is a Random Player this player will always join an auction" << std::endl << std::endl;
+				bid_response = "yes";
+			} //random Player
+			
+			else if(p->getName() != this->getRandomPlayer()->getName() && p->getName() != this->getPassivePlayer()->getName())
 			std::cin >> bid_response;
 
 			if (bid_response == "yes") {//auction is true
 				std::cout << "Please enter the amount you want to bid for powerplant: " << temp << std::endl;
+				
+				if (p->getName() == this->getRandomPlayer()->getName()) {//Random
+					auction_bid = this->getRandomPlayer()->executeStrategy();
+					std::cout << std::endl << this->getRandomPlayer()->getName() << " chose " << auction_bid << std::endl;
+					output << std::endl << this->getRandomPlayer()->getName() << " chose " << auction_bid << std::endl;
+				}
+				else
 				std::cin >> auction_bid;
 
 				bool lowBid = auction_bid <= init_playerBid;
@@ -608,7 +641,6 @@ void Game::buyPowerPlant() {
 		player_vector[AuctionWinner]->removeElectro(temp);
 		temp = 0;
 
-
 	}//main for loop done
 	std::cout << std::endl << "-------------Player Stats Updated------------------" << std::endl << std::endl;
 	output << std::endl << "-------------END PHASE 2 PowerPlants Updated------------------" << std::endl << std::endl;
@@ -634,11 +666,18 @@ void Game::buyResources() {
 
 	int qty;
 
+	this->setAggressivePlayer(new Player(player_vector[0], new AggressiveStrategy(player_vector[0])));
+
+	this->setPassivePlayer(new Player(player_vector[1], new AggressiveStrategy(player_vector[1])));
+
+	if (player_vector.size() >= 3) //set 3rd player as random strategy
+	{
+		this->setRandomPlayer(new Player(player_vector[2], new RandomStrategy(player_vector[2])));
+	}
+
 	reverse(player_vector.begin(), player_vector.end()); //from <algorithm>
 
 	//std::cout << std::endl <<  "Passive Player: " << passivePlayer->getName() << std::endl << std::endl;
-
-	int passiveResponse = this->getPassivePlayer()->executeStrategy();
 
 	bool validMaterialChoice = false;
 	for (Player* p : player_vector) {

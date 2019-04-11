@@ -139,7 +139,7 @@ void Player::addPowerPlant(PowerPlant powerplantObject)
 	bool isRemoved = false;
 	bool validIndex = false;
 	bool isDuplicate = false;
-	for (int j = 0; j < powerplants->size(); j++) {
+	for (unsigned int j = 0; j < powerplants->size(); j++) {
 		if (powerplantObject.getTypeNum() == (*powerplants)[j].getTypeNum() || powerplantObject.getType() == (*powerplants)[j].getType())
 		{
 			if (powerplants->size() >= 3)
@@ -276,59 +276,5 @@ bool Player::hasEnoughtElektro(int amount) {
 		return true;
 	}
 	return false;
-}
-
-void Player::powerPowerPlant(int pNumber) {
-	PowerPlantHelper * pp = new PowerPlantHelper();
-
-	int index = pp->findPowerPlant(pNumber);
-	string type = pp->getPlantType(index);
-	int amount = pp->getPlantResources(index);
-	if (type == "Hybrid") {
-
-		string choice;
-		if (getResourceQuantity("Coal") >= amount && getResourceQuantity("Oil") >= amount) {
-
-			while (choice != "Oil" && choice != "oil" && choice != "Coal" && choice != "coal") {
-				cout << "Would you like to remove " << amount << " units of Coal or Oil? ";
-				cin >> choice;
-
-				if (choice == "Oil" || choice == "oil") {
-					this->resourcehelper->remove("Oil", amount);
-				}
-
-				if (choice == "Coal" || choice == "coal") {
-					this->resourcehelper->remove("Coal", amount);
-				}
-				cout << endl;
-			}
-		}
-
-		else if (getResourceQuantity("Coal") >= amount) {
-			choice = "Coal";
-			this->resourcehelper->remove(choice, amount);
-		}
-
-		else if (getResourceQuantity("Oil") >= amount) {
-			choice = "Oil";
-			this->resourcehelper->remove(choice, amount);
-		}
-
-		cout << "Removed(hybrid) " << amount << " units of " << choice << endl;
-		delete pp;
-		return;
-	}
-
-	if (type == "Eco") {
-		delete pp;
-		return;
-	}
-
-	this->resourcehelper->remove(type, amount);
-
-	cout << "Removed " << amount << " units of " << type << endl;
-
-	delete pp; //Freeing heap
-
 }
 

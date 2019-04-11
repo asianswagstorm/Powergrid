@@ -37,8 +37,8 @@ public:
 	void setPassivePlayer(Player *);
 	Player * getAggressivePlayer();
 	void setAggressivePlayer(Player *);
-	Player * getModeratePlayer();
-	void setModeratePlayer(Player *);
+	Player * getRandomPlayer();
+	void setRandomPlayer(Player *);
 
 	friend class ElektroView;
 	friend class HouseView;
@@ -55,6 +55,6 @@ private:
 	bool isEndGame = false;
 	Player * passivePlayer; // player that says no to everything
 	Player * aggresivePlayer; // player who bids on highest powerplant
-	Player * moderatePlayer; // ??? not sure yet
+	Player * randomPlayer; // player always picks random stuff
 };
 

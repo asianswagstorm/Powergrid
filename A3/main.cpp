@@ -31,16 +31,13 @@ int main() {
 
 	if (response != "new") {
 		game = game->Game::loadGame(numPlayers);
-		game->setRound(2); // temporary
+		game->setRound(2); // temporary otherwise player order is random
 	}
 	else {
-		//game->Game::setUpGame();
 		game = game->Game::setUpGame();
 		//Map::testMap(Map::instance()); //(OPTIONAL TO TEST IF CONNECTED GRAPH) 
 	}
-	std::cout << std::endl << "stats" << std::endl << std::endl;
-	//nothing
-	/*
+	
 	View * aView = new ElektroView(game);
 	aView->printInfo();
 	aView = new ResourceView(aView);
@@ -49,16 +46,16 @@ int main() {
 	aView->printInfo();
 	aView = new HouseView(aView);
 	aView->printInfo();
-	*/
-	int maxRound = 5;
+	
+	int maxRound = 2;
 	int startRound =1;
 	while(startRound < maxRound){
 		 game->Game::determinePlayerOrder(); //reorganizes the player vector , first player in front of vector.
 		 std::cout << endl;
 		 game->Game::buyPowerPlant();
-		 //game->Game::buyResources(); //done 
-		// game->Game::buildHouse();
-	    // game->Game::bureaucracy(); 
+		 game->Game::buyResources();  
+		 game->Game::buildHouse();
+	     game->Game::bureaucracy(); 
 		
 		startRound++;
 	}

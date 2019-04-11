@@ -1,27 +1,27 @@
 Market[0]: 
-Coal=3
-Oil=3
+Coal=0
+Oil=0
 Garbage=3
 Uranium=1
 Price=1
 
 Market[1]: 
-Coal=3
-Oil=3
+Coal=1
+Oil=0
 Garbage=3
 Uranium=1
 Price=2
 
 Market[2]: 
 Coal=3
-Oil=3
+Oil=0
 Garbage=3
 Uranium=1
 Price=3
 
 Market[3]: 
 Coal=3
-Oil=3
+Oil=1
 Garbage=3
 Uranium=1
 Price=4

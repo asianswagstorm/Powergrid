@@ -45,8 +45,6 @@ public:
 	int getnumOfPowerPlants() const;
 	void setnumOfPowerPlants(int numOfPowerPlants);
 	
-	void powerPowerPlant(int index); // bureaucracy fix
-	
 	void addPowerPlant(PowerPlant powerplant); // adds a powerplant to the powerplants vector
 	
 	bool pass();//this one is used when the player chooses not to start an auction.
